@@ -8,9 +8,12 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import Control.ConnBBDD;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.ResultSet;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
@@ -24,7 +27,8 @@ import java.io.FileReader;
  */
 public class Lectura{
 	
-
+	public static ConnBBDD c = new ConnBBDD();
+	
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
 	 * que ya hallan sido leidos y guardarlos para poder operar 
@@ -120,12 +124,15 @@ public class Lectura{
 	 * 
 	 * @return m Medico 
 	 */
-	public static Medico lectura_medico(Usuario us) {
-		 ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+	public static  Medico lectura_medico(Usuario us) {
+		System.out.println(us.getUser());
+		ResultSet rsMedicos = c.stmt.executeQuery("SELECT * FROM Medico WHERE Nombre_medico =" + us.getUser());
+		System.out.println(rsMedicos);
+		
+		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 		Medico m = new Medico();
-		File file = null;
-		file = new File("Resource/Medicos/" + us.getUser()+ ".txt");
-		try(Scanner sc = new Scanner(new FileReader(file))) {
+
+		try() {
 			String[] datos;
 			String palabra = sc.nextLine();
 			datos = palabra.split(";");
