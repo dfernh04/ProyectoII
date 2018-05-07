@@ -1,6 +1,8 @@
 package Model;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -9,12 +11,6 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import Control.ConnBBDD;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
