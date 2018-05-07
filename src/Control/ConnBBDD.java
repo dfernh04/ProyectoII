@@ -9,23 +9,16 @@ import java.util.ArrayList;
 
 import Model.Paciente;
 
-
-/*
- * 		1: Consulta Pacientes
- * 		2: Consulta Medicos
- * 		3: Consulta Tecnicos
- * 		4: Consulta ECG
- * 		5: Consulta username Medico
- */
 public class ConnBBDD {
 	
 	String nameBBDD = "Resource/BBDD.db";
 	public Connection c = null;
 	public Statement stmt = null;
+	public ResultSet rs = null;
+	public String query = "";
 	
 	public ConnBBDD() {
 		System.out.println("Conn Init");
-		this.conexion();
 	}
 	
 	public void conexion() {
@@ -35,12 +28,17 @@ public class ConnBBDD {
 			c.setAutoCommit(false);
 			
 			stmt = c.createStatement();
+			rs = stmt.executeQuery(query);
+			System.out.println(rs.getString("DNI_medico"));
 			
 		}catch(Exception e) {
+			e.printStackTrace();
 			System.out.println("Error");
 		}
-
-		
+	}
+	
+	public void setQuery(String query) {
+		this.query = query;
 	}
 	
 	

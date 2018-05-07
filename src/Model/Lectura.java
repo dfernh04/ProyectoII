@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
@@ -125,48 +126,14 @@ public class Lectura{
 	 * @return m Medico 
 	 */
 	public static  Medico lectura_medico(Usuario us) {
-		System.out.println(us.getUser());
-		ResultSet rsMedicos = c.stmt.executeQuery("SELECT * FROM Medico WHERE Nombre_medico =" + us.getUser());
-		System.out.println(rsMedicos);
-		
+		c.setQuery("SELECT * FROM Medicos;");
+		c.conexion();
+		System.out.println(c.rs);
 		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 		Medico m = new Medico();
-
-		try() {
-			String[] datos;
-			String palabra = sc.nextLine();
-			datos = palabra.split(";");
-			Scanner sc2;
-			while(sc.hasNextLine()){
-				Vector<ECG> ecgs = new Vector<ECG>();
-				String[] array ;
-				String paciente = sc.nextLine();
-				File file2 = null;
-				file2 = new File("Resource/Pacientes/"+paciente+".txt");
-				if(file2.exists()){
-					sc2 = new Scanner(new FileReader(file2));
-					array = sc2.nextLine().split(";");;
-					String foto = sc2.nextLine();
-					String importancia = sc2.nextLine();
-					String comentarios = sc2.nextLine();
-					while(sc2.hasNextLine()){
-						File f=new File("Resource/ECG/"+sc2.nextLine()+".txt");
-						if(f.exists()){
-							ecgs.add((ECG)lecturaEcgYaGuardado(f));
-						}
-					}
-					
-					Paciente p = new Paciente(array[0],array[1],array[2],array[3],array[4],array[5],foto,importancia,comentarios,ecgs);
-					ECG.quicksort(p.getEcgs(), 0, p.getEcgs().size()-1);
-					pacientes.add(p);
-				}
-			}
-			m = new Medico(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],pacientes);
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		
 		return m;
 	}
 	
 	
-	}
+}
