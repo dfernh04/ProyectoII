@@ -126,8 +126,7 @@ public class Lectura{
 	 * @return m Medico 
 	 */
 	public static  Medico lectura_medico(Usuario us) {
-		c.setQuery("SELECT * FROM Medicos;");
-		c.conexion();
+		c.conexion("SELECT * FROM Medicos;");
 		System.out.println(c.rs);
 		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
 		Medico m = new Medico();

@@ -15,13 +15,12 @@ public class ConnBBDD {
 	public Connection c = null;
 	public Statement stmt = null;
 	public ResultSet rs = null;
-	public String query = "";
 	
 	public ConnBBDD() {
 		System.out.println("Conn Init");
 	}
 	
-	public void conexion() {
+	public void conexion(String query) {
 		try {
 			Class.forName("org.sqlite.JBDC");
 			c = DriverManager.getConnection("jbdc:sqlite:" + this.nameBBDD);
@@ -35,10 +34,6 @@ public class ConnBBDD {
 			e.printStackTrace();
 			System.out.println("Error");
 		}
-	}
-	
-	public void setQuery(String query) {
-		this.query = query;
 	}
 	
 	
