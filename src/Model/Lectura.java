@@ -1,8 +1,6 @@
 package Model;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -10,7 +8,11 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import Control.ConnBBDD;
+import Control.Conexion;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
@@ -24,8 +26,7 @@ import Control.ConnBBDD;
  */
 public class Lectura{
 	
-	public static ConnBBDD c = new ConnBBDD();
-	
+	public static Conexion c = new Conexion();
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
 	 * que ya hallan sido leidos y guardarlos para poder operar 
@@ -121,14 +122,24 @@ public class Lectura{
 	 * 
 	 * @return m Medico 
 	 */
-	public static  Medico lectura_medico(Usuario us) {
-		c.conexion("SELECT * FROM Medicos;");
-		System.out.println(c.rs);
-		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+	public static Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
-		
+		try {
+			c.consultaMedico("SELECT * FROM Medico");
+			while(c.rs.next()) {
+				String nombre = c.rs.getString("Nombre_medico");
+				String apellidos = c.rs.getString("Apellidos_medico");
+				String username = c.rs.getString("Username_medico");
+				String DNI = c.rs.getString("DNI_medico");
+				
+				System.out.println(nombre + " " + apellidos + " " + username + " " + DNI);
+			}
+			c.closeConnection();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return m;
 	}
 	
 	
-}
+	}
