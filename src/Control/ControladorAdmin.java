@@ -173,12 +173,6 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
-			if(aux1.getApellido2().getText().isEmpty()){
-				aux1.getApellido2().setBackground(Color.RED);
-				bien=false;
-			} else {
-				aux1.getApellido2().setBackground(Color.WHITE);
-			}
 			if(aux1.getDni().getText().isEmpty()){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
@@ -259,7 +253,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
 						con2=con2+aux1.getContrasena2().getPassword()[j];
 					}
-					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
+					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
 					usuario.add(new Usuario(st,"medico",con1));
 					JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
@@ -281,12 +275,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
-			if(aux1.getApellido2().getText().isEmpty()){
-				aux1.getApellido2().setBackground(Color.RED);
-				bien=false;
-			} else {
-				aux1.getApellido2().setBackground(Color.WHITE);
-			}
+
 			if(aux1.getDni().getText().isEmpty()){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
@@ -354,7 +343,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
@@ -496,13 +485,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param lugar Lugar/direccion de residencia/Trabajo
 	 * @param cole Numero de colegiado
 	 */
-	public void escribirMedico(String User,String password,String nom,String ape1,String ape2,String dn,String tele,String lugar,String cole){
+	public void escribirMedico(String User,String password,String nom,String ape1,String dn,String tele,String lugar,String cole){
 		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
 			aux.write(User+";medico;"+password+"\r\n");
 		}catch(Exception exc){
 		}
 		try(FileWriter aux=new FileWriter("Resource/Medicos/"+User+".txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+tele+";"+lugar+";"+cole+"\r\n");
+			aux.write(nom+";"+ape1+ ";"+dn+";"+tele+";"+lugar+";"+cole+"\r\n");
 		}catch(Exception exc){
 		}
 	}
@@ -516,13 +505,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param dn DNI
 	 * @param lugar Lugar/direccion de residencia/Trabajo
 	 */
-	public void escribirTecnico(String User,String password,String nom,String ape1,String ape2,String dn,String lugar){
+	public void escribirTecnico(String User,String password,String nom,String ape1,String dn,String lugar){
 		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
 			aux.write(User+";medico;"+password+"\r\n");
 		}catch(Exception exc){
 		}
 		try(FileWriter aux=new FileWriter("Resource/Tecnicos/Tecnicos.txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+lugar+"\r\n");
+			aux.write(nom+";"+ape1+";"+dn+";"+lugar+"\r\n");
 		}catch(Exception exc){
 		}
 	}

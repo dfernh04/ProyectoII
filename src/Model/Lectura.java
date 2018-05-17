@@ -151,7 +151,7 @@ public class Lectura{
 	
 	ArrayList<Paciente> getPacientes(Medico m) {
 		Paciente p = new Paciente();
-		ArrayList<Paciente> pacientes = new Paciente;
+		ArrayList<Paciente> pacientes = null;
 		try {
 			c.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico = '" +m.getDni()+"';");
 			while(c.rs.next()) {
@@ -166,9 +166,9 @@ public class Lectura{
 				
 				System.out.println(nombre + " " + apellidos);
 				
-				p = new Paciente(nombre,apellidos,DNI,Foto,
-						Localidad, Direccion,N_seguridad_social,null);
-				p.setECGS(getECGS);
+				p = new Paciente(nombre,apellidos,DNI,N_seguridad_social,Localidad,
+						 Direccion,Foto,null,null,null);
+				p.setEcgs(getECGS(p));
 			}
 			c.closeConnection();
 		}catch (Exception e) {
@@ -178,8 +178,8 @@ public class Lectura{
 	}
 	
 	
-	ArrayList<ECG> getECGS(Paciente p) {
-		ArrayList<ECG> ecgs = null;
+	Vector<ECG> getECGS(Paciente p) {
+		Vector<ECG> ecgs = null;
 		try {
 			c.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
 			while(c.rs.next()) {

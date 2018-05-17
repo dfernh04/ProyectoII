@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -187,10 +188,10 @@ public class Paciente {
 	}
 	/**
 	 * Setter de la lista de electrocardiogramas del paciente
-	 * @param ecgs Vector de ECG 
+	 * @param arrayList Vector de ECG 
 	 */
-	public void setEcgs(Vector<ECG> ecgs) {
-		this.ecgs = ecgs;
+	public void setEcgs(Vector<ECG> arrayList) {
+		this.ecgs = arrayList;
 	}
 
 	
