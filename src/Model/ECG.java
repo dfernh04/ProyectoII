@@ -9,12 +9,12 @@ import java.util.Vector;
  *
  */
 public class ECG {
-	private int fecha;
+	private String fecha;
 	private boolean leido;
 	private String nombreTec;
 	private String Comentarios;
 	private String Diagnostico;
-	private int puntosporsec;
+	private int frecuencia;
 	private String nombre;
 	private Vector<Double> puntos;
 	
@@ -31,17 +31,18 @@ public class ECG {
  * @param nombreTec Nombre del tecnico que lo hizo
  * @param comentarios Comentario del tecnico
  * @param diagnostico Diagnostico del doctor
+ * @param dato 
  * @param puntosporsec Cantidad de puntos por segundo del ecg
  * @param nombre nombre del archivo del ECG
  * @param puntos Puntos del ECG
  */
-	public ECG(int fecha, String nombreTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+	public ECG(String fecha, String nombreTec, String comentarios, String diagnostico, int frecuencia, String nombre,
 			Vector<Double> puntos) {
 		this.fecha = fecha;
 		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
 		Diagnostico = diagnostico;
-		this.puntosporsec = puntosporsec;
+		this.frecuencia = frecuencia;
 		this.nombre = nombre;
 		this.puntos = puntos;
 		leido=false;
@@ -57,13 +58,13 @@ public class ECG {
 	 * @param puntos Puntos del ECG
 	 * @param leido boolean si el medico lo ha leido o no
 	 */
-	public ECG(int fecha, String nombreTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
+	public ECG(String fecha, String nombreTec, String comentarios, String diagnostico, int puntosporsec, String nombre,
 			Vector<Double> puntos,boolean leido) {
 		this.fecha = fecha;
 		this.nombreTec = nombreTec;
 		Comentarios = comentarios;
 		Diagnostico = diagnostico;
-		this.puntosporsec = puntosporsec;
+		this.frecuencia = puntosporsec;
 		this.nombre = nombre;
 		this.puntos = puntos;
 		this.leido=leido;
@@ -83,7 +84,7 @@ public class ECG {
  */
 	public ECG(int puntosporsec, String nombre,
 			Vector<Double> puntos) {
-		this.puntosporsec = puntosporsec;
+		this.frecuencia = puntosporsec;
 		this.nombre = nombre;
 		this.puntos = puntos;
 	}
@@ -92,7 +93,7 @@ public class ECG {
  * Getter de la fecha
  * @return Fecha en la que se hizo el ECG
  */
-	public int getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 /**
@@ -128,7 +129,7 @@ public class ECG {
 	 * @return cantidad de puntos en un segundo
 	 */
 	public int getPuntosporsec() {
-		return puntosporsec;
+		return frecuencia;
 	}
 	/**
 	 * Getter de todos los puntos que conforman el ECG
@@ -155,9 +156,9 @@ public class ECG {
 		L.insertElementAt(L.get(ini), med);
 		L.remove(ini);
 		L.insertElementAt(auxi, ini);
-		int p=L.get(ini).getFecha();
+		int p=Integer.parseInt(L.get(ini).getFecha());
 		for(int j=ini+1;j<=fin;++j){
-			if(L.get(j).getFecha()<=p){
+			if(Integer.parseInt(L.get(j).getFecha())<=p){
 				i++;
 				if(i!=j){
 					ECG aux=L.get(j);

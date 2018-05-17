@@ -13,7 +13,7 @@ public class Conexion {
 	Statement stmt = null;
 	public ResultSet rs = null;
 	
-	public void consultaMedico(String query) {
+	public void consulta(String query) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);

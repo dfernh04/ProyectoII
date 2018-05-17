@@ -363,9 +363,9 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 		L.remove(ini);
 		L.insertElementAt(auxi, ini);
 		
-		int p=L.get(ini).getFecha();
+		int p=Integer.parseInt(L.get(ini).getFecha());
 		for(int j=ini+1;j<=fin;++j){
-			if(L.get(j).getFecha()<=p){
+			if(Integer.parseInt(L.get(j).getFecha())<=p){
 				i++;
 				if(i!=j){
 					ECG aux=L.get(j);
