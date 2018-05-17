@@ -125,7 +125,7 @@ public class Lectura{
 	public static Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
 		try {
-			c.consultaMedico("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
+			c.consulta("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
 			while(c.rs.next()) {
 				String nombre = c.rs.getString("Nombre_medico");
 				String apellidos = c.rs.getString("Apellidos_medico");
@@ -147,6 +147,34 @@ public class Lectura{
 			e.printStackTrace();
 		}
 		return m;
+	}
+	
+	ArrayList<Paciente> getPacientes(Medico m) {
+		Paciente p = new Paciente();
+		ArrayList<Paciente> pacientes = new Paciente;
+		try {
+			c.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico = '" +m.getDni()+"';");
+			while(c.rs.next()) {
+				String nombre = c.rs.getString("Nombre_paciente");
+				String apellidos = c.rs.getString("Apellidos_paciente");
+				String DNI = c.rs.getString("DNI_paciente");
+				String Foto = c.rs.getString("Foto_paciente");
+				String Localidad = c.rs.getString("Localidad_paciente");
+				String Direccion = c.rs.getString("Direccion_paciente");
+				String N_seguridad_social = c.rs.getString("N_seguridad_social_paciente");
+				
+				
+				System.out.println(nombre + " " + apellidos);
+				
+				p = new Paciente(nombre,apellidos,DNI,Foto,
+						Localidad, Direccion,N_seguridad_social,null);
+				p.setECGS(getECGS);
+			}
+			c.closeConnection();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pacientes;
 	}
 	
 	
