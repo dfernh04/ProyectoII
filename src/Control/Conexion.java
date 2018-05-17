@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Conexion {
 
-	String BBDDName = "Resource/BBDD.db";
+	String BBDDName = "Resource/BBDD2.db";
 	Connection c = null;
 	Statement stmt = null;
 	public ResultSet rs = null;

@@ -44,7 +44,7 @@ public class Formulario extends JFrame{
 	private JButton cancel;
 	private JTextField nombre;
 	private JTextField apellido1;
-	private JTextField apellido2;
+	//private JTextField apellido2;
 	private JTextField dni;
 	private JTextField lugar;
 	private JTextField direccion;
@@ -62,7 +62,7 @@ public class Formulario extends JFrame{
 	/**
 	 * Getter para saber los escrito en el campo de texto de segundo apellido
 	 * @return JTextField
-	 */
+	 *
 	public JTextField getApellido2() {
 		return apellido2;
 	}
@@ -251,14 +251,14 @@ public class Formulario extends JFrame{
 				ape.setOpaque(false);
 				ape.setLayout(new FlowLayout());
 				apellido1=new JTextField(15);
-				JLabel ap=new JLabel("Primer Apellido: ");
+				JLabel ap=new JLabel("Apellidos: ");
 				ap.setForeground(Color.WHITE);
 				ap.setFont(font);
 				ape.add(ap);
 				ape.add(apellido1);
 				formu.add(ape);
 				
-				JPanel ape2=new JPanel();
+				/*JPanel ape2=new JPanel();
 				ape2.setOpaque(false);
 				ape2.setLayout(new FlowLayout());
 				apellido2=new JTextField(15);
@@ -268,7 +268,7 @@ public class Formulario extends JFrame{
 				ape2.add(ap2);
 				ape2.add(apellido2);
 				formu.add(ape2);
-				
+				*/
 				JPanel lug=new JPanel();
 				lug.setOpaque(false);
 				lug.setLayout(new FlowLayout());
@@ -295,7 +295,7 @@ public class Formulario extends JFrame{
 				
 				nombre.setName("N");
 				apellido1.setName("N");
-				apellido2.setName("N");
+				//apellido2.setName("N");
 				
 				JPanel num=new JPanel();
 				num.setOpaque(false);
@@ -353,7 +353,6 @@ public class Formulario extends JFrame{
 				
 				nombre.addKeyListener(control);
 				apellido1.addKeyListener(control);
-				apellido2.addKeyListener(control);
 				dni.addKeyListener(control);
 				lugar.addKeyListener(control);
 				contrasena1.addKeyListener(control);
@@ -361,7 +360,6 @@ public class Formulario extends JFrame{
 				
 				nombre.addMouseListener(control);
 				apellido1.addMouseListener(control);
-				apellido2.addMouseListener(control);
 				dni.addMouseListener(control);
 				lugar.addMouseListener(control);
 				telefono.addMouseListener(control);
@@ -467,13 +465,14 @@ public class Formulario extends JFrame{
 				ape.setOpaque(false);
 				ape.setLayout(new FlowLayout());
 				apellido1=new JTextField(15);
-				JLabel ap=new JLabel("Primer Apellido: ");
+				JLabel ap=new JLabel("Apellidos: ");
 				ap.setForeground(Color.WHITE);
 				ap.setFont(font);
 				ape.add(ap);
 				ape.add(apellido1);
 				formu.add(ape);
 				
+				/*
 				JPanel ape2=new JPanel();
 				ape2.setOpaque(false);
 				ape2.setLayout(new FlowLayout());
@@ -483,7 +482,7 @@ public class Formulario extends JFrame{
 				ap2.setFont(font);
 				ape2.add(ap2);
 				ape2.add(apellido2);
-				formu.add(ape2);
+				formu.add(ape2);*/
 				
 				JPanel lug=new JPanel();
 				lug.setOpaque(false);
@@ -522,7 +521,7 @@ public class Formulario extends JFrame{
 				
 				nombre.setName("N");
 				apellido1.setName("N");
-				apellido2.setName("N");
+				//apellido2.setName("N");
 				
 				JPanel abajo=new JPanel();
 				abajo.setOpaque(false);
@@ -548,7 +547,7 @@ public class Formulario extends JFrame{
 
 				nombre.addKeyListener(control);
 				apellido1.addKeyListener(control);
-				apellido2.addKeyListener(control);
+				//apellido2.addKeyListener(control);
 				dni.addKeyListener(control);
 				lugar.addKeyListener(control);
 				contrasena1.addKeyListener(control);
@@ -556,7 +555,7 @@ public class Formulario extends JFrame{
 				
 				nombre.addMouseListener(control);
 				apellido1.addMouseListener(control);
-				apellido2.addMouseListener(control);
+				//apellido2.addMouseListener(control);
 				dni.addMouseListener(control);
 				lugar.addMouseListener(control);
 				contrasena1.addMouseListener(control);
@@ -653,23 +652,23 @@ public class Formulario extends JFrame{
 				ape.setOpaque(false);
 				ape.setLayout(new FlowLayout());
 				apellido1=new JTextField(15);
-				JLabel ap=new JLabel("Primer Apellido: ");
+				JLabel ap=new JLabel("Apellidos: ");
 				ap.setForeground(Color.WHITE);
 				ap.setFont(font);
 				ape.add(ap);
 				ape.add(apellido1);
 				formu.add(ape);
-				
+				/*
 				JPanel ape2=new JPanel();
 				ape2.setOpaque(false);
 				ape2.setLayout(new FlowLayout());
-				apellido2=new JTextField(15);
+				//apellido2=new JTextField(15);
 				JLabel ap2=new JLabel("Segundo Apellido: ");
 				ap2.setForeground(Color.WHITE);
 				ap2.setFont(font);
 				ape2.add(ap2);
-				ape2.add(apellido2);
-				formu.add(ape2);
+				//ape2.add(apellido2);
+				formu.add(ape2);*/
 				
 				JPanel lug=new JPanel();
 				lug.setOpaque(false);
@@ -732,7 +731,7 @@ public class Formulario extends JFrame{
 				
 				nombre.setName("T");
 				apellido1.setName("T");
-				apellido2.setName("T");
+				//apellido2.setName("T");
 				
 				fon.add(formu,BorderLayout.CENTER);
 				fon.add(aux,BorderLayout.NORTH);
@@ -744,7 +743,7 @@ public class Formulario extends JFrame{
 
 				nombre.addKeyListener(control);
 				apellido1.addKeyListener(control);
-				apellido2.addKeyListener(control);
+				//apellido2.addKeyListener(control);
 				dni.addKeyListener(control);
 				ss.addKeyListener(control);
 				urgencia.addKeyListener(control);
@@ -753,7 +752,7 @@ public class Formulario extends JFrame{
 				
 				nombre.addMouseListener(control);
 				apellido1.addMouseListener(control);
-				apellido2.addMouseListener(control);
+				//apellido2.addMouseListener(control);
 				dni.addMouseListener(control);
 				lugar.addMouseListener(control);
 				direccion.addMouseListener(control);

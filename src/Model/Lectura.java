@@ -125,14 +125,22 @@ public class Lectura{
 	public static Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
 		try {
-			c.consultaMedico("SELECT * FROM Medico");
+			c.consultaMedico("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
 			while(c.rs.next()) {
 				String nombre = c.rs.getString("Nombre_medico");
 				String apellidos = c.rs.getString("Apellidos_medico");
 				String username = c.rs.getString("Username_medico");
 				String DNI = c.rs.getString("DNI_medico");
+				String hospital = c.rs.getString("Hospital_medico");
+				String numero = c.rs.getString("Numero_afiliacion_medico");
 				
-				System.out.println(nombre + " " + apellidos + " " + username + " " + DNI);
+				//COGER PACIENTES DE CLASE MIGUEL
+				//ArrayList<Paciente> pacientes = getPacientes();
+				
+				System.out.println(nombre + " " + apellidos);
+				
+				m = new Medico(nombre,apellidos,DNI,username,
+						null, hospital,numero,null);
 			}
 			c.closeConnection();
 		}catch (Exception e) {

@@ -193,13 +193,13 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				bien=false;
 			} else {
 				formulario.getApellido1().setBackground(Color.WHITE);
-			}
+			}/*
 			if(formulario.getApellido2().getText().isEmpty()){
 				formulario.getApellido2().setBackground(Color.RED);
 				bien=false;
 			} else {
 				formulario.getApellido2().setBackground(Color.WHITE);
-			}
+			}*/
 			if(formulario.getDni().getText().isEmpty()){
 				formulario.getDni().setBackground(Color.RED);
 				bien=false;

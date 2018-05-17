@@ -1,6 +1,6 @@
-SergioBemposta;medico;s#B3mp0sta@uem.es
-MariLuzMorales;medico;m1#M0ra13s@uem.es
-BorjaRodriguez;medico;b#R0dr1gu3z@uem.es
+SergioBemposta;medico;1
+MariLuzMorales;medico;1
+BorjaRodriguez;medico;1
 BorjaMonsalve;medico;1
 PedroLara;tecnico;1
 EnriquePuertas;tecnico;e#Pu3rtas@uem.es

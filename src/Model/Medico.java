@@ -18,6 +18,7 @@ public class Medico {
 	private String hospital;
 	private String numero;
 	private ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+	private String username;
 
 	/**
 	 * Getter del atributo nombre del medico
@@ -130,7 +131,7 @@ public class Medico {
 	 * @param numero String 
 	 * @param pacientes ArrayList de Paciente 
 	 */
-	public Medico(String nombre, String apellidos, String dni, String ss, String hospital, String numero,ArrayList<Paciente>pacientes) {
+	public Medico(String nombre, String apellidos,String username, String dni, String ss, String hospital, String numero,ArrayList<Paciente>pacientes) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -139,6 +140,7 @@ public class Medico {
 		this.hospital = hospital;
 		this.numero = numero;
 		this.pacientes = pacientes;
+		this.username = username;
 	}
 	
 	public Medico() {
