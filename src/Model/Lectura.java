@@ -34,7 +34,7 @@ public class Lectura{
 	 * 
 	 * @param f File 
 	 * @return ECG
-	 */
+	 *
 	public static ECG lecturaEcgYaGuardado(File f) {
 		int pun=0;
 		int fecha=0;
@@ -125,7 +125,7 @@ public class Lectura{
 	public static Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
 		try {
-			c.consultaMedico("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
+			c.consulta("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
 			while(c.rs.next()) {
 				String nombre = c.rs.getString("Nombre_medico");
 				String apellidos = c.rs.getString("Apellidos_medico");
@@ -150,4 +150,26 @@ public class Lectura{
 	}
 	
 	
+	ArrayList<ECG> getECGS(Paciente p) {
+		ArrayList<ECG> ecgs = null;
+		try {
+			c.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
+			while(c.rs.next()) {
+				String fecha = c.rs.getString("Fecha");
+				String nombreTecnico = c.rs.getString("Username_tecnico");
+				String diagnostico = c.rs.getString("Diagnostico");
+				String dato = c.rs.getString("");
+				int frecuencia = c.rs.getInt("Frecuencia");
+				String nombre = c.rs.getString("ID_ECG");
+				
+				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,null));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ecgs;
 	}
+	
+}
