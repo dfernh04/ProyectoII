@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Model.Medico;
+import Model.Usuario;
+
 public class Conexion {
 
-	String BBDDName = "Resource/BBDD2.db";
-	Connection c = null;
-	Statement stmt = null;
+	static String BBDDName = "Resource/BBDD2.db";
+	static Connection c = null;
+	static Statement stmt = null;
 	public ResultSet rs = null;
 	
 	public void consulta(String query) {
@@ -29,7 +32,28 @@ public class Conexion {
 		}
 		System.out.println("Consulta terminada");
 	}
-	
+	public static  Medico consultaMed(Usuario us){
+		Medico m= new Medico(us,0,0);
+		try{
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Medico.nColegiado,Medico.nTelefono "
+					+ "from Medico" + 
+					" where Username_medico = " + us.getUser() + ";");
+			if (rs.next()) {
+				int nC = rs.getInt("nColegiado");
+				int nT = rs.getInt("nTelefono");
+				
+				m = new Medico(us,nC,nT);
+			}
+		}catch(Exception e){
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return m;
+		
+	}
 	public void closeConnection() {
 
 		try {
@@ -41,4 +65,8 @@ public class Conexion {
 			e.printStackTrace();
 		}
 	}
+	public ResultSet getRs() {
+		return rs;
+	}
+	
 }

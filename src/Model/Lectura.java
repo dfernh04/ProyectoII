@@ -3,7 +3,6 @@ package Model;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -11,7 +10,6 @@ import javax.swing.JOptionPane;
 import Control.Conexion;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
@@ -27,6 +25,7 @@ import java.io.FileReader;
 public class Lectura{
 	
 	public static Conexion c = new Conexion();
+	private Vector<ECG> ecgs;
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
 	 * que ya hallan sido leidos y guardarlos para poder operar 
@@ -180,18 +179,33 @@ public class Lectura{
 	}
 	
 	
+<<<<<<< HEAD
 	static Vector<ECG> getECGS(Paciente p) {
 		Vector<ECG> ecgs = null;
 		Conexion c3 = new Conexion();
+=======
+	Vector<ECG> getECGS(Paciente p) {
+		ecgs = null;
+>>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
 		try {
 			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
 			while(c.rs.next()) {
+<<<<<<< HEAD
 				String fecha = c3.rs.getString("Fecha");
 				String nombreTecnico = c3.rs.getString("Username_tecnico");
 				String diagnostico = c3.rs.getString("Diagnostico");
 				String dato = c3.rs.getString("");
 				int frecuencia = c3.rs.getInt("Frecuencia");
 				String nombre = c3.rs.getString("ID_ECG");
+=======
+				String fecha = c.rs.getString("Fecha");
+				String nombreTecnico = c.rs.getString("Username_tecnico");
+				String diagnostico = c.rs.getString("Diagnostico");
+				@SuppressWarnings("unused")
+				String dato = c.rs.getString("");
+				int frecuencia = c.rs.getInt("Frecuencia");
+				String nombre = c.rs.getString("ID_ECG");
+>>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
 				
 				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,null));
 			}
