@@ -12,10 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Scanner;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -59,6 +58,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
+	private Conexion c;
+	private String stm;
+	private String query;
+	private ResultSet rs;
 	
 	/**
 	 * Getter de un vector que contiene todos los usuarios
@@ -458,6 +461,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public Vector<Usuario> obtenerUsuarios(){
 		Vector<Usuario> us=new Vector<Usuario>();
+		Vector<Usuario> med =new Vector<Usuario>();
+		Vector<Usuario> tec =new Vector<Usuario>();
+		//FORMA DE RECUPERAR LOS USUARIOS SIN BBDD
+		/*
 			File file = null;
 			file = new File("Resource/Usuarios/Users.txt");
 				try (Scanner sc = new Scanner(new FileReader(file))) {
@@ -470,7 +477,15 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-		
+			*/
+			med=obtenermedicos();
+			tec=obtenertecnicos();
+			for(int i=0;i<med.size();i++) {
+			us.add(med.get(i));
+			}
+			for(int i=0;i<tec.size();i++) {
+			us.add(tec.get(i));
+			}
 		return us;
 	}
 	/**
@@ -486,14 +501,19 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param cole Numero de colegiado
 	 */
 	public void escribirMedico(String User,String password,String nom,String ape1,String dn,String tele,String lugar,String cole){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Medicos/"+User+".txt",true)){
-			aux.write(nom+";"+ape1+ ";"+dn+";"+tele+";"+lugar+";"+cole+"\r\n");
-		}catch(Exception exc){
-		}
+		 stm = nom+" "+ape1;
+		 query = "insert into Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contraseña_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ("
+					+nom.toString()+","
+					+ape1.toString()+","
+					+User.toString()+","
+					+dn+","
+					+password.toString()+","
+					+tele.toString()+","
+					+cole.toString()+","
+					+lugar.toString()+")";
+			JOptionPane.showMessageDialog(null, "Medico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
+			c.consulta(query);
+			c.closeConnection();
 	}
 	/**
 	 * Escritura y creacion de un nuevo tecnico en la base de datos
@@ -506,14 +526,17 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param lugar Lugar/direccion de residencia/Trabajo
 	 */
 	public void escribirTecnico(String User,String password,String nom,String ape1,String dn,String lugar){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Tecnicos/Tecnicos.txt",true)){
-			aux.write(nom+";"+ape1+";"+dn+";"+lugar+"\r\n");
-		}catch(Exception exc){
-		}
+	 stm = nom+" "+ape1;
+	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ("
+				+User.toString()+","
+				+nom.toString()+","
+				+ape1.toString()+","
+				+dn+","
+				+password.toString()+","
+				+lugar.toString()+")";
+		JOptionPane.showMessageDialog(null, "Tecnico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
+		c.consulta(query);
+		c.closeConnection();
 	}
 	/**
 	 * Se encarga de la actualizacion de los usuarios mostrados en 
@@ -546,5 +569,36 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 
 		a.getTabbedPane().setVisible(true);
 	}
-	
+	public Vector<Usuario> obtenermedicos(){
+		Vector<Usuario> us = new Vector<>();
+		query="Select Nombre_medico, Contraseña_medico from Medico";
+		c.consulta(query);
+		rs = c.getRs();
+		try {
+			while(rs.next()) {
+				us.add(new Usuario(rs.getString("Nombre_medico"), "medico", rs.getString("Contraseña_medico")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.closeConnection();
+		return us;
+	}
+	public Vector<Usuario> obtenertecnicos(){
+		Vector<Usuario> us = new Vector<>();
+		query="Select Nombre_tecnico, Contraseña_tecnico from Tecnico";
+		c.consulta(query);
+		rs = c.getRs();
+		try {
+			while(rs.next()) {
+				us.add(new Usuario(rs.getString("Nombre_tecnico"), "tecnico", rs.getString("Contraseña_tecnico")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.closeConnection();
+		return us;
+	}
 }

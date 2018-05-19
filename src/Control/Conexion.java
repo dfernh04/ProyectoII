@@ -29,7 +29,16 @@ public class Conexion {
 		}
 		System.out.println("Consulta terminada");
 	}
-	
+	public void pruebaconex(){
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	public void closeConnection() {
 
 		try {
@@ -41,4 +50,8 @@ public class Conexion {
 			e.printStackTrace();
 		}
 	}
+	public ResultSet getRs() {
+		return rs;
+	}
+	
 }
