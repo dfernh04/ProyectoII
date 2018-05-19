@@ -569,6 +569,12 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 
 		a.getTabbedPane().setVisible(true);
 	}
+	/**
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contraseña
+	 * y lo asigna a un vector que luego le asaremos al metodo principal para el control de 
+	 * usuarios
+	 * @return Vector de user Medico
+	 */
 	public Vector<Usuario> obtenermedicos(){
 		Vector<Usuario> us = new Vector<>();
 		query="Select Nombre_medico, Contraseña_medico from Medico";
@@ -585,6 +591,12 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		c.closeConnection();
 		return us;
 	}
+	/**
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los tecnicos junto con su contraseña
+	 * y lo asigna a un vector que luego le asaremos al metodo principal para el control de 
+	 * usuarios
+	 * @return Vector de user Tecnico
+	 */
 	public Vector<Usuario> obtenertecnicos(){
 		Vector<Usuario> us = new Vector<>();
 		query="Select Nombre_tecnico, Contraseña_tecnico from Tecnico";
