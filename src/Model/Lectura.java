@@ -3,7 +3,6 @@ package Model;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -11,7 +10,6 @@ import javax.swing.JOptionPane;
 import Control.Conexion;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
@@ -27,6 +25,7 @@ import java.io.FileReader;
 public class Lectura{
 	
 	public static Conexion c = new Conexion();
+	private Vector<ECG> ecgs;
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
 	 * que ya hallan sido leidos y guardarlos para poder operar 
@@ -135,12 +134,13 @@ public class Lectura{
 				String numero = c.rs.getString("Numero_afiliacion_medico");
 				
 				//COGER PACIENTES DE CLASE MIGUEL
-				//ArrayList<Paciente> pacientes = getPacientes();
 				
 				System.out.println(nombre + " " + apellidos);
 				
 				m = new Medico(nombre,apellidos,DNI,username,
 						null, hospital,numero,null);
+				ArrayList<Paciente> pacientes = getPacientes(us);
+				m.setPacientes(pacientes);
 			}
 			c.closeConnection();
 		}catch (Exception e) {
@@ -149,28 +149,29 @@ public class Lectura{
 		return m;
 	}
 	
-	ArrayList<Paciente> getPacientes(Medico m) {
+	static ArrayList<Paciente> getPacientes(Usuario us) {
 		Paciente p = new Paciente();
-		ArrayList<Paciente> pacientes = new Paciente;
+		Conexion c2 = new Conexion();
+		ArrayList<Paciente> pacientes = null;
 		try {
-			c.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico = '" +m.getDni()+"';");
-			while(c.rs.next()) {
-				String nombre = c.rs.getString("Nombre_paciente");
-				String apellidos = c.rs.getString("Apellidos_paciente");
-				String DNI = c.rs.getString("DNI_paciente");
-				String Foto = c.rs.getString("Foto_paciente");
-				String Localidad = c.rs.getString("Localidad_paciente");
-				String Direccion = c.rs.getString("Direccion_paciente");
-				String N_seguridad_social = c.rs.getString("N_seguridad_social_paciente");
+			c2.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico = '" +us.getUser()+"';");
+			while(c2.rs.next()) {
+				String nombre = c2.rs.getString("Nombre_paciente");
+				String apellidos = c2.rs.getString("Apellidos_paciente");
+				String DNI = c2.rs.getString("DNI_paciente");
+				String Foto = c2.rs.getString("Foto_paciente");
+				String Localidad = c2.rs.getString("Localidad_paciente");
+				String Direccion = c2.rs.getString("Direccion_paciente");
+				String N_seguridad_social = c2.rs.getString("N_seguridad_social_paciente");
 				
 				
 				System.out.println(nombre + " " + apellidos);
 				
-				p = new Paciente(nombre,apellidos,DNI,Foto,
-						Localidad, Direccion,N_seguridad_social,null);
-				p.setECGS(getECGS);
+				p = new Paciente(nombre,apellidos,DNI,N_seguridad_social,Localidad,
+						 Direccion,Foto,null,null,null);
+				p.setEcgs(getECGS(p));
 			}
-			c.closeConnection();
+			c2.closeConnection();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -178,20 +179,37 @@ public class Lectura{
 	}
 	
 	
-	ArrayList<ECG> getECGS(Paciente p) {
-		ArrayList<ECG> ecgs = null;
+<<<<<<< HEAD
+	static Vector<ECG> getECGS(Paciente p) {
+		Vector<ECG> ecgs = null;
+		Conexion c3 = new Conexion();
+=======
+	Vector<ECG> getECGS(Paciente p) {
+		ecgs = null;
+>>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
 		try {
-			c.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
+			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
 			while(c.rs.next()) {
+<<<<<<< HEAD
+				String fecha = c3.rs.getString("Fecha");
+				String nombreTecnico = c3.rs.getString("Username_tecnico");
+				String diagnostico = c3.rs.getString("Diagnostico");
+				String dato = c3.rs.getString("");
+				int frecuencia = c3.rs.getInt("Frecuencia");
+				String nombre = c3.rs.getString("ID_ECG");
+=======
 				String fecha = c.rs.getString("Fecha");
 				String nombreTecnico = c.rs.getString("Username_tecnico");
 				String diagnostico = c.rs.getString("Diagnostico");
+				@SuppressWarnings("unused")
 				String dato = c.rs.getString("");
 				int frecuencia = c.rs.getInt("Frecuencia");
 				String nombre = c.rs.getString("ID_ECG");
+>>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
 				
 				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,null));
 			}
+			c3.closeConnection();
 			
 		}catch(Exception e) {
 			e.printStackTrace();

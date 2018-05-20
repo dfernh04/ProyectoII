@@ -14,10 +14,11 @@ public class Medico {
 	private String nombre;
 	private String apellidos;
 	private String dni;
-	private String ss;
+	private int ss;
 	private String hospital;
-	private String numero;
+	private int numero;
 	private ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+	@SuppressWarnings("unused")
 	private String username;
 
 	/**
@@ -67,14 +68,14 @@ public class Medico {
 	 * Getter del atributo seguridad social del medico
 	 * @return String ss
 	 */
-	public String getSs() {
+	public int getSs() {
 		return ss;
 	}
 	/**
 	 * Setter del atributo seguridad social del medico
 	 * @param ss String 
 	 */
-	public void setSs(String ss) {
+	public void setSs(int ss) {
 		this.ss = ss;
 	}
 	/**
@@ -95,14 +96,14 @@ public class Medico {
 	 * Getter del atributo numero del medico
 	 * @return String numero
 	 */
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 	/**
 	 * Setter del atributo numero del medico
 	 * @param numero String 
 	 */
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 	/**
@@ -131,7 +132,7 @@ public class Medico {
 	 * @param numero String 
 	 * @param pacientes ArrayList de Paciente 
 	 */
-	public Medico(String nombre, String apellidos,String username, String dni, String ss, String hospital, String numero,ArrayList<Paciente>pacientes) {
+	public Medico(String nombre, String apellidos,String username, String dni, int ss, String hospital, int numero,ArrayList<Paciente>pacientes) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -142,7 +143,15 @@ public class Medico {
 		this.pacientes = pacientes;
 		this.username = username;
 	}
-	
+	public Medico(Usuario us,int ss, int numero) {
+		//NUEVO MODELO DE USUARIO REPASAR
+		/*
+		super(us.getNombre(), us.getApellido(), us.getUser(), us.getRol(), us.getCon(), us.getDni(), us.getUbicacion());
+		*/
+		this.ss = ss;
+		this.numero = numero;
+		this.pacientes = new ArrayList<Paciente>();
+	}
 	public Medico() {
 		super();
 	}

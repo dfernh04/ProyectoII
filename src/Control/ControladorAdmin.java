@@ -12,10 +12,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Scanner;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -59,6 +58,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
+	private Conexion c;
+	private String stm;
+	private String query;
+	private ResultSet rs;
 	
 	/**
 	 * Getter de un vector que contiene todos los usuarios
@@ -173,12 +176,6 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
-			if(aux1.getApellido2().getText().isEmpty()){
-				aux1.getApellido2().setBackground(Color.RED);
-				bien=false;
-			} else {
-				aux1.getApellido2().setBackground(Color.WHITE);
-			}
 			if(aux1.getDni().getText().isEmpty()){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
@@ -259,7 +256,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
 						con2=con2+aux1.getContrasena2().getPassword()[j];
 					}
-					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
+					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
 					usuario.add(new Usuario(st,"medico",con1));
 					JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
@@ -281,12 +278,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
-			if(aux1.getApellido2().getText().isEmpty()){
-				aux1.getApellido2().setBackground(Color.RED);
-				bien=false;
-			} else {
-				aux1.getApellido2().setBackground(Color.WHITE);
-			}
+
 			if(aux1.getDni().getText().isEmpty()){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
@@ -354,7 +346,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getApellido2().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
@@ -469,6 +461,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public Vector<Usuario> obtenerUsuarios(){
 		Vector<Usuario> us=new Vector<Usuario>();
+		Vector<Usuario> med =new Vector<Usuario>();
+		Vector<Usuario> tec =new Vector<Usuario>();
+		//FORMA DE RECUPERAR LOS USUARIOS SIN BBDD
+		/*
 			File file = null;
 			file = new File("Resource/Usuarios/Users.txt");
 				try (Scanner sc = new Scanner(new FileReader(file))) {
@@ -481,7 +477,15 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-		
+			*/
+			med=obtenermedicos();
+			tec=obtenertecnicos();
+			for(int i=0;i<med.size();i++) {
+			us.add(med.get(i));
+			}
+			for(int i=0;i<tec.size();i++) {
+			us.add(tec.get(i));
+			}
 		return us;
 	}
 	/**
@@ -496,15 +500,20 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param lugar Lugar/direccion de residencia/Trabajo
 	 * @param cole Numero de colegiado
 	 */
-	public void escribirMedico(String User,String password,String nom,String ape1,String ape2,String dn,String tele,String lugar,String cole){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Medicos/"+User+".txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+tele+";"+lugar+";"+cole+"\r\n");
-		}catch(Exception exc){
-		}
+	public void escribirMedico(String User,String password,String nom,String ape1,String dn,String tele,String lugar,String cole){
+		 stm = nom+" "+ape1;
+		 query = "insert into Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contraseña_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ("
+					+nom.toString()+","
+					+ape1.toString()+","
+					+User.toString()+","
+					+dn+","
+					+password.toString()+","
+					+tele.toString()+","
+					+cole.toString()+","
+					+lugar.toString()+")";
+			JOptionPane.showMessageDialog(null, "Medico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
+			c.consulta(query);
+			c.closeConnection();
 	}
 	/**
 	 * Escritura y creacion de un nuevo tecnico en la base de datos
@@ -516,15 +525,18 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param dn DNI
 	 * @param lugar Lugar/direccion de residencia/Trabajo
 	 */
-	public void escribirTecnico(String User,String password,String nom,String ape1,String ape2,String dn,String lugar){
-		try(FileWriter aux=new FileWriter("Resource/Usuarios/Users.txt",true)){
-			aux.write(User+";medico;"+password+"\r\n");
-		}catch(Exception exc){
-		}
-		try(FileWriter aux=new FileWriter("Resource/Tecnicos/Tecnicos.txt",true)){
-			aux.write(nom+";"+ape1+" "+ape2+";"+dn+";"+lugar+"\r\n");
-		}catch(Exception exc){
-		}
+	public void escribirTecnico(String User,String password,String nom,String ape1,String dn,String lugar){
+	 stm = nom+" "+ape1;
+	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ("
+				+User.toString()+","
+				+nom.toString()+","
+				+ape1.toString()+","
+				+dn+","
+				+password.toString()+","
+				+lugar.toString()+")";
+		JOptionPane.showMessageDialog(null, "Tecnico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
+		c.consulta(query);
+		c.closeConnection();
 	}
 	/**
 	 * Se encarga de la actualizacion de los usuarios mostrados en 
@@ -557,5 +569,48 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 
 		a.getTabbedPane().setVisible(true);
 	}
-	
+	/**
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contraseña
+	 * y lo asigna a un vector que luego le asaremos al metodo principal para el control de 
+	 * usuarios
+	 * @return Vector de user Medico
+	 */
+	public Vector<Usuario> obtenermedicos(){
+		Vector<Usuario> us = new Vector<>();
+		query="Select Nombre_medico, Contraseña_medico from Medico";
+		c.consulta(query);
+		rs = c.getRs();
+		try {
+			while(rs.next()) {
+				us.add(new Usuario(rs.getString("Nombre_medico"), "medico", rs.getString("Contraseña_medico")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.closeConnection();
+		return us;
+	}
+	/**
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los tecnicos junto con su contraseña
+	 * y lo asigna a un vector que luego le asaremos al metodo principal para el control de 
+	 * usuarios
+	 * @return Vector de user Tecnico
+	 */
+	public Vector<Usuario> obtenertecnicos(){
+		Vector<Usuario> us = new Vector<>();
+		query="Select Nombre_tecnico, Contraseña_tecnico from Tecnico";
+		c.consulta(query);
+		rs = c.getRs();
+		try {
+			while(rs.next()) {
+				us.add(new Usuario(rs.getString("Nombre_tecnico"), "tecnico", rs.getString("Contraseña_tecnico")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.closeConnection();
+		return us;
+	}
 }

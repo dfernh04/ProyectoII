@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
 import View.VentanaAdminPrincipal;
@@ -21,10 +20,8 @@ import View.VentanaLogin;
 import View.VentanaMedico;
 import View.VentanaTecnico;
 
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
@@ -133,6 +130,8 @@ public class ControladorLogin implements ActionListener, KeyListener{
  * Buscar el usuario introducido en la base de datos y guardarlo con su informacion si ha sido encontrado
  * @return true si el usuario existe/ false sino
  */
+	//METODO ANTERIOR PARA DAR PASO A LA APLICACION
+	/*
 	private boolean verificar() {
 		boolean aux = false;
 		if (!user.getUser().equals(a.getText().toString())) {
@@ -155,7 +154,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		}
 		return aux;
 	}
-
+	*/
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -166,61 +165,66 @@ public class ControladorLogin implements ActionListener, KeyListener{
  * a que rol pertenece para saber la ventana que abre
  */
 	public void darAcceso(){
-		if(!a.getText().isEmpty()){
-			if(verificar()){
-				if(user.getCon().equals(b.getText().toString())){
-					if(help!=null)
-						help.dispose();
-					a.setText("Bienvenido "+user.getRol());
-					if(user.getRol().equals("admin")){
-						
-						VentanaAdminPrincipal ven=new VentanaAdminPrincipal(user);
-						ven.setLocation(frame.getLocation());
-						ven.setSize(frame.getSize());
-						ControladorAdmin con=new ControladorAdmin(ven);
-						ven.asignarControlador(con);
-						ven.ver();
-						frame.dispose();
-					}else if(user.getRol().equals("tecnico")){
-						
-						VentanaTecnico vt = new VentanaTecnico(user);
-						ControladorTecnico ct = new ControladorTecnico(vt);
-						vt.setSize(frame.getSize());
-						vt.setLocation(frame.getLocation());
-						vt.crearVista(ct.leeTxt());
-						vt.addController(ct);
-						vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
-						vt.ver();
-						frame.dispose();
-					}
-					else if(user.getRol().equals("medico")) {
-						Medico med=Lectura.lectura_medico(user);
-						VentanaMedico vm = new VentanaMedico(med);
-						ControladorMedico cm = new ControladorMedico(vm,med);
-						vm.crearVista();
-						vm.setLocation(frame.getLocation());
-						vm.setSize(frame.getSize());
-						vm.setExtendedState(vm.getExtendedState()|JFrame.MAXIMIZED_BOTH );
-						
-						vm.addController(cm);
-						vm.ver();
-						frame.dispose();
-					}
-					a.setBackground(Color.green);
-					b.setBackground(Color.green);
-				} else {
-					a.setText("Contraseña erronea");
-					a.setBackground(Color.red);
-					b.setBackground(Color.red);
+		if(user.getUser()!=null){
+			if(user.getCon().equals(b.getText().toString())){
+				if(help!=null)
+					help.dispose();
+				a.setText("Bienvenido "+user.getRol());
+				if(user.getRol().equals("admin")){
+					VentanaAdminPrincipal ven=new VentanaAdminPrincipal(user);
+					ven.setLocation(frame.getLocation());
+					ven.setSize(frame.getSize());
+					ControladorAdmin con=new ControladorAdmin(ven);
+					ven.asignarControlador(con);
+					ven.ver();
+					frame.dispose();
+				}else if(user.getRol().equals("tecnico")){
+					VentanaTecnico vt = new VentanaTecnico(user);
+					ControladorTecnico ct = new ControladorTecnico(vt);
+					vt.setSize(frame.getSize());
+					vt.setLocation(frame.getLocation());
+					//FALTA CONSULTAPACTEC
+					/*
+					vt.crearVista(Conexion.consultaPacTec(),user);
+					*/
+					vt.addController(ct);
+					vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+					vt.ver();
+					frame.dispose();
 				}
+				else if(user.getRol().equals("medico")) {
+					Medico med = Conexion.consultaMed(user);
+					//FALTA CONSULTAPACMEC
+					/*
+					med.setPacientes(Conexion.consultaPacMed(med));
+					*/
+					VentanaMedico vm = new VentanaMedico(med);
+					ControladorMedico cm = new ControladorMedico(vm,med);
+					vm.crearVista();
+					vm.setLocation(frame.getLocation());
+					vm.setSize(frame.getSize());
+					vm.setExtendedState(vm.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+					
+					vm.addController(cm);
+					vm.ver();
+					frame.dispose();
+				}
+				a.setBackground(Color.green);
+				b.setBackground(Color.green);
 			} else {
-				a.setText("Dicho usuario no existe");
+				
+				a.setText("Contraseña erronea");
 				a.setBackground(Color.red);
 				b.setBackground(Color.red);
 			}
-			b.setText("");
-		} 
-	}
+		} else {
+			a.setText("Dicho usuario no existe");
+			a.setBackground(Color.red);
+			b.setBackground(Color.red);
+		}
+		b.setText("");
+	
+}
 	/**
 	 * Getter del usuario que se ha buscado
 	 * @return Usuario

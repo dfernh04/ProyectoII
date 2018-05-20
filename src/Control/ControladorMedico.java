@@ -239,7 +239,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 							+formulario.getLugar().getText()+","
 							+formulario.getDireccion().getText()+","
 							+formulario.getSs().getText()+","
-							+med.getNombre()+")";
+							+med.getNombre()+");";
 					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					c.consulta(query);
 					
