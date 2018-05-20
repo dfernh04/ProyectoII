@@ -123,6 +123,7 @@ public class Lectura{
 	 */
 	public static Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
+		System.out.println(us.getUser());
 		try {
 			c.consulta("SELECT * FROM Medico WHERE Medico.Username_medico = '" +us.getUser()+"';");
 			while(c.rs.next()) {
@@ -131,14 +132,14 @@ public class Lectura{
 				String username = c.rs.getString("Username_medico");
 				String DNI = c.rs.getString("DNI_medico");
 				String hospital = c.rs.getString("Hospital_medico");
-				String numero = c.rs.getString("Numero_afiliacion_medico");
+				int numero = c.rs.getInt("Numero_afiliacion_medico");
 				
 				//COGER PACIENTES DE CLASE MIGUEL
 				
 				System.out.println(nombre + " " + apellidos);
 				
-				m = new Medico(nombre,apellidos,DNI,username,
-						null, hospital,numero,null);
+				m = new Medico(nombre,apellidos,username,DNI,
+						0, hospital,numero,null);
 				ArrayList<Paciente> pacientes = getPacientes(us);
 				m.setPacientes(pacientes);
 			}
@@ -179,33 +180,22 @@ public class Lectura{
 	}
 	
 	
-<<<<<<< HEAD
+
 	static Vector<ECG> getECGS(Paciente p) {
 		Vector<ECG> ecgs = null;
 		Conexion c3 = new Conexion();
-=======
-	Vector<ECG> getECGS(Paciente p) {
 		ecgs = null;
->>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
+
 		try {
 			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
 			while(c.rs.next()) {
-<<<<<<< HEAD
+
 				String fecha = c3.rs.getString("Fecha");
 				String nombreTecnico = c3.rs.getString("Username_tecnico");
 				String diagnostico = c3.rs.getString("Diagnostico");
 				String dato = c3.rs.getString("");
 				int frecuencia = c3.rs.getInt("Frecuencia");
 				String nombre = c3.rs.getString("ID_ECG");
-=======
-				String fecha = c.rs.getString("Fecha");
-				String nombreTecnico = c.rs.getString("Username_tecnico");
-				String diagnostico = c.rs.getString("Diagnostico");
-				@SuppressWarnings("unused")
-				String dato = c.rs.getString("");
-				int frecuencia = c.rs.getInt("Frecuencia");
-				String nombre = c.rs.getString("ID_ECG");
->>>>>>> adb78a475e9bf9f2759f2e0c81dba63600cd410a
 				
 				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,null));
 			}
