@@ -143,13 +143,13 @@ public class Medico {
 		this.pacientes = pacientes;
 		this.username = username;
 	}
-	public Medico(Usuario us,int ss, int numero) {
+	public Medico(Usuario us,int ss, String dni) {
 		//NUEVO MODELO DE USUARIO REPASAR
 		/*
 		super(us.getNombre(), us.getApellido(), us.getUser(), us.getRol(), us.getCon(), us.getDni(), us.getUbicacion());
 		*/
 		this.ss = ss;
-		this.numero = numero;
+		this.dni = dni;
 		this.pacientes = new ArrayList<Paciente>();
 	}
 	public Medico() {

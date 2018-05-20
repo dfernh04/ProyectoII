@@ -49,6 +49,19 @@ public class Paciente {
 		this.comentarios = comentarios;
 		this.ecgs = ecgs;
 	}
+	public Paciente(String nombre, String apellido,String dni,String poblacion,String ss) {
+		this.nombre=nombre;
+		this.apellido=apellido;
+		this.dni= dni;
+		this.poblacion=poblacion;
+		this.ss=ss;
+	}
+	public Paciente(String nombre, String apellido,String dni,String poblacion) {
+		this.nombre=nombre;
+		this.apellido=apellido;
+		this.dni= dni;
+		this.poblacion=poblacion;
+	}
 	public Paciente(){
 		
 	}
