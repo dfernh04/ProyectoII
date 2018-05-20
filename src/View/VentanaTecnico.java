@@ -132,7 +132,8 @@ public class VentanaTecnico extends JFrame {
 	 * 
 	 * @param pacientes ArrayList de PacienteTecnico
 	 */
-	public void crearVista(ArrayList<PacienteTecnico> pacientes){
+	public void crearVista(ArrayList<PacienteTecnico> pacientes,Usuario au){
+		this.au = au;
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	ImageIcon img = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");

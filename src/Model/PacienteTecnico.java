@@ -6,14 +6,12 @@ public class PacienteTecnico {
 	private String apellido;
 	private String id;
 	private String dni;
-	
 	public PacienteTecnico(String id,String nombre,String apellido,String dni){
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni = dni;
+		this.id = nombre;
+		this.nombre = apellido;
+		this.apellido = dni;
+		this.dni = id;
 	}
-	
 	public String getNombre(){
 		return nombre;
 	}

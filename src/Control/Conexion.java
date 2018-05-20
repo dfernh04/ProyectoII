@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import Model.Medico;
+import Model.Paciente;
+import Model.PacienteTecnico;
 import Model.Usuario;
 
 public class Conexion {
@@ -33,18 +36,18 @@ public class Conexion {
 		System.out.println("Consulta terminada");
 	}
 	public static  Medico consultaMed(Usuario us){
-		Medico m= new Medico(us,0,0);
+		Medico m= new Medico(us,0,"");
 		try{
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select Medico.nColegiado,Medico.nTelefono "
+			ResultSet rs = stmt.executeQuery("select Numero_afiliacion_medico,DNI_medico "
 					+ "from Medico" + 
 					" where Username_medico = " + us.getUser() + ";");
 			if (rs.next()) {
-				int nC = rs.getInt("nColegiado");
-				int nT = rs.getInt("nTelefono");
+				int nC = rs.getInt("Numero_afiliacion_medico");
+				String nT = rs.getString("DNI_medico");
 				
 				m = new Medico(us,nC,nT);
 			}
@@ -54,6 +57,60 @@ public class Conexion {
 		return m;
 		
 	}
+	static public ArrayList<Paciente> consultaPacMed(Medico m) {
+		ArrayList<Paciente> pac=new ArrayList<Paciente>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente,Direccion_paciente,N_seguridad_social_paciente,Username_medico" + 
+					"from Paciente\r\n" + 
+					"join Medico on Username_medico = Paciente.Username_medico"
+					+ " where DNI_medico = "+m.getDni()+" ;");
+			while (rs.next()) {
+				String dni = rs.getString("DNI_paciente");
+				System.out.println(dni);
+				int nss = rs.getInt("N_seguridad_social_paciente");
+				String ape=rs.getString("Apellido_paciente");
+				String nombre = rs.getString("Nombre_paciente");
+				String ubicacion=rs.getString("Direccion_paciente");
+				String ss = Integer.toString(nss);
+				pac.add(new Paciente(nombre,ape,dni,ubicacion,ss));//añadir nss, cambiar en el constructor!
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return pac;
+	}
+	//public Paciente(String id,String nombre,String apellido,String dni)
+	static public ArrayList<PacienteTecnico> consultaPacTec() {
+		ArrayList<PacienteTecnico> pac=new ArrayList<PacienteTecnico>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellido_paciente,Direccion_paciente FROM Paciente;");
+			while (rs.next()) {
+				String dni = rs.getString("DNI_paciente");
+				String nombre = rs.getString("Nombre_paciente");
+				String ape=rs.getString("Apellido_paciente");
+				String ubicacion=rs.getString("Direccion_paciente");
+				pac.add(new PacienteTecnico(nombre,ape,dni,ubicacion));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return pac;
+	}
+	
 	public void closeConnection() {
 
 		try {

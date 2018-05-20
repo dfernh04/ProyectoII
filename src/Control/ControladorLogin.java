@@ -183,21 +183,15 @@ public class ControladorLogin implements ActionListener, KeyListener{
 					ControladorTecnico ct = new ControladorTecnico(vt);
 					vt.setSize(frame.getSize());
 					vt.setLocation(frame.getLocation());
-					//FALTA CONSULTAPACTEC
-					/*
 					vt.crearVista(Conexion.consultaPacTec(),user);
-					*/
 					vt.addController(ct);
 					vt.setExtendedState(vt.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 					vt.ver();
 					frame.dispose();
 				}
 				else if(user.getRol().equals("medico")) {
-					Medico med = Conexion.consultaMed(user);
-					//FALTA CONSULTAPACMEC
-					/*
+					Medico med = Conexion.consultaMed(user);				
 					med.setPacientes(Conexion.consultaPacMed(med));
-					*/
 					VentanaMedico vm = new VentanaMedico(med);
 					ControladorMedico cm = new ControladorMedico(vm,med);
 					vm.crearVista();
