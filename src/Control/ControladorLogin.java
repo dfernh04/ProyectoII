@@ -52,11 +52,13 @@ public class ControladorLogin implements ActionListener, KeyListener{
 		 * @param frame VentanaLogin a la cual se le asignaran los controladores y se controlara
 		 */
 	public ControladorLogin(VentanaLogin frame){
+		Conexion c = new Conexion();
+		
 		user=new Usuario("","","");
 		this.a=frame.getUser();
 		this.b=frame.getPass();
-		this.frame=frame;
 		
+		this.frame=frame;
 		a.addMouseListener(new MouseListener(){
 			public void mouseClicked(MouseEvent e) {
 				a.setBackground(Color.white);
@@ -98,9 +100,11 @@ public class ControladorLogin implements ActionListener, KeyListener{
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String cmd=e.getActionCommand().toString();
+		System.out.println(cmd);
 		if(cmd.equals(ControladorLogin.ACCEDER)){
 			if(help!=null)
 				help.dispose();
+			System.out.println("acceso");
 			darAcceso(); 
 		} else if(cmd.equals(ControladorLogin.FORGET)){
 				JOptionPane.showMessageDialog(frame, "Esta opcion se encontrará disponible en proximas versiones.\n(Para apegarse al formato de fichero del resto)","",JOptionPane.INFORMATION_MESSAGE);
@@ -190,6 +194,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 					frame.dispose();
 				}
 				else if(user.getRol().equals("medico")) {
+					System.out.println("fsa");
 					Medico med = Conexion.queryMedico(user);				
 					med.setPacientes(Conexion.queryPacMedico(med));
 					VentanaMedico vm = new VentanaMedico(med);
@@ -207,7 +212,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 				b.setBackground(Color.green);
 			} else {
 				
-				a.setText("Contraseña erronea");
+				a.setText("Contrasena erronea");
 				a.setBackground(Color.red);
 				b.setBackground(Color.red);
 			}
