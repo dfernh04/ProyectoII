@@ -35,6 +35,14 @@ public class Conexion {
 		}
 		System.out.println("Consulta terminada");
 	}
+	/**
+	 * Metodo que nos permite obtener un objeto del tipo medico con su nombre de usuario
+	 * n de colegiado y dni, a traves de una consulta sql.
+	 * 
+	 * @param us Usuario 
+	 * 
+	 * @return m Medico 
+	 */
 	public static  Medico queryMedico(Usuario us){
 		Medico m= new Medico(us,0,"");
 		try{
@@ -57,6 +65,14 @@ public class Conexion {
 		return m;
 		
 	}
+	/**
+	 * Metodo que nos permite obtener un arraylis tcon objetos del tipo paciente
+	 * a traves de una consulta sql
+	 * 
+	 * @param us Medico 
+	 * 
+	 * @return m {@link ArrayList<Paciente>} 
+	 */
 	static public ArrayList<Paciente> queryPacMedico(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
@@ -86,6 +102,14 @@ public class Conexion {
 		}
 		return pac;
 	}
+	/**
+	 * Metodo que nos permite obtener un arraylist con todos los pacientes del sistema
+	 * pensando que el tecnico tiene disponibkes todos los pacientes.
+	 * 
+	 * @param
+	 * 
+	 * @return arraylis<PacienteTecnico>
+	 */
 	//public Paciente(String id,String nombre,String apellido,String dni)
 	static public ArrayList<PacienteTecnico> queryPacTecnico() {
 		ArrayList<PacienteTecnico> pac=new ArrayList<PacienteTecnico>();
