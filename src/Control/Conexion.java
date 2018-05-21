@@ -176,5 +176,23 @@ public class Conexion {
 	public ResultSet getRs() {
 		return rs;
 	}
+	public void addPaciente(String query) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			//c.setAutoCommit(false);
+			
+			stmt = c.createStatement();
+			stmt.executeQuery(query);
+			stmt.close();
+			
+			//TREATMENT
+				
+		}catch(Exception e) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		
+	}
 	
 }

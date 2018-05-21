@@ -63,7 +63,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private VentanaLogin ven;
 	private Medico med;
 	private VentanaHelp help;
-	private Conexion c;
 	public Lectura l;
 	/**
 	 * Primer constructor de la clase ControladorMedico
@@ -231,19 +230,21 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.getUrgencia().setBackground(Color.WHITE);
 			}
 			if(bien==true) {
-					String stm = formulario.getNombre().getText()+" "+formulario.getApellido1().getText();
-					String query = "insert into Paciente (Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente, Direccion_paciente, N_seguridad_social_paciente, Username_medico) values( "
-							+formulario.getNombre().getText()+","
-							+formulario.getApellido1().getText()+","
-							+formulario.getDni().getText()+","
-							+formulario.getLugar().getText()+","
-							+formulario.getDireccion().getText()+","
-							+formulario.getSs().getText()+","
-							+med.getNombre()+");";
-					JOptionPane.showMessageDialog(null, "Paciente dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
-					c.consulta(query);
-					
-					formulario.dispose();
+				System.out.println("benne");
+				Conexion c = new Conexion();
+				String stm = formulario.getNombre().getText()+" "+formulario.getApellido1().getText();
+				String query = "insert into Paciente (Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente, Direccion_paciente, N_seguridad_social_paciente, Username_medico) values( '"
+						+formulario.getNombre().getText()+"','"
+						+formulario.getApellido1().getText()+"','"
+						+formulario.getDni().getText()+"','"
+						+formulario.getLugar().getText()+"','"
+						+formulario.getDireccion().getText()+"','"
+						+formulario.getSs().getText()+"','"
+						+med.getNombre()+"');";
+				JOptionPane.showMessageDialog(formulario, "Paciente dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
+				c.addPaciente(query);
+
+				formulario.dispose();
 			} else {
 				JOptionPane.showMessageDialog(formulario, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
