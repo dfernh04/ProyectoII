@@ -35,7 +35,7 @@ public class Conexion {
 		}
 		System.out.println("Consulta terminada");
 	}
-	public static  Medico consultaMed(Usuario us){
+	public static  Medico queryMedico(Usuario us){
 		Medico m= new Medico(us,0,"");
 		try{
 			Class.forName("org.sqlite.JDBC");
@@ -57,7 +57,7 @@ public class Conexion {
 		return m;
 		
 	}
-	static public ArrayList<Paciente> consultaPacMed(Medico m) {
+	static public ArrayList<Paciente> queryPacMedico(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -87,7 +87,7 @@ public class Conexion {
 		return pac;
 	}
 	//public Paciente(String id,String nombre,String apellido,String dni)
-	static public ArrayList<PacienteTecnico> consultaPacTec() {
+	static public ArrayList<PacienteTecnico> queryPacTecnico() {
 		ArrayList<PacienteTecnico> pac=new ArrayList<PacienteTecnico>();
 		try {
 			Class.forName("org.sqlite.JDBC");
