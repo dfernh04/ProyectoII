@@ -14,7 +14,10 @@ public class Usuario {
 		private String user;
 		private String rol;
 		private String con;
-		
+		private String nombre;
+		private String apellido;
+		private String ubicacion;
+		private int dni;
 		/**
 		 * Constructor de un Usuario
 		 * @param user Nombe de Usuario
@@ -26,7 +29,17 @@ public class Usuario {
 			this.rol=rol;
 			this.con=con;
 		}
-
+		
+		public Usuario(String nombre, String apellido, String user, String rol, String con, int dni, String ubicacion) {
+			super();
+			this.nombre = nombre;
+			this.apellido = apellido;
+			this.user = user;
+			this.rol = rol;
+			this.con = con;
+			this.dni = dni;
+			this.ubicacion = ubicacion;
+		}
 		/**
 		 * Getter del nombre de Usuario
 		 * @return nombre de Usuario

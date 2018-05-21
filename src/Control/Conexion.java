@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 import Model.Medico;
 import Model.Paciente;
 import Model.PacienteTecnico;
@@ -44,6 +45,7 @@ public class Conexion {
 	 * @return m Medico 
 	 */
 	public static  Medico queryMedico(Usuario us){
+		
 		Medico m= new Medico(us,0,"");
 		try{
 			Class.forName("org.sqlite.JDBC");
@@ -135,6 +137,33 @@ public class Conexion {
 		return pac;
 	}
 	
+	static public Usuario consultaLogin(String nom, String pass) {
+		Usuario a=new Usuario(null,null,null);
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM USUARIO where Nombre like '"+nom+"';");
+			if (rs.next()) {
+				String nickname = rs.getString("nick");
+				String password = rs.getString("contrasena");
+				String rol=rs.getString("rol");
+				String nombre = rs.getString("nombre");
+				String ape=rs.getString("apellido");
+				String ubicacion=rs.getString("Ubicacion");
+				int dni=rs.getInt("dni");
+				a=new Usuario(nombre,ape,nickname,rol,password,dni,ubicacion);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		System.out.println("Consulta terminada, ingreso de usuario " + a.getUser());
+		return a;
+	}
 	public void closeConnection() {
 
 		try {
