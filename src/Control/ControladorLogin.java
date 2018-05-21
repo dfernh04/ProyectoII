@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Model.Lectura;
 import Model.Medico;
 import Model.Usuario;
 import View.VentanaAdminPrincipal;
@@ -197,9 +198,8 @@ public class ControladorLogin implements ActionListener, KeyListener{
 					frame.dispose();
 				}
 				else if(user.getRol().equals("medico")) {
-					System.out.println("fsa");
-					Medico med = Conexion.queryMedico(user);				
-					med.setPacientes(Conexion.queryPacMedico(med));
+					Lectura l = new Lectura();
+					Medico med = l.lectura_medico(user);			
 					VentanaMedico vm = new VentanaMedico(med);
 					ControladorMedico cm = new ControladorMedico(vm,med);
 					vm.crearVista();

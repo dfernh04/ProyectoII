@@ -24,8 +24,10 @@ import java.io.FileReader;
  */
 public class Lectura{
 	
-	public static Conexion c = new Conexion();
 	private Vector<ECG> ecgs;
+	Conexion c = new Conexion();
+	Conexion c2 = new Conexion();
+	Conexion c3 = new Conexion();
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
 	 * que ya hallan sido leidos y guardarlos para poder operar 
@@ -121,7 +123,7 @@ public class Lectura{
 	 * 
 	 * @return m Medico 
 	 */
-	public static Medico lectura_medico(Usuario us) {
+	public  Medico lectura_medico(Usuario us) {
 		Medico m = new Medico();
 		System.out.println(us.getUser());
 		try {
@@ -140,22 +142,20 @@ public class Lectura{
 				
 				m = new Medico(nombre,apellidos,username,DNI,
 						0, hospital,numero,null);
-				ArrayList<Paciente> pacientes = getPacientes(us);
-				m.setPacientes(pacientes);
+				m.setPacientes(getPacientes(us));
 			}
-			c.closeConnection();
+			c.rs.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return m;
 	}
 	
-	static ArrayList<Paciente> getPacientes(Usuario us) {
+	public ArrayList<Paciente> getPacientes(Usuario us) {
 		Paciente p = new Paciente();
-		Conexion c2 = new Conexion();
 		ArrayList<Paciente> pacientes = null;
 		try {
-			c2.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico = '" +us.getUser()+"';");
+			c2.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico like '" +us.getUser()+"';");
 			while(c2.rs.next()) {
 				String nombre = c2.rs.getString("Nombre_paciente");
 				String apellidos = c2.rs.getString("Apellidos_paciente");
@@ -172,7 +172,7 @@ public class Lectura{
 						 Direccion,Foto,null,null,null);
 				p.setEcgs(getECGS(p));
 			}
-			c2.closeConnection();
+			c2.rs.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -181,14 +181,13 @@ public class Lectura{
 	
 	
 
-	static Vector<ECG> getECGS(Paciente p) {
+	public Vector<ECG> getECGS(Paciente p) {
 		Vector<ECG> ecgs = null;
-		Conexion c3 = new Conexion();
 		ecgs = null;
 
 		try {
-			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente ='" + p.getDni()+ "';");
-			while(c.rs.next()) {
+			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente like'" + p.getDni()+ "';");
+			while(c3.rs.next()) {
 
 				String fecha = c3.rs.getString("Fecha");
 				String nombreTecnico = c3.rs.getString("Username_tecnico");

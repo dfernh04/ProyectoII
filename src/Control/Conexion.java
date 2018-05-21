@@ -34,7 +34,7 @@ public class Conexion {
 		}catch(Exception e) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
-		System.out.println("Consulta terminada");
+		
 	}
 	/**
 	 * Metodo que nos permite obtener un objeto del tipo medico con su nombre de usuario
@@ -120,13 +120,13 @@ public class Conexion {
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellido_paciente,Direccion_paciente FROM Paciente;");
+			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellidos_paciente,Direccion_paciente FROM Paciente;");
 			while (rs.next()) {
 				String dni = rs.getString("DNI_paciente");
 				String nombre = rs.getString("Nombre_paciente");
-				String ape=rs.getString("Apellido_paciente");
+				String ape = rs.getString("Apellidos_paciente");
 				String ubicacion=rs.getString("Direccion_paciente");
-				pac.add(new PacienteTecnico(nombre,ape,dni,ubicacion));
+				pac.add(new PacienteTecnico(nombre,ape,ubicacion,dni));
 			}
 			rs.close();
 			stmt.close();
@@ -134,6 +134,8 @@ public class Conexion {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
+		for(int i=0; i < pac.size();++i)
+			System.out.println(pac.get(i).getId());
 		return pac;
 	}
 	
@@ -157,7 +159,7 @@ public class Conexion {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
-		System.out.println("Consulta terminada, ingreso de usuario " + a.getUser());
+		System.out.println("Consulta terminada Usuario: " + a.getUser());
 		return a;
 	}
 	public void closeConnection() {

@@ -64,7 +64,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	private Medico med;
 	private VentanaHelp help;
 	private Conexion c;
-	
+	public Lectura l;
 	/**
 	 * Primer constructor de la clase ControladorMedico
 	 * @param vm VentanaMedico 
@@ -81,7 +81,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 	 */
 	public ControladorMedico(VentanaMedico vm, Usuario us) {
 		this.vm=vm;
-		med= Lectura.lectura_medico(us);
+		med= l.lectura_medico(us);
 	}
 
 	/**

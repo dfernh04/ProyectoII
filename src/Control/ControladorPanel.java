@@ -83,24 +83,20 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		String respuesta = JOptionPane.showInputDialog("Escriba el DNI del paciente");
 		
 		if(respuesta!=null){
-		if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
-			vt.getFicha().getLblNewLabel().setText(p.getNombre());
-			vt.getFicha().getLblApellidos().setText(p.getApellido());
-			vt.getFicha().getLblDni().setText(p.getDni());
-			vt.getFicha().setP(p);
-			vt.getFicha().getBtnEnivar().setEnabled(false);
-			vt.getFicha().getEcg().cleanGraph();
-			vt.getFicha().setVisible(true);
-		} else {
-			JOptionPane.showMessageDialog(vt, "El DNI introcido no concuerda con el del paciente seleccionado.", "Doble Confirmación fallida", JOptionPane.WARNING_MESSAGE);
-		}
-		}
-		
-		
-		
-		
+			if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
+				vt.getFicha().getLblNewLabel().setText(p.getNombre());
+				vt.getFicha().getLblApellidos().setText(p.getApellido());
+				vt.getFicha().getLblDni().setText(p.getDni());
+				vt.getFicha().setP(p);
+				vt.getFicha().getBtnEnivar().setEnabled(false);
+				vt.getFicha().getEcg().cleanGraph();
+				vt.getFicha().setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(vt, "El DNI introcido no concuerda con el del paciente seleccionado.", "Doble Confirmacion fallida", JOptionPane.WARNING_MESSAGE);
+			}
+		}	
 	}
-
+	
 	/** 
 	 * Metodo mouseEntered propio de un mouseListener
 	 * 
