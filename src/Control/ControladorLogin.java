@@ -105,6 +105,9 @@ public class ControladorLogin implements ActionListener, KeyListener{
 			if(help!=null)
 				help.dispose();
 			System.out.println("acceso");
+			if(!a.getText().toLowerCase().equals(user.getUser().toLowerCase())) {
+				user=Conexion.consultaLogin(a.getText(), b.getText());
+			}
 			darAcceso(); 
 		} else if(cmd.equals(ControladorLogin.FORGET)){
 				JOptionPane.showMessageDialog(frame, "Esta opcion se encontrará disponible en proximas versiones.\n(Para apegarse al formato de fichero del resto)","",JOptionPane.INFORMATION_MESSAGE);
