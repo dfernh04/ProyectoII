@@ -144,16 +144,12 @@ public class Conexion {
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM USUARIO where Nombre like '"+nom+"';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario where Usuario like '"+nom+"';");
 			if (rs.next()) {
-				String nickname = rs.getString("nick");
-				String password = rs.getString("contrasena");
-				String rol=rs.getString("rol");
-				String nombre = rs.getString("nombre");
-				String ape=rs.getString("apellido");
-				String ubicacion=rs.getString("Ubicacion");
-				int dni=rs.getInt("dni");
-				a=new Usuario(nombre,ape,nickname,rol,password,dni,ubicacion);
+				String nombre = rs.getString("Usuario");
+				String con = rs.getString("Password");
+				String rol=rs.getString("Role");
+				a=new Usuario(nombre,rol,con);
 			}
 			rs.close();
 			stmt.close();
