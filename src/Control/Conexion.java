@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Vector;
 
 import Model.Medico;
 import Model.Paciente;
@@ -139,6 +139,29 @@ public class Conexion {
 		return pac;
 	}
 	
+	static public Vector<Usuario> queryUsuarios(){
+		Vector<Usuario> users=new Vector<Usuario>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
+			while (rs.next()) {
+				String nick = rs.getString("Usuario");
+				String con=rs.getString("Password");
+				String rol=rs.getString("Role");
+				
+				users.add(new Usuario(nick,rol,con));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return users;
+	}
 	static public Usuario consultaLogin(String nom, String pass) {
 		Usuario a=new Usuario(null,null,null);
 		try {
