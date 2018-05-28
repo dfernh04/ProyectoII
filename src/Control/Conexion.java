@@ -120,13 +120,16 @@ public class Conexion {
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
+			int i=0;
 			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellidos_paciente,Direccion_paciente FROM Paciente;");
 			while (rs.next()) {
 				String dni = rs.getString("DNI_paciente");
 				String nombre = rs.getString("Nombre_paciente");
 				String ape = rs.getString("Apellidos_paciente");
 				String ubicacion=rs.getString("Direccion_paciente");
-				pac.add(new PacienteTecnico(nombre,ape,ubicacion,dni));
+				pac.add(new PacienteTecnico(dni,ape,ubicacion,nombre));
+				System.out.println("dni: "+pac.get(i).getDni());
+				i++;
 			}
 			rs.close();
 			stmt.close();

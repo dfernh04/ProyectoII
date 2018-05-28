@@ -81,6 +81,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		
 		String respuesta = JOptionPane.showInputDialog("Escriba el DNI del paciente");
+		System.out.println(p.getDni()+":"+respuesta);
 		
 		if(respuesta!=null){
 			if(respuesta.toLowerCase().equals(p.getDni().toLowerCase())){
