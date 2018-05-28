@@ -119,6 +119,8 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getCentro().setVisible(true);
 		}
 		else if (cmd.equals(ControladorMedico.PAC)) {
+			Lectura l = new Lectura();
+			med.setPacientes(l.getPacientesMedico(med));
 			vm.getCentro().setVisible(false);
 			vm.getCentro().removeAll();
 			BuscadorMedico bm = new BuscadorMedico();

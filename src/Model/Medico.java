@@ -21,6 +21,12 @@ public class Medico {
 	@SuppressWarnings("unused")
 	private String username;
 
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	/**
 	 * Getter del atributo nombre del medico
 	 * @return String nombre

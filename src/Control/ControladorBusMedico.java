@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 import View.BuscadorMedico;
 import View.PanelPaciente;
 import View.VentanaMedico;
+import Model.Lectura;
 import Model.Medico;
 import Model.Paciente;
 import Model.PacienteTecnico;

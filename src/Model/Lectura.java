@@ -26,7 +26,6 @@ public class Lectura{
 	
 	private Vector<ECG> ecgs;
 	Conexion c = new Conexion();
-	Conexion c2 = new Conexion();
 	Conexion c3 = new Conexion();
 	/**
 	 * Metodo que nos permite leer aquellos electrocardiogramas 
@@ -151,9 +150,12 @@ public class Lectura{
 		return m;
 	}
 	
+	@SuppressWarnings("No hay pacientes")
 	public ArrayList<Paciente> getPacientes(Usuario us) {
-		Paciente p = new Paciente();
-		ArrayList<Paciente> pacientes = null;
+		Paciente p;
+		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+		Conexion c2 = new Conexion();
+		
 		try {
 			c2.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico like '" +us.getUser()+"';");
 			while(c2.rs.next()) {
@@ -165,12 +167,10 @@ public class Lectura{
 				String Direccion = c2.rs.getString("Direccion_paciente");
 				String N_seguridad_social = c2.rs.getString("N_seguridad_social_paciente");
 				
-				
-				System.out.println(nombre + " " + apellidos);
-				
 				p = new Paciente(nombre,apellidos,DNI,N_seguridad_social,Localidad,
-						 Direccion,Foto,null,null,null);
+						 Direccion,"Sin foto",null,null,null);
 				p.setEcgs(getECGS(p));
+				pacientes.add(p);
 			}
 			c2.rs.close();
 		}catch (Exception e) {
@@ -182,8 +182,7 @@ public class Lectura{
 	
 
 	public Vector<ECG> getECGS(Paciente p) {
-		Vector<ECG> ecgs = null;
-		ecgs = null;
+		Vector<ECG> ecgs = new Vector<ECG>();
 
 		try {
 			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente like'" + p.getDni()+ "';");
@@ -206,5 +205,32 @@ public class Lectura{
 		
 		return ecgs;
 	}
-	
+	@SuppressWarnings("No hay pacientes")
+	public ArrayList<Paciente> getPacientesMedico(Medico m) {
+		Paciente p;
+		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+		Conexion c2 = new Conexion();
+		
+		try {
+			c2.consulta("SELECT * FROM Paciente WHERE Paciente.Username_medico like '" +m.getUsername()+"';");
+			while(c2.rs.next()) {
+				String nombre = c2.rs.getString("Nombre_paciente");
+				String apellidos = c2.rs.getString("Apellidos_paciente");
+				String DNI = c2.rs.getString("DNI_paciente");
+				String Foto = c2.rs.getString("Foto_paciente");
+				String Localidad = c2.rs.getString("Localidad_paciente");
+				String Direccion = c2.rs.getString("Direccion_paciente");
+				String N_seguridad_social = c2.rs.getString("N_seguridad_social_paciente");
+				
+				p = new Paciente(nombre,apellidos,DNI,N_seguridad_social,Localidad,
+						 Direccion,"Sin foto",null,null,null);
+				p.setEcgs(getECGS(p));
+				pacientes.add(p);
+			}
+			c2.rs.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pacientes;
+	}
 }
