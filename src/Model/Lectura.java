@@ -205,7 +205,7 @@ public class Lectura{
 		
 		return ecgs;
 	}
-<<<<<<< HEAD
+	
 	@SuppressWarnings("No hay pacientes")
 	public ArrayList<Paciente> getPacientesMedico(Medico m) {
 		Paciente p;
@@ -234,8 +234,4 @@ public class Lectura{
 		}
 		return pacientes;
 	}
-=======
-	
-	
->>>>>>> e902a3e4ccfc5fa533bfd8fcd9d04e3f4fd488dd
 }
