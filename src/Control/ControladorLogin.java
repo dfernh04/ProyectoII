@@ -178,7 +178,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 				if(help!=null)
 					help.dispose();
 				a.setText("Bienvenido "+user.getRol());
-				if(user.getRol().equals("admin")){
+				if(user.getRol().equals("administrador")){
 					VentanaAdminPrincipal ven=new VentanaAdminPrincipal(user);
 					ven.setLocation(frame.getLocation());
 					ven.setSize(frame.getSize());

@@ -217,6 +217,7 @@ public class VentanaAdminPrincipal extends JFrame{
 	 * Poder visualizar la UI
 	 */
 	public void ver(){
+		System.out.println("ent");
 		this.setVisible(true);
 	}
 	

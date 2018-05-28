@@ -13,7 +13,6 @@ import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -59,9 +58,12 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
 	private Conexion c;
+	private Conexion c1;
+	private Conexion c2;
+	private Conexion c3;
 	private String stm;
 	private String query;
-	private ResultSet rs;
+	private Vector<Usuario> eliminados;
 	
 	/**
 	 * Getter de un vector que contiene todos los usuarios
@@ -76,8 +78,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @param ax VentanaAdminPrincipal a la que se le ejercerá el control
 	 */
 	public ControladorAdmin(VentanaAdminPrincipal ax){
-		usuario=this.obtenerUsuarios();
 		this.a=ax;
+		this.usuario = Conexion.queryUsuarios();
 		a.getBuscador().addKeyListener(new KeyListener(){
 			public void keyTyped(KeyEvent e) {
 				String aux=a.getBuscador().getText();
@@ -99,7 +101,6 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public ControladorAdmin(Formulario a){
 		this.aux1=a;
-		usuario=this.obtenerUsuarios();
 	}
 	
 	/**
@@ -256,10 +257,15 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
 						con2=con2+aux1.getContrasena2().getPassword()[j];
 					}
-					escribirMedico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getTelefono().getText(), aux1.getLugar().getText(), aux1.getNumero().getText());
-					usuario.add(new Usuario(st,"medico",con1));
-					JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
+					String query = "INSERT INTO Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contrasena_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ( "+aux1.getNombre().getText()+", "+aux1.getApellido1().getText()+", "+st+", "+aux1.getDni().getText()+", "+aux1.getContrasena1().toString()+", "+null+", "+aux1.getTelefono().getText()+(", ")+null+(")");
+					c.consulta(query);
+					query = "Insert into Usuario (Usuario, Role, Password) values ("+st+","+"medico ,"+aux1.getContrasena1()+(")");
+					c.consulta(query);
+					//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+					usuario.add(new Usuario(st,"tecnico",con1));
+					JOptionPane.showMessageDialog(aux1, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 					aux1.dispose();
+					c.closeConnection();
 				}
 			} else {
 				JOptionPane.showMessageDialog(aux1, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -346,16 +352,25 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+				c.consulta(query);
+				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
+				c.consulta(query);
+				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
-				JOptionPane.showMessageDialog(aux1, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
+				c.closeConnection();
+				
+				
 				
 			}
 			} else {
 				JOptionPane.showMessageDialog(aux1, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if(cmd.equals(USUARIOS)){
+			eliminados=new Vector<Usuario>();
+			usuario=Conexion.queryUsuarios();
 			aux=a.getCentro().getComponents();
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
@@ -376,6 +391,24 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			a.getCentro().setVisible(true);
 
 		} else if(cmd.equals(BACK)){
+			if(!eliminados.isEmpty()) {
+				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? Ser�n permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
+				if(resp==JOptionPane.NO_OPTION) {
+					eliminados.removeAllElements();
+				}
+			}
+			while(!eliminados.isEmpty()) {
+				if(usuario.get(0).getRol().equals("medico")) {
+					c1.consulta("delete from Medico where Usuario="+eliminados.get(0).getRol());
+				} else if(usuario.get(0).getRol().equals("tecnico")){
+					c1.consulta("delete from tecnico where Usuario="+eliminados.get(0).getRol());
+				} else {
+					c1.consulta("delete from administrador where Usuario="+eliminados.get(0).getRol());
+				}
+				c1.consulta("delete from Usuario where Usuario="+eliminados.get(0).getRol());
+				usuario.remove(eliminados.get(0));
+				eliminados.remove(0);
+			}
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
 			for(int i=0;i<aux.length;i++){
@@ -460,6 +493,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @return Un vector con todos los usuarios que pudo leer de fichero
 	 */
 	public Vector<Usuario> obtenerUsuarios(){
+		System.out.println("obtenerUsuarios()");
 		Vector<Usuario> us=new Vector<Usuario>();
 		Vector<Usuario> med =new Vector<Usuario>();
 		Vector<Usuario> tec =new Vector<Usuario>();
@@ -502,7 +536,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public void escribirMedico(String User,String password,String nom,String ape1,String dn,String tele,String lugar,String cole){
 		 stm = nom+" "+ape1;
-		 query = "insert into Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contraseña_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ("
+		 query = "insert into Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contrasena_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ("
 					+nom.toString()+","
 					+ape1.toString()+","
 					+User.toString()+","
@@ -527,7 +561,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public void escribirTecnico(String User,String password,String nom,String ape1,String dn,String lugar){
 	 stm = nom+" "+ape1;
-	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ("
+	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrase�a_tecnico, Email_tecnico) values ("
 				+User.toString()+","
 				+nom.toString()+","
 				+ape1.toString()+","
@@ -535,8 +569,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				+password.toString()+","
 				+lugar.toString()+")";
 		JOptionPane.showMessageDialog(null, "Tecnico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
-		c.consulta(query);
-		c.closeConnection();
+		c1.consulta(query);
+		c1.closeConnection();
 	}
 	/**
 	 * Se encarga de la actualizacion de los usuarios mostrados en 
@@ -570,25 +604,27 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		a.getTabbedPane().setVisible(true);
 	}
 	/**
-	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contraseña
-	 * y lo asigna a un vector que luego le asaremos al metodo principal para el control de 
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contrase�a
+	 * y lo asigna a un vector que luego le pasaremos al metodo principal para el control de 
 	 * usuarios
 	 * @return Vector de user Medico
 	 */
 	public Vector<Usuario> obtenermedicos(){
+		System.out.println("obtenermedicos()");
 		Vector<Usuario> us = new Vector<>();
-		query="Select Nombre_medico, Contraseña_medico from Medico";
-		c.consulta(query);
-		rs = c.getRs();
+		c2.consulta("SELECT * FROM Medico");
+		int i=0;
 		try {
-			while(rs.next()) {
-				us.add(new Usuario(rs.getString("Nombre_medico"), "medico", rs.getString("Contraseña_medico")));
+			while(c2.rs.next()) {
+				us.add(new Usuario(c2.rs.getString("Nombre_medico"), "Medico", c2.rs.getString("Contrasena_medico")));
+				System.out.println("med: "+us.get(i).getUser());
+				i++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		c.closeConnection();
+		c2.closeConnection();
 		return us;
 	}
 	/**
@@ -598,19 +634,21 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 * @return Vector de user Tecnico
 	 */
 	public Vector<Usuario> obtenertecnicos(){
+		System.out.println("obtenertecnicos()");
 		Vector<Usuario> us = new Vector<>();
-		query="Select Nombre_tecnico, Contraseña_tecnico from Tecnico";
-		c.consulta(query);
-		rs = c.getRs();
+		c3.consulta("SELECT * FROM Medico");
+		int i=0;
 		try {
-			while(rs.next()) {
-				us.add(new Usuario(rs.getString("Nombre_tecnico"), "tecnico", rs.getString("Contraseña_tecnico")));
+			while(c3.rs.next()) {
+				us.add(new Usuario(c3.rs.getString("Nombre_tecnico"), "Tecnico", c3.rs.getString("Contrase�a_tecnico")));
+				System.out.println("tec: "+us.get(i).getUser());
+				i++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		c.closeConnection();
+		c3.closeConnection();
 		return us;
 	}
 }
