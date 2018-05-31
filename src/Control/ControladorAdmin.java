@@ -182,9 +182,6 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				bien=false;
 			} else {
 				aux1.getDni().setBackground(Color.WHITE);
-				if(aux1.getDni().getText().length() != 9 || Character.isLetter(aux1.getDni().getText().charAt(8)) == false) {
-					JOptionPane.showMessageDialog(aux1, "El dni introducido no es correcto", "ERROR SINTAXIS", JOptionPane.WARNING_MESSAGE);
-				}
 			}
 			if(aux1.getLugar().getText().isEmpty()){
 				aux1.getLugar().setBackground(Color.RED);
@@ -293,9 +290,6 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				bien=false;
 			} else {
 				aux1.getDni().setBackground(Color.WHITE);
-				if(aux1.getDni().getText().length() != 9 || Character.isLetter(aux1.getDni().getText().charAt(8)) == false) {
-					JOptionPane.showMessageDialog(aux1, "El dni introducido no es correcto", "ERROR SINTAXIS", JOptionPane.WARNING_MESSAGE);
-				}
 			}
 			if(aux1.getLugar().getText().isEmpty()){
 				aux1.getLugar().setBackground(Color.RED);
@@ -358,7 +352,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
 				c.consulta(query);
 				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
 				c.consulta(query);

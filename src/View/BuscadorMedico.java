@@ -187,6 +187,7 @@ public class BuscadorMedico extends JPanel {
 			relle.add(b,BorderLayout.CENTER);
 			relle.setOpaque(false);
 			rey5.add(relle);
+			
 			}
 		}
 		

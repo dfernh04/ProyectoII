@@ -232,7 +232,6 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.getUrgencia().setBackground(Color.WHITE);
 			}
 			if(bien==true) {
-				System.out.println("benne");
 				Conexion c = new Conexion();
 				String stm = formulario.getNombre().getText()+" "+formulario.getApellido1().getText();
 				String query = "insert into Paciente (Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente, Direccion_paciente, N_seguridad_social_paciente, Username_medico) values( '"

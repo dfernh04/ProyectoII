@@ -120,16 +120,13 @@ public class Conexion {
 			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			int i=0;
 			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellidos_paciente,Direccion_paciente FROM Paciente;");
 			while (rs.next()) {
 				String dni = rs.getString("DNI_paciente");
 				String nombre = rs.getString("Nombre_paciente");
 				String ape = rs.getString("Apellidos_paciente");
 				String ubicacion=rs.getString("Direccion_paciente");
-				pac.add(new PacienteTecnico(dni,ape,ubicacion,nombre));
-				System.out.println("dni: "+pac.get(i).getDni());
-				i++;
+				pac.add(new PacienteTecnico(nombre,ape,ubicacion,dni));
 			}
 			rs.close();
 			stmt.close();
@@ -219,6 +216,60 @@ public class Conexion {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
 		
+	}
+	
+	public void poblarBBDD() {
+		//Creamos las tablas
+		
+		String tablaAdministrador = "CREATE TABLE Administrador" +
+									"(username_admin TEXT PRIMARY KEY NOT NULL,"+
+									"Apellidos_admin TEXT NOT NULL"+
+									"Contraseña_admin TEXT NOT NULL"+
+									"Email_admin TEXT NOT NULL"+
+									"DNI_admin TEXT NOT NULL"+
+									"Nombre_admin TEXT NOT NULL)";
+
+		
+		String tablaTecnico= "CREATE TABLE Tecnico" +
+				"(Username_tecnico TEXT PRIMARY KEY NOT NULL,"+
+				"Apellidos_tecnico TEXT NOT NULL"+
+				"Contraseña_tecnico TEXT NOT NULL"+
+				"Email_tecnico TEXT NOT NULL"+
+				"DNI_tecnico TEXT NOT NULL"+
+				"Nombre_tecnico TEXT NOT NULL)";
+		
+		String tablaMedico = "CREATE TABLE Medico" +
+				"(Username_medico TEXT PRIMARY KEY NOT NULL,"+
+				"Apellidos_medico TEXT NOT NULL"+
+				"Contrasena_medico TEXT NOT NULL"+
+				"Email_medico TEXT NOT NULL"+
+				"DNI_medico TEXT NOT NULL"+
+				"Nombre_medico TEXT NOT NULL"+
+				"Numero_afiliacion_medico TEXT NOT NULL" + 
+				"Hospital_medico TEXT NOT NULL)";
+		
+		String tablaPaciente = "CREATE TABLE Paciente" +
+				"(DNI_paciente TEXT PRIMARY KEY NOT NULL,"+
+				"Apellidos_paciente TEXT NOT NULL"+
+				"Localidad TEXT"+
+				"Direccion TEXT"+
+				"DNI_paciente TEXT NOT NULL"+
+				"Nombre_paciente TEXT NOT NULL"+
+				"Foto_paciente TEXT "+
+				"Username_medico TEXT NOT NULL"+
+				"N_seguridad_social_paciente INTEGER NOT NULL";
+		
+		String tablaECG = "CREATE TABLE ECG" +
+				"(ID_ECG TEXT PRIMARY KEY AUTOINCREMENT,"+
+				"Duracion INTEGER NOT NULL"+
+				"Diagnostico TEXT NOT NULL"+
+				"Frecuencia INTEGER NOT NULL"+
+				"DNI_paciente TEXT NOT NULL"+
+				"Username_tecnico TEXT NOT NULL"+
+				"Dato BLOB NOT NULL" +
+				"Pulsaciones INTEGER NOT NULL" +
+				"Fecha TEXT NOT NULL)";
+
 	}
 	
 }
