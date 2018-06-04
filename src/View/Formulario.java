@@ -55,8 +55,8 @@ public class Formulario extends JFrame{
 	private JTextField telefono;
 	private JTextField numero;
 	private JLabel user;
-	private JRadioButton rdbtnMasculino;
-	private JRadioButton rdbtnFemenino;
+	public JRadioButton rdbtnMasculino;
+	public JRadioButton rdbtnFemenino;
 	private ButtonGroup botones = new ButtonGroup();
 	
 	/**

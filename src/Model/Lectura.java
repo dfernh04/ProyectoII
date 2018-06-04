@@ -197,7 +197,6 @@ public class Lectura{
 				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,a));
 			}
 			c3.closeConnection();
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
