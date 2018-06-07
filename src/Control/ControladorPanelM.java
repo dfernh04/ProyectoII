@@ -44,6 +44,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public static String COMPARAR ="COMPARAR";
 	public static String ATRAS ="ATRAS";
 	public static String GUARDAR ="GUARDAR";
+	public static String MENSAJE="MENSAJE"; //^*************************+
 	private CompararECG ce;
 	private int aux=-1;
 	
