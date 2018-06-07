@@ -126,7 +126,7 @@ public class Conexion {
 				String nombre = rs.getString("Nombre_paciente");
 				String ape = rs.getString("Apellidos_paciente");
 				String ubicacion=rs.getString("Direccion_paciente");
-				pac.add(new PacienteTecnico(nombre,ape,ubicacion,dni));
+				pac.add(new PacienteTecnico(dni,ape,ubicacion,nombre));
 			}
 			rs.close();
 			stmt.close();

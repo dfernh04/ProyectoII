@@ -127,6 +127,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			bm.crearVista(med,vm);
 			vm.getCentro().add(bm);
 			vm.getCentro().setVisible(true);
+			
 		}
 		else if(cmd.equals(ControladorMedico.LOGOUT)){
 			for(int i=0;i<CompararECG.getFrames().length;i++){
@@ -173,7 +174,7 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 		            }
 		            
 		        } catch (Exception ex) {
-		            
+		            ex.printStackTrace();
 		        }
 			
 		}
@@ -239,19 +240,23 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 				formulario.getDni().setBackground(Color.green);
 				bien = true;
 			}
-				
-		
+			String sexo;
+			if(formulario.rdbtnFemenino.isSelected())
+				sexo = "Mujer.jpg";
+			else
+				sexo = "Hombre.jpg";
 			if(bien==true) {
 				Conexion c = new Conexion();
 				String stm = formulario.getNombre().getText()+" "+formulario.getApellido1().getText();
-				String query = "insert into Paciente (Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente, Direccion_paciente, N_seguridad_social_paciente, Username_medico) values( '"
+				String query = "insert into Paciente (Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente, Direccion_paciente, N_seguridad_social_paciente, Username_medico,Foto_paciente) values( '"
 						+formulario.getNombre().getText()+"','"
 						+formulario.getApellido1().getText()+"','"
 						+formulario.getDni().getText()+"','"
 						+formulario.getLugar().getText()+"','"
 						+formulario.getDireccion().getText()+"','"
 						+formulario.getSs().getText()+"','"
-						+med.getUsername()+"');";
+						+med.getUsername()+"','"
+						+sexo+	"');";
 				JOptionPane.showMessageDialog(formulario, "Paciente dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				c.addPaciente(query);
 
