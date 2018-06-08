@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
@@ -44,11 +45,16 @@ public class DetallePaciente extends JPanel {
 	private JLabel lblApellidos ;
 	private JLabel lblObservaciones;
 	private JLabel lblDni;
+	private JLabel lblfrecuencia;
+	private JLabel lbltiempo;
 	private JTextPane textArea;
 	private JButton button;
 	private PacienteTecnico p;
 	private GraficaECG ecg;
 	private JTextArea obser;
+	private JTextField frecuencia;
+	private JTextField tiempo;
+	
 	
 	
 	
@@ -136,7 +142,13 @@ public class DetallePaciente extends JPanel {
 		lblApellidos.setFont(font);
 		lblDni.setFont(font);
 		lblObservaciones = new JLabel("Observaciones:   ");
-		textArea = new JTextPane();  
+		textArea = new JTextPane();
+		lblfrecuencia = new JLabel("Frecuencia:   ");
+		frecuencia = new JTextField();
+		frecuencia.setText("");
+		lbltiempo = new JLabel("Tiempo:   ");
+		tiempo = new JTextField();
+		tiempo.setText("");
 
 	    JLabel l=new JLabel(" ");
 	    l.setFont(new Font("",Font.BOLD,50));
@@ -222,9 +234,17 @@ public class DetallePaciente extends JPanel {
 	    pa.setLayout(fl2);
 	    JPanel boton=new JPanel();
 	    boton.setLayout(new BorderLayout());
+	    JPanel boton2=new JPanel();
+	    boton2.setLayout(new BorderLayout());
 	    boton.add(btnTomarDatos, BorderLayout.SOUTH);
 	    boton.add(button, BorderLayout.NORTH);
+	    boton2.add(lblfrecuencia, BorderLayout.NORTH);
+	    boton2.add(frecuencia, BorderLayout.NORTH);
+	    boton2.add(lbltiempo, BorderLayout.SOUTH);
+	    boton2.add(tiempo, BorderLayout.SOUTH);
 	    pa.add(boton);
+	    pa.add(boton2);
+	    
 	    
 	    JButton invi4=new JButton();
 	    invi4.setOpaque(false);
