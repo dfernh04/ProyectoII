@@ -11,6 +11,8 @@ import Control.Conexion;
 
 import java.io.File;
 import java.io.FileReader;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
@@ -231,5 +233,19 @@ public class Lectura{
 			e.printStackTrace();
 		}
 		return pacientes;
+	}
+	 public Vector<Mensaje> consultarMensajes(Paciente pac){
+		Vector<Mensaje> men=new Vector<Mensaje>();
+		Conexion c3 = new Conexion();
+		try {
+			c3.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
+			while (c3.rs.next()) {
+				men.add(new Mensaje(c3.rs.getInt("ID_Mensaje"),c3.rs.getString("Username_medico"),c3.rs.getString("Username_tecnico"),c3.rs.getInt("DNI_Paciente"),c3.rs.getString("MensajeT"),c3.rs.getInt("Fecha"),null));
+			}
+			c3.closeConnection();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return men;
 	}
 }

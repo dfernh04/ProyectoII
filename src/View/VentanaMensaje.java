@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import Model.Mensaje;
 import Model.Usuario;
 
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class VentanaMensaje extends JFrame {
@@ -40,6 +42,11 @@ public class VentanaMensaje extends JFrame {
 	private JLabel contenidomensaje;
 	private JLabel emisor;
 	private JPanel rey7;
+	private JPanel rey8;
+	private JPanel rey9;
+	private JButton mensaje;
+	private ControladorMensaje cm;
+	private JTextArea texto;
 
 	/**
 	 * Create the frame.
@@ -84,6 +91,11 @@ public class VentanaMensaje extends JFrame {
 		buscador = new JTextField();
 		buscador.setSize(80, 23);
 
+		//TEXT AREA EN EL QUE ESCRIBIRREMOS EL MENSAJE NUEvo
+		texto=new JTextArea();
+		texto.setEditable(true);
+		texto.setLineWrap(true);
+		
 		//PANEL QUE CONTIENE LOS PANELES DE CADA PACIENTE
 		rey4 = new JPanel();
 		rey4.setOpaque(false);
@@ -104,7 +116,23 @@ public class VentanaMensaje extends JFrame {
 		rey7.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
 		rey7.setOpaque(false);
 		rey7.setVisible(false);
+
+		//PANEL QUE CONTIENE AL SCROLLPANE QUE CONTIENE A LOS PANELES DE MENSAJE
+		JPanel rey8 = new JPanel();
+		rey8.setLayout(new BorderLayout());
+		rey8.setOpaque(false);
 		
+		mensaje = new JButton();
+		mensaje.setOpaque(false);
+		
+		rey8.add(mensaje,BorderLayout.NORTH);
+		
+		//PANEL QUE CONTENDRA EL TEXT AREA PARA ESCRIBIR LOS MENSAJES
+		rey9 = new JPanel();
+		rey9.setLayout(new BorderLayout());
+		
+		rey9.add(texto,BorderLayout.CENTER);
+				
 		//BUCLE QUE RELLENARA EL PANEL CON LOS MENSAJES
 		for(int i= 0;i<mensajes.size();i++){
 			PanelMensaje pan = new PanelMensaje(mensajes.get(i));
@@ -136,6 +164,20 @@ public class VentanaMensaje extends JFrame {
 
 		contentPane.add(rey6,BorderLayout.WEST);
 		contentPane.add(rey7,BorderLayout.CENTER);
+		contentPane.add(rey8,BorderLayout.EAST);
+		contentPane.add(rey9,BorderLayout.SOUTH);
+		
+		this.add(contentPane);
+	}
+	
+	public JTextArea getTexto() {
+		return texto;
+	}
+	public void setTexto(JTextArea texto) {
+		this.texto = texto;
+	}
+	public void addController(ControladorMensaje cm) {
+		this.cm = cm;
 	}
 	public Vector<Mensaje> getMensajes() {
 		return mensajes;
@@ -167,5 +209,5 @@ public class VentanaMensaje extends JFrame {
 	public JPanel getRey7() {
 		return rey7;
 	}
-	
+
 }
