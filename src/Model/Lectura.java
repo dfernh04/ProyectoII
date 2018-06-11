@@ -11,8 +11,6 @@ import Control.Conexion;
 
 import java.io.File;
 import java.io.FileReader;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 
 /**
  * Lectura es una clase la cual contiene una serie de metodos que nos 
@@ -26,6 +24,7 @@ import java.sql.ResultSet;
  */
 public class Lectura{
 	
+	@SuppressWarnings("unused")
 	private Vector<ECG> ecgs;
 	Conexion c = new Conexion();
 	Conexion c3 = new Conexion();
@@ -148,7 +147,6 @@ public class Lectura{
 		return m;
 	}
 	
-	@SuppressWarnings("No hay pacientes")
 	public ArrayList<Paciente> getPacientes(Usuario us) {
 		Paciente p;
 		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
@@ -160,6 +158,7 @@ public class Lectura{
 				String nombre = c2.rs.getString("Nombre_paciente");
 				String apellidos = c2.rs.getString("Apellidos_paciente");
 				String DNI = c2.rs.getString("DNI_paciente");
+				@SuppressWarnings("unused")
 				String Foto = c2.rs.getString("Foto_paciente");
 				String Localidad = c2.rs.getString("Localidad_paciente");
 				String Direccion = c2.rs.getString("Direccion_paciente");
@@ -206,7 +205,6 @@ public class Lectura{
 		return ecgs;
 	}
 	
-	@SuppressWarnings("No hay pacientes")
 	public ArrayList<Paciente> getPacientesMedico(Medico m) {
 		Paciente p;
 		ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
@@ -218,6 +216,7 @@ public class Lectura{
 				String nombre = c2.rs.getString("Nombre_paciente");
 				String apellidos = c2.rs.getString("Apellidos_paciente");
 				String DNI = c2.rs.getString("DNI_paciente");
+				@SuppressWarnings("unused")
 				String Foto = c2.rs.getString("Foto_paciente");
 				String Localidad = c2.rs.getString("Localidad_paciente");
 				String Direccion = c2.rs.getString("Direccion_paciente");
@@ -248,4 +247,18 @@ public class Lectura{
 		}
 		return men;
 	}
+	 public Vector<Mensaje> consultarMensajes(PacienteTecnico pac){
+			Vector<Mensaje> men=new Vector<Mensaje>();
+			Conexion c3 = new Conexion();
+			try {
+				c3.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
+				while (c3.rs.next()) {
+					men.add(new Mensaje(c3.rs.getInt("ID_Mensaje"),c3.rs.getString("Username_medico"),c3.rs.getString("Username_tecnico"),c3.rs.getInt("DNI_Paciente"),c3.rs.getString("MensajeT"),c3.rs.getInt("Fecha"),null));
+				}
+				c3.closeConnection();
+			} catch ( Exception e ) {
+				System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			}
+			return men;
+		}
 }

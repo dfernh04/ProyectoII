@@ -34,7 +34,8 @@ public class ControladorMensaje implements ActionListener, MouseListener{
 		vm.setEmisor(new JLabel("Enviado: "+mensaje.getUsername_med()+mensaje.getUsername_tec()));
 		vm.setContenidomensaje(new JLabel(""+mensaje.getData()));
 		vm.getRey7().setVisible(true);
-		
+		vm.getRey8().setVisible(true);
+		vm.getRey9().setVisible(true);
 	}
 
 	@Override

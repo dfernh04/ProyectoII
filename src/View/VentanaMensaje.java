@@ -51,9 +51,11 @@ public class VentanaMensaje extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public void crearVista(Vector<Mensaje> mensajes,Usuario au) {
-		this.usu = au;
+	public void crearVista() {
 		this.setVisible(true);
+	}
+	public VentanaMensaje(Vector<Mensaje> mensajes,Usuario au) {
+		this.usu = au;
 		this.mensajes = mensajes;
 	}
 	public VentanaMensaje() {
@@ -95,7 +97,7 @@ public class VentanaMensaje extends JFrame {
 		texto=new JTextArea();
 		texto.setEditable(true);
 		texto.setLineWrap(true);
-		
+
 		//PANEL QUE CONTIENE LOS PANELES DE CADA PACIENTE
 		rey4 = new JPanel();
 		rey4.setOpaque(false);
@@ -121,18 +123,18 @@ public class VentanaMensaje extends JFrame {
 		JPanel rey8 = new JPanel();
 		rey8.setLayout(new BorderLayout());
 		rey8.setOpaque(false);
-		
+
 		mensaje = new JButton();
 		mensaje.setOpaque(false);
-		
+
 		rey8.add(mensaje,BorderLayout.NORTH);
-		
+
 		//PANEL QUE CONTENDRA EL TEXT AREA PARA ESCRIBIR LOS MENSAJES
 		rey9 = new JPanel();
 		rey9.setLayout(new BorderLayout());
-		
+
 		rey9.add(texto,BorderLayout.CENTER);
-				
+
 		//BUCLE QUE RELLENARA EL PANEL CON LOS MENSAJES
 		for(int i= 0;i<mensajes.size();i++){
 			PanelMensaje pan = new PanelMensaje(mensajes.get(i));
@@ -166,10 +168,10 @@ public class VentanaMensaje extends JFrame {
 		contentPane.add(rey7,BorderLayout.CENTER);
 		contentPane.add(rey8,BorderLayout.EAST);
 		contentPane.add(rey9,BorderLayout.SOUTH);
-		
+
 		this.add(contentPane);
 	}
-	
+
 	public JTextArea getTexto() {
 		return texto;
 	}
@@ -208,6 +210,12 @@ public class VentanaMensaje extends JFrame {
 	}
 	public JPanel getRey7() {
 		return rey7;
+	}
+	public JPanel getRey8() {
+		return rey8;
+	}
+	public JPanel getRey9() {
+		return rey9;
 	}
 
 }

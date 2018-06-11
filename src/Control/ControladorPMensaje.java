@@ -61,8 +61,8 @@ public class ControladorPMensaje implements ActionListener, MouseListener  {
 			if(vm!=null) {
 				vm.dispose();
 			}
-			vm = new VentanaMensaje();
-			vm.crearVista(l.consultarMensajes(paciente), usuario);
+			vm = new VentanaMensaje(l.consultarMensajes(paciente), usuario);
+			vm.crearVista();
 		}
 		else if(cmd.equals(ENVIAR)) {
 			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";

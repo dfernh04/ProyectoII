@@ -54,6 +54,7 @@ public class DetallePaciente extends JPanel {
 	private JTextArea obser;
 	private JTextField frecuencia;
 	private JTextField tiempo;
+	private JButton btnMensaje;
 	
 	
 	
@@ -188,10 +189,14 @@ public class DetallePaciente extends JPanel {
 		iz.add(fo);
 		iz.add(datos);
 		
-		
+		JPanel panboton = new JPanel();
+		panboton.setOpaque(false);
+		panboton.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
+		panboton.add(btnEnivar);
+		panboton.add(btnMensaje);
 		
 		up.add(iz,BorderLayout.WEST);
-		up.add(btnEnivar,BorderLayout.EAST);
+		up.add(panboton,BorderLayout.EAST);
 		
 		JPanel panel=new JPanel();
 		BorderLayout borde=new BorderLayout();
@@ -223,6 +228,9 @@ public class DetallePaciente extends JPanel {
 	    obser.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 	    down.add(auxi);
 	    
+	    //BOTON PARA ENTRAR EN MENSAJE
+	    btnMensaje = new JButton("Revisar Mensajes");
+	    btnMensaje.setOpaque(false);
 	    
 	    BorderLayout borde3=new BorderLayout();
 	    borde3.setHgap(25);
@@ -305,7 +313,7 @@ public class DetallePaciente extends JPanel {
 		button.addActionListener(cf);
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
-		
+		btnMensaje.addActionListener(cf);
 	}
 	
 	/**

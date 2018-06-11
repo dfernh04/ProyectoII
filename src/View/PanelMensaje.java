@@ -3,17 +3,19 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Control.ControladorMensaje;
-import Control.ControladorPanel;
 import Model.Mensaje;
 
 public class PanelMensaje extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ControladorMensaje cm;
 	private JLabel nombretecnico;
 	private JLabel fecha;
