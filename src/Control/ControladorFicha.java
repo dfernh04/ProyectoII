@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 
 import Model.ECG;
 import Model.Lectura;
+import Model.Mensaje;
 import Model.Usuario;
 import View.DetallePaciente;
 import View.PanelMensaje;
@@ -141,7 +143,9 @@ public class ControladorFicha implements ActionListener {
 		}
 		else if(cmd.equals(ControladorFicha.MENSAJE)){
 			l = new Lectura();
-			vm = new VentanaMensaje(l.consultarMensajes(d.getP()),vt.getAu());
+			Vector<Mensaje> vect;
+			for(int i=0;vt.get)
+			vm = new VentanaMensaje();
 			vm.addController(cm);
 			vm.crearVista();
 		}

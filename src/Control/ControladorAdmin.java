@@ -406,14 +406,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			querys.clear();
 			while(!eliminados.isEmpty()) {
 				if(eliminados.get(0).getRol().equals("medico")) {
-//					Conexion.sentenciaSQL("delete from Medico where dni="+elimi.get(0).getDni());
+				c4.consulta("delete from Medico where dni="+eliminados.get(0).getDni());
 					
 				} else if(eliminados.get(0).getRol().equals("tecnico")){
-//					Conexion.sentenciaSQL("delete from tecnico where dni="+elimi.get(0).getDni());
+				c4.consulta("delete from tecnico where dni="+eliminados.get(0).getDni());
 				} else {
-//					Conexion.sentenciaSQL("delete from administrador where dni="+elimi.get(0).getDni());
+				c4.consulta("delete from administrador where dni="+eliminados.get(0).getDni());
 				}
-//				Conexion.sentenciaSQL("delete from Usuario where dni="+elimi.get(0).getDni());
+			c4.consulta("delete from Usuario where dni="+eliminados.get(0).getDni());
 				usuario.remove(eliminados.get(0));
 				eliminados.remove(0);
 			}

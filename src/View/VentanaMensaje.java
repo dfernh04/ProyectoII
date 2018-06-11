@@ -54,8 +54,7 @@ public class VentanaMensaje extends JFrame {
 	public void crearVista() {
 		this.setVisible(true);
 	}
-	public VentanaMensaje(Vector<Mensaje> mensajes,Usuario au) {
-		this.usu = au;
+	public VentanaMensaje(Vector<Mensaje> mensajes) {
 		this.mensajes = mensajes;
 	}
 	public VentanaMensaje() {
