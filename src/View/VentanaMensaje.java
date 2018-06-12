@@ -204,7 +204,7 @@ public class VentanaMensaje extends JFrame{
 			JPanel tex = new JPanel();
 			JButton invis = new JButton("ey que te pasa");
 			invis.setVisible(false);
-			tex.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
+			tex.setLayout(new FlowLayout());
 			tex.add(invis);
 			tex.add(texto);
 			
@@ -266,7 +266,7 @@ public class VentanaMensaje extends JFrame{
 			JPanel datos=new JPanel();
 			datos.setLayout(new BorderLayout());
 			JPanel emisor=new JPanel();
-			emisor.setLayout(new BoxLayout(emisor,BoxLayout.Y_AXIS));
+			emisor.setLayout(new FlowLayout());
 			JPanel asunt=new JPanel();
 			asunto=new JTextField(15);
 			asunto.setEditable(true);
