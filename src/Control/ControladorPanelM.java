@@ -12,6 +12,7 @@ import Model.ECG;
 import Model.Lectura;
 import Model.Medico;
 import Model.Paciente;
+import Model.Usuario;
 import View.CompararECG;
 import View.FichaPaciente;
 import View.VentanaHelp;
@@ -100,6 +101,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		vm.getCentro().setVisible(false);
 		vm.getCentro().removeAll();
 		FichaPaciente fp = new FichaPaciente(p);
+		fp.addControlMensa(new ControladorMensaje(p,null));
 		if(aux==0) {
 			ecg.setLeido(true);
 			int i=0;
