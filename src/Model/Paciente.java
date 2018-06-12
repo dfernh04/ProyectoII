@@ -21,6 +21,7 @@ public class Paciente {
 	private String importancia;
 	private String comentarios;
 	private Vector<ECG> ecgs;
+	private Vector<Mensaje> mensajes;
 
 	/**
   	* Constructor de la clase Paciente
@@ -71,6 +72,13 @@ public class Paciente {
 	 */
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public Vector<Mensaje> getMensajes() {
+		return mensajes;
+	}
+	public void setMensajes(Vector<Mensaje> mensajes) {
+		this.mensajes = mensajes;
 	}
 	/**
 	 * Setter del atributo nombre del paciente

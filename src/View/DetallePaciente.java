@@ -20,6 +20,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
+import Control.ControladorMensaje;
 import Control.GraphController;
 
 
@@ -182,8 +183,13 @@ public class DetallePaciente extends JPanel {
 		datos.add(lblApellidos);
 		datos.add(lblDni);
 		
-		
-		
+		 //BOTON PARA ENTRAR EN MENSAJE
+	    btnMensaje = new JButton("Revisar Mensajes");
+	    btnMensaje.setOpaque(false);
+	    btnMensaje.setActionCommand(ControladorMensaje.MENSAJE);
+	    btnMensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
+		btnMensaje.setContentAreaFilled(false);
+		btnMensaje.setBorderPainted(false);
 		
 		fo.add(lblNewLabel_1);
 		iz.add(fo);
@@ -228,9 +234,6 @@ public class DetallePaciente extends JPanel {
 	    obser.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 	    down.add(auxi);
 	    
-	    //BOTON PARA ENTRAR EN MENSAJE
-	    btnMensaje = new JButton("Revisar Mensajes");
-	    btnMensaje.setOpaque(false);
 	    
 	    BorderLayout borde3=new BorderLayout();
 	    borde3.setHgap(25);
@@ -313,7 +316,6 @@ public class DetallePaciente extends JPanel {
 		button.addActionListener(cf);
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
-		btnMensaje.addActionListener(cf);
 	}
 	
 	/**

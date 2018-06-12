@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.*;
 
 import Control.ControladorMedico;
+import Control.ControladorMensaje;
 import Control.ControladorPanelM;
 import Control.GraphController;
 
@@ -222,7 +223,7 @@ public class FichaPaciente extends JPanel {
 		comparar.setActionCommand(ControladorPanelM.COMPARAR);
 		
 		mensaje=new JButton();
-		mensaje.setActionCommand(ControladorPanelM.MENSAJE);
+		mensaje.setActionCommand(ControladorMensaje.MENSAJE);
 		mensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
 		mensaje.setContentAreaFilled(false);
 		mensaje.setBorderPainted(false);

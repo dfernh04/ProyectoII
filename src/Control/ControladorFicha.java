@@ -16,7 +16,6 @@ import Model.Lectura;
 import Model.Mensaje;
 import Model.Usuario;
 import View.DetallePaciente;
-import View.PanelMensaje;
 import View.VentanaMensaje;
 import View.VentanaTecnico;
 
@@ -44,14 +43,10 @@ public class ControladorFicha implements ActionListener {
 	static public String ENVIAR="ENVIAR";
 	static public String PREVI="PREVI";
 	static public String ATRAS="ATRAS";
-	static public String MENSAJE = "MENSAJE";
 	private DetallePaciente d;
 	private VentanaTecnico vt;
 	private String arch="";
 	private ECG ecg;
-	private VentanaMensaje vm;
-	private Lectura l;
-	private ControladorMensaje cm;
 	
 	/**
 	 * Getter del archivo que se obtiene al tomar datos
@@ -140,14 +135,6 @@ public class ControladorFicha implements ActionListener {
 				vt.getFicha().getObser().setText("");;
 				ecg=null;
 			}
-		}
-		else if(cmd.equals(ControladorFicha.MENSAJE)){
-			l = new Lectura();
-			Vector<Mensaje> vect;
-			for(int i=0;vt.get)
-			vm = new VentanaMensaje();
-			vm.addController(cm);
-			vm.crearVista();
 		}
 	}
 }
