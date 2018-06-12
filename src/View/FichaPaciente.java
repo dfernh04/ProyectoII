@@ -315,8 +315,9 @@ public class FichaPaciente extends JPanel {
 	public void addController(ControladorPanelM cpm){
 		comparar.addActionListener(cpm);
 		atras.addActionListener(cpm);
-		mensaje.addActionListener(cpm);
-		
+	}
+	public void addControlMensa(ControladorMensaje con) {
+		mensaje.addActionListener(con);
 	}
 	
 }
