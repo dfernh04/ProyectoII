@@ -67,7 +67,7 @@ public class VentanaMensaje extends JFrame{
 		
 		//Panel sobre el que incluiremos los botones
 		JPanel aux=new JPanel();
-		aux.setLayout(new BoxLayout(fondo,BoxLayout.X_AXIS));
+		aux.setLayout(new FlowLayout());
 		aux.setOpaque(false);
 		
 		atras=new JButton("Atras");
