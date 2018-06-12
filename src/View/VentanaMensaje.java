@@ -183,7 +183,7 @@ public class VentanaMensaje extends JFrame{
 			JPanel asunt=new JPanel();
 			asunto=new JTextField(15);
 			asunto.setEditable(false);
-			asunt.setLayout(new BoxLayout(emisor,BoxLayout.X_AXIS));
+			asunt.setLayout(new FlowLayout());
 			asunt.add(new JLabel("Asunto  "));
 			asunt.add(asunto);
 			
@@ -193,7 +193,7 @@ public class VentanaMensaje extends JFrame{
 			fecha=new JLabel("fecha   ");
 			datos.add(fecha,BorderLayout.EAST);
 			JPanel aux=new JPanel();
-			aux.setLayout(new BoxLayout(emisor,BoxLayout.X_AXIS));
+			aux.setLayout(new FlowLayout());
 			aux.add(new JLabel("  De   "));
 			aux.add(this.emisor);
 			
