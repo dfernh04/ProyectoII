@@ -14,8 +14,10 @@ import javax.swing.border.LineBorder;
 
 import View.DetallePaciente;
 import Control.ControladorFicha;
+import Control.ControladorMensaje;
 import Control.ControladorPanel;
 import Control.ControladorTecnico;
+import Model.Paciente;
 import Model.PacienteTecnico;
 import Model.Usuario;
 
@@ -57,7 +59,7 @@ public class VentanaTecnico extends JFrame {
 	private JTextField buscador;
 	private JPanel rey4;
 	private JScrollPane jsp;
-	
+	private JPanel colocar;
 	
 	public DetallePaciente getFicha() {
 		return ficha;
@@ -67,8 +69,15 @@ public class VentanaTecnico extends JFrame {
 	 * Setter para la ficha del paciente 
 	 * @param ficha DetallePaciente 
 	 */
-	public void setFicha(DetallePaciente ficha) {
+	public void setFicha(DetallePaciente ficha,Paciente p) {
+		colocar.setVisible(false);
+		colocar.removeAll();
+		colocar.setLayout(new BorderLayout());
 		this.ficha = ficha;
+		ficha.addController(new ControladorFicha(this.ficha,this));
+		ficha.MensajeCont(new ControladorMensaje(p,au));
+		colocar.add(ficha);
+		colocar.setVisible(true);
 	}
 
 	
@@ -183,7 +192,7 @@ public class VentanaTecnico extends JFrame {
 	pan1.add(aux,BorderLayout.CENTER);
 	
 	//PANEL QUE PONE FLOW AL CENTRO
-	JPanel colocar = new JPanel();
+	colocar = new JPanel();
 	colocar.setLayout(new FlowLayout());
 	colocar.setOpaque(false);
 	
