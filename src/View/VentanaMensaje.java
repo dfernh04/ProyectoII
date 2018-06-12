@@ -55,7 +55,7 @@ public class VentanaMensaje extends JFrame{
 		int y=(int) (Toolkit.getDefaultToolkit().getScreenSize().height);
 		this.setSize((int)(x*0.50), (int)(y*0.4));
 		
-		this.setMinimumSize(new Dimension((int)(x*0.50), (int)(y*0.40)));
+		this.setMinimumSize(new Dimension((int)(x*0.50), (int)(y*0.60)));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocation((x-this.getWidth())/2, (y-this.getHeight())/2);
 		this.setLayout(new BorderLayout());
@@ -83,11 +83,11 @@ public class VentanaMensaje extends JFrame{
 		orden.addActionListener(control);
 		
 		JPanel p=new JPanel();
-		p.setLayout(new FlowLayout(FlowLayout.LEFT));
+		p.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		p.setOpaque(false);
-		p.add(orden);
+		p.add(atras);
 		
-		aux.add(atras,BorderLayout.WEST);
+		aux.add(orden,BorderLayout.WEST);
 		aux.add(nuevo,BorderLayout.EAST);
 		aux.add(p,BorderLayout.CENTER);
 		central=new JPanel();
@@ -201,6 +201,12 @@ public class VentanaMensaje extends JFrame{
 			texto.setEditable(false);
 			texto.setLineWrap(true);
 			
+			JPanel tex = new JPanel();
+			JButton invis = new JButton("ey que te pasa");
+			invis.setVisible(false);
+			tex.setLayout(new BoxLayout(info, BoxLayout.Y_AXIS));
+			tex.add(invis);
+			tex.add(texto);
 			
 			emisor.add(aux);
 			emisor.add(asunt);
@@ -209,7 +215,7 @@ public class VentanaMensaje extends JFrame{
 			info.setLayout(new BorderLayout());
 			
 			info.add(datos,BorderLayout.NORTH);
-			info.add(texto,BorderLayout.CENTER);
+			info.add(tex,BorderLayout.CENTER);
 			//fon.add(info,BorderLayout.EAST);
 			
 			central.removeAll();
