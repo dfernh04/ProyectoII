@@ -2,7 +2,9 @@ package View;
 
 import javax.swing.JPanel;
 
+import Model.Paciente;
 import Model.PacienteTecnico;
+import Model.Usuario;
 
 import javax.swing.JLabel;
 
@@ -332,7 +334,18 @@ public class DetallePaciente extends JPanel {
 	public void setTextArea(JTextPane textArea) {
 		this.textArea = textArea;
 	}
-
+	public void MensajeCont(ControladorMensaje me) {
+		btnMensaje.addActionListener(me);
+	}
+	public void actUsuarioPaciente(Usuario us,Paciente p) {
+		for(int i=0;i<btnMensaje.getActionListeners().length;i++) {
+			if(btnMensaje.getActionListeners()[i] instanceof ControladorMensaje) {
+				ControladorMensaje con=(ControladorMensaje)(btnMensaje.getActionListeners()[i]);
+				con.setP(p);
+				con.setUs(us);
+			}
+		}
+	}
 
 
 }
