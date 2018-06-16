@@ -61,9 +61,11 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Conexion c1;
 	private Conexion c2;
 	private Conexion c3;
+	private Conexion c4;
 	private String stm;
 	private String query;
 	private Vector<Usuario> eliminados;
+	private Vector<String> querys = new Vector<String>();	
 	
 	/**
 	 * Getter de un vector que contiene todos los usuarios
@@ -390,32 +392,39 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			
 			a.getCentro().setVisible(true);
 
-		} else if(cmd.equals(BACK)){
+		}  else if(cmd.equals(BACK)){
 			if(!eliminados.isEmpty()) {
-				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? Ser·n permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
+				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? Ser√°n permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
 				if(resp==JOptionPane.NO_OPTION) {
 					eliminados.removeAllElements();
 				}
 			}
+			for(int i = 0; i <  querys.size();i++){
+				c4.consulta(querys.get(i));
+				System.out.println(querys.get(i));
+			}
+			querys.clear();
 			while(!eliminados.isEmpty()) {
-				if(usuario.get(0).getRol().equals("medico")) {
-					c1.consulta("delete from Medico where Usuario="+eliminados.get(0).getRol());
-				} else if(usuario.get(0).getRol().equals("tecnico")){
-					c1.consulta("delete from tecnico where Usuario="+eliminados.get(0).getRol());
+				if(eliminados.get(0).getRol().equals("medico")) {
+				c4.consulta("delete from Medico where dni="+eliminados.get(0).getDni());
+					
+				} else if(eliminados.get(0).getRol().equals("tecnico")){
+				c4.consulta("delete from tecnico where dni="+eliminados.get(0).getDni());
 				} else {
-					c1.consulta("delete from administrador where Usuario="+eliminados.get(0).getRol());
+				c4.consulta("delete from administrador where dni="+eliminados.get(0).getDni());
 				}
-				c1.consulta("delete from Usuario where Usuario="+eliminados.get(0).getRol());
+			c4.consulta("delete from Usuario where dni="+eliminados.get(0).getDni());
 				usuario.remove(eliminados.get(0));
 				eliminados.remove(0);
 			}
 			a.getCentro().setVisible(false);
 			a.getCentro().removeAll();
 			for(int i=0;i<aux.length;i++){
-				a.getCentro().add(aux[i]);
+				a.getCentro().add(aux[i]);	
 			}
 			
 			a.getCentro().setVisible(true);
+			c4.closeConnection();
 		}
 	}
 
@@ -561,7 +570,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	 */
 	public void escribirTecnico(String User,String password,String nom,String ape1,String dn,String lugar){
 	 stm = nom+" "+ape1;
-	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÒa_tecnico, Email_tecnico) values ("
+	 query = "insert into Paciente (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÔøΩa_tecnico, Email_tecnico) values ("
 				+User.toString()+","
 				+nom.toString()+","
 				+ape1.toString()+","
@@ -604,7 +613,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		a.getTabbedPane().setVisible(true);
 	}
 	/**
-	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contraseÒa
+	 * Metodo auxiliar encargado de obtener el Nombre de todos los medicos junto con su contraseÔøΩa
 	 * y lo asigna a un vector que luego le pasaremos al metodo principal para el control de 
 	 * usuarios
 	 * @return Vector de user Medico
@@ -640,7 +649,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		int i=0;
 		try {
 			while(c3.rs.next()) {
-				us.add(new Usuario(c3.rs.getString("Nombre_tecnico"), "Tecnico", c3.rs.getString("ContraseÒa_tecnico")));
+				us.add(new Usuario(c3.rs.getString("Nombre_tecnico"), "Tecnico", c3.rs.getString("ContraseÔøΩa_tecnico")));
 				System.out.println("tec: "+us.get(i).getUser());
 				i++;
 			}

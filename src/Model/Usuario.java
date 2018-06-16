@@ -61,6 +61,15 @@ public class Usuario {
 		public String getCon() {
 			return con;
 		}
+
+		public int getDni() {
+			return dni;
+		}
+
+		public void setDni(int dni) {
+			this.dni = dni;
+		}
+		
 		
 		
 }

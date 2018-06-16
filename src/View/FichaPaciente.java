@@ -8,6 +8,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.*;
+
+import Control.ControladorMedico;
+import Control.ControladorMensaje;
 import Control.ControladorPanelM;
 import Control.GraphController;
 
@@ -28,10 +31,12 @@ import Control.GraphController;
 public class FichaPaciente extends JPanel {
 
 	private Logo imagen;
+	private JButton mensaje;
 	private JLabel nombre;
 	private JLabel ape;
 	private JLabel dni;
 	private JLabel ss;
+	private JLabel msg;
 	private JLabel poblacion;
 	private JTabbedPane tab;
 	private JButton invi;
@@ -104,6 +109,9 @@ public class FichaPaciente extends JPanel {
 		imagen = new Logo(pan3,"Resource/Imagenes/hombre.png");
 		imagen.centrado(true);
 		
+		//mensaje = new Logo(pan3,"Resource/Imagenes/mensaje.png");
+		//mensaje.centrado(true);
+		
 		nombre = new JLabel(p.getNombre());
 		nombre.setFont(new Font("",Font.BOLD,15));
 		
@@ -114,11 +122,16 @@ public class FichaPaciente extends JPanel {
 		ss = new JLabel("S.S.:     " + p.getSs());
 		ss.setFont(new Font("",Font.BOLD,15));
 		
+		msg = new JLabel("Mensajes:     ");
+		msg.setFont(new Font("",Font.BOLD,15));
+		
+		
 		dni = new JLabel("DNI:     " + p.getDni());
 		dni.setFont(new Font("",Font.BOLD,15));
 		
 		poblacion = new JLabel("Poblacion:   "+p.getPoblacion());
 		poblacion.setFont(new Font("",Font.BOLD,15));
+		
 		
 		invi= new JButton();
 		invi.setOpaque(false);
@@ -209,11 +222,21 @@ public class FichaPaciente extends JPanel {
 		comparar = new JButton("Comparar ECGS");
 		comparar.setActionCommand(ControladorPanelM.COMPARAR);
 		
+		mensaje=new JButton();
+		mensaje.setActionCommand(ControladorMensaje.MENSAJE);
+		mensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
+		mensaje.setContentAreaFilled(false);
+		mensaje.setBorderPainted(false);
+		mensaje.setOpaque(false);
+		
 		atras = new JButton("Atras");
 		atras.setActionCommand(ControladorPanelM.ATRAS);
 		
 		//AQUI A�ADO ELEMENTOS EN CADA PANEL O PANELES A MAS PANELEs
+		
 		pan3.add(imagen);
+		
+		
 		
 		pan2.add(new JLabel("        "));
 		pan2.add(new JLabel("        "));
@@ -228,9 +251,13 @@ public class FichaPaciente extends JPanel {
 		pan2.add(dni);
 		pan2.add(new JLabel("        "));
 		pan2.add(ss);
+		pan2.add(new JLabel("        "));
+		pan2.add(msg);
+		pan2.add(mensaje);
 		pan2.add(pan5);
 		pan2.add(pan6);
 		pan2.add(pan7);
+		
 		
 		
 										
@@ -288,7 +315,9 @@ public class FichaPaciente extends JPanel {
 	public void addController(ControladorPanelM cpm){
 		comparar.addActionListener(cpm);
 		atras.addActionListener(cpm);
-		
+	}
+	public void addControlMensa(ControladorMensaje con) {
+		mensaje.addActionListener(con);
 	}
 	
 }

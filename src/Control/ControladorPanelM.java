@@ -9,12 +9,15 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JTextArea;
 
 import Model.ECG;
+import Model.Lectura;
 import Model.Medico;
 import Model.Paciente;
+import Model.Usuario;
 import View.CompararECG;
 import View.FichaPaciente;
 import View.VentanaHelp;
 import View.VentanaMedico;
+import View.VentanaMensaje;
 
 /**
  * Controlador que permite mostrar la lista de pacientes en la VentanaMedico.
@@ -38,6 +41,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 
 	private Paciente p;
 	private Medico m;
+	private Lectura l;
 	private ECG ecg;
 	private JTextArea fi;
 	private VentanaMedico vm;
@@ -46,7 +50,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public static String GUARDAR ="GUARDAR";
 	private CompararECG ce;
 	private int aux=-1;
-	
+
 	/**
 	 * Constructor de la clase ControladorPanelM
 	 * 
@@ -71,7 +75,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		this.ecg = ecg;
 		this.fi = fi;
 	}
-	
+
 	/**
 	 * Tercer constructor de la clase ControladorPanelM 
 	 * 
@@ -88,7 +92,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		this.ecg = ecg;
 		this.aux=aux;
 	}
-	
+
 	/** 
 	 * Metodo mouseClicked propio de un mouseListener
 	 * @param a MouseEvent 
@@ -97,6 +101,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		vm.getCentro().setVisible(false);
 		vm.getCentro().removeAll();
 		FichaPaciente fp = new FichaPaciente(p);
+		fp.addControlMensa(new ControladorMensaje(p,null));
 		if(aux==0) {
 			ecg.setLeido(true);
 			int i=0;
@@ -107,39 +112,39 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 				fp.getTab().setSelectedIndex(i);
 		}
 		fp.addController(new ControladorPanelM(vm,p,m,ecg,aux));
-		
+
 		vm.getCentro().add(fp);
 		vm.getCentro().setVisible(true);
-		
+
 	}
-	
+
 	/** 
 	 * Metodo mouseEntered propio de un mouseListener
 	 * 
 	 */
 	public void mouseEntered(MouseEvent arg0) {
-	
+
 	}
 	/** 
 	 * Metodo mouseExited propio de un mouseListener
 	 * 
 	 */
 	public void mouseExited(MouseEvent arg0) {
-	
+
 	}
 	/** 
 	 * Metodo mousePressed propio de un mouseListener
 	 * 
 	 */
 	public void mousePressed(MouseEvent arg0) {
-	
+
 	}
 	/** 
 	 * Metodo mouseReleased propio de un mouseListener
 	 * 
 	 */
 	public void mouseReleased(MouseEvent arg0) {
-	
+
 	}
 
 	/**
@@ -152,7 +157,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 			if(ce != null){
 				ce.dispose();
 			}
-			
+
 			for(int i=0;i<VentanaHelp.getFrames().length;i++) {
 				if(VentanaHelp.getFrames()[i] instanceof VentanaHelp)
 					VentanaHelp.getFrames()[i].dispose();
@@ -176,7 +181,6 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 			else
 				ecg.setDiagnostico("");
 		}
-		
 	}
 
 	/** 
@@ -185,7 +189,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	 */
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/** 
@@ -195,7 +199,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public void mouseMoved(MouseEvent e) {
 		e.getComponent().removeMouseMotionListener(this);
 		ecg.setLeido(true);
-		
+
 	}
 
 }

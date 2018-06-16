@@ -2,7 +2,9 @@ package View;
 
 import javax.swing.JPanel;
 
+import Model.Paciente;
 import Model.PacienteTecnico;
+import Model.Usuario;
 
 import javax.swing.JLabel;
 
@@ -15,10 +17,12 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
+import Control.ControladorMensaje;
 import Control.GraphController;
 
 
@@ -44,11 +48,17 @@ public class DetallePaciente extends JPanel {
 	private JLabel lblApellidos ;
 	private JLabel lblObservaciones;
 	private JLabel lblDni;
+	private JLabel lblfrecuencia;
+	private JLabel lbltiempo;
 	private JTextPane textArea;
 	private JButton button;
 	private PacienteTecnico p;
 	private GraficaECG ecg;
 	private JTextArea obser;
+	private JTextField frecuencia;
+	private JTextField tiempo;
+	private JButton btnMensaje;
+	
 	
 	
 	
@@ -136,7 +146,13 @@ public class DetallePaciente extends JPanel {
 		lblApellidos.setFont(font);
 		lblDni.setFont(font);
 		lblObservaciones = new JLabel("Observaciones:   ");
-		textArea = new JTextPane();  
+		textArea = new JTextPane();
+		lblfrecuencia = new JLabel("Frecuencia:   ");
+		frecuencia = new JTextField();
+		frecuencia.setText("");
+		lbltiempo = new JLabel("Tiempo:   ");
+		tiempo = new JTextField();
+		tiempo.setText("");
 
 	    JLabel l=new JLabel(" ");
 	    l.setFont(new Font("",Font.BOLD,50));
@@ -169,17 +185,26 @@ public class DetallePaciente extends JPanel {
 		datos.add(lblApellidos);
 		datos.add(lblDni);
 		
-		
-		
+		 //BOTON PARA ENTRAR EN MENSAJE
+	    btnMensaje = new JButton("Revisar Mensajes");
+	    btnMensaje.setOpaque(false);
+	    btnMensaje.setActionCommand(ControladorMensaje.MENSAJE);
+	    btnMensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
+		btnMensaje.setContentAreaFilled(false);
+		btnMensaje.setBorderPainted(false);
 		
 		fo.add(lblNewLabel_1);
 		iz.add(fo);
 		iz.add(datos);
 		
-		
+		JPanel panboton = new JPanel();
+		panboton.setOpaque(false);
+		panboton.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
+		panboton.add(btnEnivar);
+		panboton.add(btnMensaje);
 		
 		up.add(iz,BorderLayout.WEST);
-		up.add(btnEnivar,BorderLayout.EAST);
+		up.add(panboton,BorderLayout.EAST);
 		
 		JPanel panel=new JPanel();
 		BorderLayout borde=new BorderLayout();
@@ -222,9 +247,17 @@ public class DetallePaciente extends JPanel {
 	    pa.setLayout(fl2);
 	    JPanel boton=new JPanel();
 	    boton.setLayout(new BorderLayout());
+	    JPanel boton2=new JPanel();
+	    boton2.setLayout(new BorderLayout());
 	    boton.add(btnTomarDatos, BorderLayout.SOUTH);
 	    boton.add(button, BorderLayout.NORTH);
+	    boton2.add(lblfrecuencia, BorderLayout.NORTH);
+	    boton2.add(frecuencia, BorderLayout.NORTH);
+	    boton2.add(lbltiempo, BorderLayout.SOUTH);
+	    boton2.add(tiempo, BorderLayout.SOUTH);
 	    pa.add(boton);
+	    pa.add(boton2);
+	    
 	    
 	    JButton invi4=new JButton();
 	    invi4.setOpaque(false);
@@ -285,7 +318,6 @@ public class DetallePaciente extends JPanel {
 		button.addActionListener(cf);
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
-		
 	}
 	
 	/**
@@ -302,7 +334,18 @@ public class DetallePaciente extends JPanel {
 	public void setTextArea(JTextPane textArea) {
 		this.textArea = textArea;
 	}
-
+	public void MensajeCont(ControladorMensaje me) {
+		btnMensaje.addActionListener(me);
+	}
+	public void actUsuarioPaciente(Usuario us,Paciente p) {
+		for(int i=0;i<btnMensaje.getActionListeners().length;i++) {
+			if(btnMensaje.getActionListeners()[i] instanceof ControladorMensaje) {
+				ControladorMensaje con=(ControladorMensaje)(btnMensaje.getActionListeners()[i]);
+				con.setP(p);
+				con.setUs(us);
+			}
+		}
+	}
 
 
 }

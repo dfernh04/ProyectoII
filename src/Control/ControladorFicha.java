@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -12,7 +13,10 @@ import javax.swing.event.ChangeEvent;
 
 import Model.ECG;
 import Model.Lectura;
+import Model.Mensaje;
+import Model.Usuario;
 import View.DetallePaciente;
+import View.VentanaMensaje;
 import View.VentanaTecnico;
 
 /**
@@ -44,7 +48,6 @@ public class ControladorFicha implements ActionListener {
 	private String arch="";
 	private ECG ecg;
 	
-	
 	/**
 	 * Getter del archivo que se obtiene al tomar datos
 	 * @return arch
@@ -52,7 +55,7 @@ public class ControladorFicha implements ActionListener {
 	public String getArch() {
 		return arch;
 	}
-	
+
 	/**
 	 * Setter del archivo de tomar datos
 	 * @param arch String
@@ -60,7 +63,6 @@ public class ControladorFicha implements ActionListener {
 	public void setArch(String arch) {
 		this.arch = arch;
 	}
-	
 	/**
 	 * Constructor de la clase ControladorFicha
 	 * @param d DetallePaciente
@@ -71,7 +73,7 @@ public class ControladorFicha implements ActionListener {
 		this.d=d;
 		this.vt=vt;
 	}
-	
+
 	/**
 	 * Metodo actionPerformed propio de un actionListener
 	 */
@@ -83,7 +85,7 @@ public class ControladorFicha implements ActionListener {
 			d.getEcg().cleanGraph();
 			d.setVisible(false);
 		}else if(cmd.equals(ControladorFicha.TOMAR)){
-			
+
 			ecg=null;
 			d.getEcg().cleanGraph();
 			JFileChooser file=new JFileChooser();
@@ -91,11 +93,11 @@ public class ControladorFicha implements ActionListener {
 			file.setVisible(true);
 			File abierto = file.getSelectedFile();
 			if(abierto!=null){
-				
-				
+
+
 				Object[] aux=Lectura.lecturaEcg(abierto,d.getP(),vt.getAu().getUser());
-				
-				
+
+
 				arch=(String) aux[0];
 				ecg=(ECG) aux[1];
 				if(!ecg.getPuntos().isEmpty()) {
@@ -106,34 +108,33 @@ public class ControladorFicha implements ActionListener {
 			}
 		} else if(cmd.equals(ControladorFicha.ENVIAR)){
 			int resp = JOptionPane.showConfirmDialog(vt, "¿Esta seguro?", "Enviar Reporte", JOptionPane.YES_NO_OPTION);
-			
+
 			if(resp==0){
-			d.getBtnEnivar().setEnabled(false);
-			
-			if(!arch.equals("")){
-			try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
-				wr.write(arch+"\r\n");
-				try(FileWriter wr2=new FileWriter("Resource/ECG/"+arch+".txt",true)){
-					wr2.write(ecg.getPuntosporsec()+"\r\n");
-					for(int i=0;i<ecg.getPuntos().size();i++){
-						wr2.write(ecg.getPuntos().get(i)+";");
+				d.getBtnEnivar().setEnabled(false);
+
+				if(!arch.equals("")){
+					try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
+						wr.write(arch+"\r\n");
+						try(FileWriter wr2=new FileWriter("Resource/ECG/"+arch+".txt",true)){
+							wr2.write(ecg.getPuntosporsec()+"\r\n");
+							for(int i=0;i<ecg.getPuntos().size();i++){
+								wr2.write(ecg.getPuntos().get(i)+";");
+							}
+							String str=d.getObser().getText().replaceAll("\r", ";");
+							str=str.replaceAll("\n", ";");
+							wr2.write("\r\n"+str+"\r\n");
+						}catch(Exception e){
+
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					String str=d.getObser().getText().replaceAll("\r", ";");
-					str=str.replaceAll("\n", ";");
-					wr2.write("\r\n"+str+"\r\n");
-				}catch(Exception e){
-					
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			}
-			JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
-			vt.getFicha().getEcg().cleanGraph();
-			vt.getFicha().getObser().setText("");;
-			ecg=null;
+				JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
+				vt.getFicha().getEcg().cleanGraph();
+				vt.getFicha().getObser().setText("");;
+				ecg=null;
 			}
 		}
-			
 	}
 }
