@@ -352,6 +352,7 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 	private static int pivotear( Vector<ECG>L, Vector<Paciente>M,int ini, int fin){
 		int i=ini;
 		int med=(fin+ini)/2;
+		
 		ECG auxi=L.get(med);
 		Paciente auxi2=M.get(med);
 		M.remove(med);
@@ -362,10 +363,9 @@ public void actPanel(VentanaMedico vm,Medico m, int leido, int diag,Vector<ECG> 
 		L.insertElementAt(L.get(ini), med);
 		L.remove(ini);
 		L.insertElementAt(auxi, ini);
-		
-		int p=Integer.parseInt(L.get(ini).getFecha());
+		int p = Integer.parseInt(L.get(ini).getFechaQuicksort());
 		for(int j=ini+1;j<=fin;++j){
-			if(Integer.parseInt(L.get(j).getFecha())<=p){
+			if(Integer.parseInt(L.get(j).getFechaQuicksort())<=p){
 				i++;
 				if(i!=j){
 					ECG aux=L.get(j);

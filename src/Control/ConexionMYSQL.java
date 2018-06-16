@@ -7,15 +7,15 @@ import java.sql.Statement;
 
 public class ConexionMYSQL {
 	
-	String BBDDName = "pi2_bd_heartlight2";
+	String BBDDName = "pi2_bd_cardioparty";
 	
 	public void test() {
 		Connection conn = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			String bd = "jdbc:mariadb://esp.uem.es:3306/"+ BBDDName;
-			String user = "pib2";
-			String pw = "pib218";
+			String user = "pi2_cardioparty";
+			String pw = "1234";
 			
 			conn = DriverManager.getConnection(bd,user,pw);
 			Statement stmt = conn.createStatement();

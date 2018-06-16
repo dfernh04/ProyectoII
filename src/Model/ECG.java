@@ -96,6 +96,15 @@ public class ECG {
 	public String getFecha() {
 		return fecha;
 	}
+
+	/**
+	 * Getter de la fecha
+	 * @return Fecha en la que se hizo el ECG
+	 */
+	public String getFechaQuicksort() {
+		String[] date = fecha.split("/");
+		return date[2] + date[1]+date[0];
+	}
 /**
  * Getter del nombre del Tecnico
  * @return nombre del tecnico que hizo el ecg

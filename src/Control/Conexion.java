@@ -15,15 +15,18 @@ import Model.Usuario;
 
 public class Conexion {
 
-	static String BBDDName = "Resource/BBDD2.db";
+	static String bd = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_cardioparty";
+	static String user = "pi2_cardioparty";
+	static String pw = "1234";
+	
 	static Connection c = null;
 	static Statement stmt = null;
 	public ResultSet rs = null;
 	
 	public void consulta(String query) {
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			
 			stmt = c.createStatement();
@@ -48,8 +51,8 @@ public class Conexion {
 		
 		Medico m= new Medico(us,0,"");
 		try{
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Numero_afiliacion_medico,DNI_medico "
@@ -78,8 +81,8 @@ public class Conexion {
 	static public ArrayList<Paciente> queryPacMedico(Medico m) {
 		ArrayList<Paciente> pac=new ArrayList<Paciente>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select Nombre_paciente, Apellidos_paciente, DNI_paciente, Localidad_paciente,Direccion_paciente,N_seguridad_social_paciente,Username_medico" + 
@@ -116,8 +119,8 @@ public class Conexion {
 	static public ArrayList<PacienteTecnico> queryPacTecnico() {
 		ArrayList<PacienteTecnico> pac=new ArrayList<PacienteTecnico>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT DNI_paciente,Nombre_paciente,Apellidos_paciente,Direccion_paciente FROM Paciente;");
@@ -142,8 +145,8 @@ public class Conexion {
 	static public Vector<Usuario> queryUsuarios(){
 		Vector<Usuario> users=new Vector<Usuario>();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
@@ -165,8 +168,8 @@ public class Conexion {
 	static public Usuario consultaLogin(String nom, String pass) {
 		Usuario a=new Usuario(null,null,null);
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario where Usuario like '"+nom+"';");
@@ -202,8 +205,8 @@ public class Conexion {
 	public void addPaciente(String query) {
 		// TODO Auto-generated method stub
 		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:"+BBDDName);
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
 			//c.setAutoCommit(false);
 			
 			stmt = c.createStatement();
@@ -217,59 +220,5 @@ public class Conexion {
 		}
 		
 	}
-	
-	public void poblarBBDD() {
-		//Creamos las tablas
-		
-		String tablaAdministrador = "CREATE TABLE Administrador" +
-									"(username_admin TEXT PRIMARY KEY NOT NULL,"+
-									"Apellidos_admin TEXT NOT NULL"+
-									"Contraseña_admin TEXT NOT NULL"+
-									"Email_admin TEXT NOT NULL"+
-									"DNI_admin TEXT NOT NULL"+
-									"Nombre_admin TEXT NOT NULL)";
 
-		
-		String tablaTecnico= "CREATE TABLE Tecnico" +
-				"(Username_tecnico TEXT PRIMARY KEY NOT NULL,"+
-				"Apellidos_tecnico TEXT NOT NULL"+
-				"Contraseña_tecnico TEXT NOT NULL"+
-				"Email_tecnico TEXT NOT NULL"+
-				"DNI_tecnico TEXT NOT NULL"+
-				"Nombre_tecnico TEXT NOT NULL)";
-		
-		String tablaMedico = "CREATE TABLE Medico" +
-				"(Username_medico TEXT PRIMARY KEY NOT NULL,"+
-				"Apellidos_medico TEXT NOT NULL"+
-				"Contrasena_medico TEXT NOT NULL"+
-				"Email_medico TEXT NOT NULL"+
-				"DNI_medico TEXT NOT NULL"+
-				"Nombre_medico TEXT NOT NULL"+
-				"Numero_afiliacion_medico TEXT NOT NULL" + 
-				"Hospital_medico TEXT NOT NULL)";
-		
-		String tablaPaciente = "CREATE TABLE Paciente" +
-				"(DNI_paciente TEXT PRIMARY KEY NOT NULL,"+
-				"Apellidos_paciente TEXT NOT NULL"+
-				"Localidad TEXT"+
-				"Direccion TEXT"+
-				"DNI_paciente TEXT NOT NULL"+
-				"Nombre_paciente TEXT NOT NULL"+
-				"Foto_paciente TEXT "+
-				"Username_medico TEXT NOT NULL"+
-				"N_seguridad_social_paciente INTEGER NOT NULL";
-		
-		String tablaECG = "CREATE TABLE ECG" +
-				"(ID_ECG TEXT PRIMARY KEY AUTOINCREMENT,"+
-				"Duracion INTEGER NOT NULL"+
-				"Diagnostico TEXT NOT NULL"+
-				"Frecuencia INTEGER NOT NULL"+
-				"DNI_paciente TEXT NOT NULL"+
-				"Username_tecnico TEXT NOT NULL"+
-				"Dato BLOB NOT NULL" +
-				"Pulsaciones INTEGER NOT NULL" +
-				"Fecha TEXT NOT NULL)";
-
-	}
-	
 }

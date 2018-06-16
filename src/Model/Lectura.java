@@ -182,19 +182,23 @@ public class Lectura{
 		try {
 			c3.consulta("SELECT * FROM ECG WHERE ECG.DNI_paciente = '" + p.getDni()+ "';");
 			while(c3.rs.next()) {
-				String[] puntos=new String[0];
-				String fecha = c3.rs.getString("Fecha");
-				String nombreTecnico = c3.rs.getString("Username_tecnico");
-				String diagnostico = c3.rs.getString("Diagnostico");
-				int frecuencia = c3.rs.getInt("Frecuencia");
-				String nombre = c3.rs.getString("ID_ECG");
-				String datos = c3.rs.getString("Dato");
-				//Creamos los puntos en forma de Vector de Double
-				puntos=datos.split(";");
-				Vector<Double> a=new Vector<Double>();
-				for(int i=0;i<puntos.length;i++)
-					a.add(Double.parseDouble(puntos[i]));
-				ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,a));
+				if (c3.rs.getString("ID_ECG") != null) {
+					String[] puntos=new String[0];
+					String fecha = c3.rs.getString("Fecha");
+					String nombreTecnico = c3.rs.getString("Username_tecnico");
+					String diagnostico = c3.rs.getString("Diagnostico");
+					int frecuencia = c3.rs.getInt("Frecuencia");
+					String nombre = c3.rs.getString("ID_ECG");
+					String datos = c3.rs.getString("Dato");
+					//Creamos los puntos en forma de Vector de Double
+					puntos = datos.split(";");
+					Vector<Double> a=new Vector<Double>();
+					for(int i=0;i<puntos.length;i++) {
+						a.add(Double.parseDouble(puntos[i]));
+					}	
+					ecgs.add(new ECG(fecha,nombreTecnico,null,diagnostico,frecuencia,nombre,a));
+				}
+
 			}
 			c3.closeConnection();
 		}catch(Exception e) {
