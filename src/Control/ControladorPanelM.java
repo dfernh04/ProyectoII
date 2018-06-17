@@ -41,7 +41,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 
 	private Paciente p;
 	private Medico m;
-	private Lectura l;
+	private Lectura l = new Lectura();
 	private ECG ecg;
 	private Usuario us;
 	private JTextArea fi;

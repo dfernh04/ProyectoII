@@ -239,13 +239,13 @@ public class Lectura{
 	}
 	 public Vector<Mensaje> consultarMensajes(Paciente pac){
 		Vector<Mensaje> men=new Vector<Mensaje>();
-		Conexion c3 = new Conexion();
+		Conexion c6 = new Conexion();
 		try {
-			c3.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
-			while (c3.rs.next()) {
-				men.add(new Mensaje(c3.rs.getInt("ID_Mensaje"),c3.rs.getString("Username_medico"),c3.rs.getString("Username_tecnico"),c3.rs.getInt("DNI_Paciente"),c3.rs.getString("MensajeT"),c3.rs.getInt("Fecha"),null));
+			c6.consulta("SELECT * FROM Mensaje where DNI_paciente='"+pac.getDni().substring(0, pac.getDni().length()-1)+"' order by fecha desc;");
+			while (c6.rs.next()) {
+				men.add(new Mensaje(c6.rs.getInt("ID_Mensaje"),c6.rs.getString("Username_medico"),c6.rs.getString("Username_tecnico"),c6.rs.getInt("DNI_Paciente"),c6.rs.getString("MensajeT"),c6.rs.getInt("Fecha"),null));
 			}
-			c3.closeConnection();
+			c6.closeConnection();
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		}
@@ -253,15 +253,15 @@ public class Lectura{
 	}
 	 public Vector<Mensaje> consultarMensajes(PacienteTecnico pac){
 			Vector<Mensaje> men=new Vector<Mensaje>();
-			Conexion c3 = new Conexion();
+			Conexion c4 = new Conexion();
 			try {
-				c3.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente="+pac.getDni().substring(0, pac.getDni().length()-1)+" order by fecha desc;");
-				while (c3.rs.next()) {
-					men.add(new Mensaje(c3.rs.getInt("ID_Mensaje"),c3.rs.getString("Username_medico"),c3.rs.getString("Username_tecnico"),c3.rs.getInt("DNI_Paciente"),c3.rs.getString("MensajeT"),c3.rs.getInt("Fecha"),null));
+				c4.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente='"+pac.getDni().substring(0, pac.getDni().length()-1)+"' order by fecha desc;");
+				while (c4.rs.next()) {
+					men.add(new Mensaje(c4.rs.getInt("ID_Mensaje"),c4.rs.getString("Username_medico"),c4.rs.getString("Username_tecnico"),c4.rs.getInt("DNI_Paciente"),c4.rs.getString("MensajeT"),c4.rs.getInt("Fecha"),null));
 				}
-				c3.closeConnection();
+				c4.closeConnection();
 			} catch ( Exception e ) {
-				System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+				System.err.println( e.getClass().getName() + ":1 " + e.getMessage() );
 			}
 			return men;
 		}
@@ -270,7 +270,7 @@ public class Lectura{
 		 Usuario usu = null;
 		 Conexion c5 = new Conexion();
 		 try {
-			 c5.consulta("SELECT Usuario,Role,Password FROM Usuario where Usuario like "+med.getUsername());
+			 c5.consulta("SELECT * FROM usuario where usuario.usuario = '"+ med.getUsername()+"';");
 			 while(c5.rs.next()) {
 				 usu = new Usuario(c5.rs.getString("Usuario"), c5.rs.getString("Role"), c5.rs.getString("Password"));
 				 System.out.println("Usuario: "+usu.getUser()+"role: "+usu.getRol()+"con: "+usu.getCon());
