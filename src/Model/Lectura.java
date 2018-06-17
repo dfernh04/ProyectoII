@@ -265,4 +265,19 @@ public class Lectura{
 			}
 			return men;
 		}
+	 public Usuario medausuario(Medico med) {
+		 Usuario usu = null;
+		 Conexion c5 = new Conexion();
+		 try {
+			 c5.consulta("SELECT Usuario,Role,Password FROM Usuario join Medico on Usuario.Usuario = Medico.username_medico where Usuario.Usuario="+med.getUsername());
+			 while(c5.rs.next()) {
+				 usu = new Usuario(c5.rs.getString("Uuario"), c5.rs.getString("Role"), c5.rs.getString("Password"));
+			 }
+		 }
+		 catch (Exception e) {
+			System.err.println(e.getClass().getName()+": "+e.getMessage());
+		}
+		 c5.closeConnection();
+		 return usu;
+	 }
 }

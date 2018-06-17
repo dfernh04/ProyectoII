@@ -33,18 +33,20 @@ public class VentanaMensaje extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Fondo fondo;
+	private JPanel fondo;
 	private JPanel info;
 	private JTextField asunto;
 	private JLabel fecha;
 	private JTextField emisor;
 	private JTextArea texto;
-	private JList<Mensaje> list;
-	private JList<Mensaje> envlist;
 	private JPanel central;
 	private JButton atras;
 	private JButton orden;
 	private JButton nuevo;
+	//private JButton benviados;
+	//private JButton brecibidos;
+	private JList<Mensaje> list;
+	private JList<Mensaje> envlist;
 	private ImageIcon logo = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
 	private Lectura lec;
 	
@@ -62,7 +64,7 @@ public class VentanaMensaje extends JFrame{
 		this.setIconImage(logo.getImage());
 		this.setLayout(new BorderLayout());
 		
-		fondo =new Fondo(this,"Resource/Imagenes/fondo.jpeg");
+		fondo =new JPanel();
 		fondo.setLayout(new BorderLayout(3,1));
 		
 		//Panel sobre el que incluiremos los botones
@@ -81,7 +83,15 @@ public class VentanaMensaje extends JFrame{
 		orden=new JButton("Ordenar por fecha");
 		orden.setActionCommand(ControladorMensaje.ORDENAR);
 		orden.addActionListener(control);
+	/*	
+		benviados=new JButton("Mensajes Enviados");
+		benviados.setActionCommand(ControladorMensaje.ENVIADOS);
+		benviados.addActionListener(control);
 		
+		brecibidos=new JButton("Mensajes Recibidos");
+		brecibidos.setActionCommand(ControladorMensaje.RECIBIDOS);
+		brecibidos.addActionListener(control);
+	*/
 		JPanel p=new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		p.setOpaque(false);
@@ -124,6 +134,17 @@ public class VentanaMensaje extends JFrame{
 		orden.setActionCommand(ControladorMensaje.ORDENAR);
 		orden.addActionListener(cp);
 		
+		/*
+		benviados=new JButton("Mensajes Enviados");
+		benviados.setActionCommand(ControladorMensaje.ENVIADOS);
+		benviados.addActionListener(cp);
+		
+		brecibidos=new JButton("Mensajes Recibidos");
+		brecibidos.setActionCommand(ControladorMensaje.RECIBIDOS);
+		brecibidos.addActionListener(cp);
+		*/ 
+		
+		
 		JPanel p=new JPanel();
 		p.setOpaque(false);
 		p.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -139,12 +160,15 @@ public class VentanaMensaje extends JFrame{
 	
 		public void VentanaMensajeTodos(Paciente p,ControladorMensaje control,Usuario us){
 			lec = new Lectura();
-			System.out.println(p.getApellido());
 			p.setMensajes(lec.consultarMensajes(p));
+			
+			
 			atras.setEnabled(false);
 			orden.setEnabled(true);
+			
 			Vector<Mensaje> recibidos=(Vector<Mensaje>) p.getMensajes().clone();
 			Vector<Mensaje> enviados=new Vector<Mensaje>();
+			
 			for(int i=recibidos.size()-1;i>=0;i--) {
 				if(us.getRol().equalsIgnoreCase("medico")) {
 				if(recibidos.get(i).getUsername_med()==us.getUser()) {
@@ -159,15 +183,17 @@ public class VentanaMensaje extends JFrame{
 					}
 					}
 			}
+			
 			 list=new JList<Mensaje>(recibidos);
 			 list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			 
 			 envlist=new JList<Mensaje>(enviados);
 			 envlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			 
 			JScrollPane scr=new JScrollPane();
-			JScrollPane scr2=new JScrollPane();
+			//JScrollPane scr2=new JScrollPane();
 			scr.setViewportView(list);
-			scr2.setViewportView(envlist);
+			//scr2.setViewportView(envlist);
 			
 			 list.setCellRenderer(render);
 			envlist.setCellRenderer(render);
@@ -224,18 +250,20 @@ public class VentanaMensaje extends JFrame{
 			central.setLayout(new BorderLayout());
 			
 			JPanel mens=new JPanel();
-			JPanel envi=new JPanel();
-			envi.setLayout(new BorderLayout());
+			//JPanel envi=new JPanel();
+			//envi.setLayout(new BorderLayout());
 			JPanel reci=new JPanel();
 			reci.setLayout(new BorderLayout());
-			envi.add(scr2,BorderLayout.CENTER);
-			envi.add(new JLabel("Mensajes Enviados"),BorderLayout.NORTH);
+			//envi.add(scr2,BorderLayout.CENTER);
+			//envi.add(new JLabel("Mensajes Enviados"),BorderLayout.NORTH);
 			reci.add(scr,BorderLayout.CENTER);
-			reci.add(new JLabel("Mensajes Recibidos"),BorderLayout.NORTH);
+			reci.add(new JLabel("Mensajes: "),BorderLayout.NORTH);
+			
 			mens.setLayout(new BorderLayout());
 			mens.add(reci,BorderLayout.CENTER);
-			mens.add(envi,BorderLayout.SOUTH);
-			central.add(mens,BorderLayout.WEST);
+			
+			//mens.add(envi,BorderLayout.SOUTH);
+			central.add(mens,BorderLayout.SOUTH);
 			central.add(info,BorderLayout.CENTER);
 			
 			fondo.add(central,BorderLayout.CENTER);
@@ -317,6 +345,10 @@ public class VentanaMensaje extends JFrame{
 		 */
 		public JButton getOrden() {
 			return orden;
+		}
+		
+		public void setList(JList<Mensaje> list) {
+			this.list = list;
 		}
 		
 		DefaultListCellRenderer render=(new DefaultListCellRenderer() {

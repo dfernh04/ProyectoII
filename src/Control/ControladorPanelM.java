@@ -101,7 +101,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 		vm.getCentro().setVisible(false);
 		vm.getCentro().removeAll();
 		FichaPaciente fp = new FichaPaciente(p);
-		fp.addControlMensa(new ControladorMensaje(p,null));
+		fp.addControlMensa(new ControladorMensaje(p,l.medausuario(m)));
 		if(aux==0) {
 			ecg.setLeido(true);
 			int i=0;
