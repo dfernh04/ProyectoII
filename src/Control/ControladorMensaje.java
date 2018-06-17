@@ -32,6 +32,8 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 	public static String MENSAJE ="MENSAJE";
 	public static String NEWMENSAJE ="NEWMENSAJE";
 	public static String ORDENAR="ORDENAR";
+	//public static String ENVIADOS = "ENVIADOS";
+	//public static String RECIBIDOS = "RECIBIDOS";
 	private boolean newtoold=true;
 	private Conexion c1;
 	
@@ -63,9 +65,11 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			ven.setVisible(true);
 		} else if(cmd.equals(NEWMENSAJE)) {
 			ven.mensajeNuevo(this);
-		} else if(cmd.equals(ATRAS)) {
+		} 
+		else if(cmd.equals(ATRAS)) {
 			ven.VentanaMensajeTodos(p, this,us);
-		} else if(cmd.equals(SENDMENS)) {
+		} 
+		else if(cmd.equals(SENDMENS)) {
 			String mon=Calendar.getInstance().get(Calendar.MONTH)+"";
 			if(mon.length()<2) {
 				mon="0"+mon;
