@@ -265,6 +265,7 @@ public class Lectura{
 			}
 			return men;
 		}
+	 
 	 public Usuario medausuario(Medico med) {
 		 Usuario usu = null;
 		 Conexion c5 = new Conexion();
@@ -272,6 +273,7 @@ public class Lectura{
 			 c5.consulta("SELECT Usuario,Role,Password FROM Usuario join Medico on Usuario.Usuario = Medico.username_medico where Usuario.Usuario="+med.getUsername());
 			 while(c5.rs.next()) {
 				 usu = new Usuario(c5.rs.getString("Usuario"), c5.rs.getString("Role"), c5.rs.getString("Password"));
+				 System.out.println("Usuario: "+usu.getUser()+"role: "+usu.getRol()+"con: "+usu.getCon());
 			 }
 		 }
 		 catch (Exception e) {
