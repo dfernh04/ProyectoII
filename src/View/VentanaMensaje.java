@@ -34,9 +34,6 @@ public class VentanaMensaje extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel fondo;
-	private JPanel info;
-	private JTextField asunto;
-	private JLabel fecha;
 	private JTextField emisor;
 	private JTextArea texto;
 	private JPanel central;
@@ -45,6 +42,9 @@ public class VentanaMensaje extends JFrame{
 	private JButton nuevo;
 	//private JButton benviados;
 	//private JButton brecibidos;
+	private JPanel info;
+	private JTextField asunto;
+	private JLabel fecha;
 	private JList<Mensaje> list;
 	private JList<Mensaje> envlist;
 	private ImageIcon logo = new ImageIcon("Resource/Imagenes/Logos/logo-cardio-finito100x100.png");
