@@ -43,6 +43,7 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	private Medico m;
 	private Lectura l;
 	private ECG ecg;
+	private Usuario us;
 	private JTextArea fi;
 	private VentanaMedico vm;
 	public static String COMPARAR ="COMPARAR";
@@ -98,10 +99,11 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	 * @param a MouseEvent 
 	 */
 	public void mouseClicked(MouseEvent a) {
+		us = l.medausuario(m);
 		vm.getCentro().setVisible(false);
 		vm.getCentro().removeAll();
 		FichaPaciente fp = new FichaPaciente(p);
-		fp.addControlMensa(new ControladorMensaje(p,l.medausuario(m)));
+		fp.addControlMensa(new ControladorMensaje(p,us));
 		if(aux==0) {
 			ecg.setLeido(true);
 			int i=0;
