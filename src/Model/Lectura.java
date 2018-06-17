@@ -271,7 +271,7 @@ public class Lectura{
 		 try {
 			 c5.consulta("SELECT Usuario,Role,Password FROM Usuario join Medico on Usuario.Usuario = Medico.username_medico where Usuario.Usuario="+med.getUsername());
 			 while(c5.rs.next()) {
-				 usu = new Usuario(c5.rs.getString("Uuario"), c5.rs.getString("Role"), c5.rs.getString("Password"));
+				 usu = new Usuario(c5.rs.getString("Usuario"), c5.rs.getString("Role"), c5.rs.getString("Password"));
 			 }
 		 }
 		 catch (Exception e) {
