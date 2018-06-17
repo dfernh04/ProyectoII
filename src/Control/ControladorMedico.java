@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Model.Lectura;
@@ -106,8 +107,18 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			formulario.ver();
 		}
 		else if(cmd.equals(ControladorMedico.ECG)) {
+			if(help!=null){
+				help.dispose();
+			}
+			if(formulario!=null){
+				formulario.dispose();
+			}
+			vm.getBtnRevisarEcg().setBackground(new Color(51,153,255).darker());
 			vm.getCentro().setVisible(false);
 			vm.getCentro().removeAll();
+			for(int i=0;i<med.getPacientes().size();i++) {
+				med.getPacientes().get(i).setEcgs(l.getECGS((med.getPacientes().get(i))));
+			}
 			VentanaMedicoECG ecg = new VentanaMedicoECG(vm,med);
 			ecg.ver();
 			vm.getCentro().add(ecg);
