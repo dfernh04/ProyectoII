@@ -199,7 +199,7 @@ public class DetallePaciente extends JPanel {
 		
 		JPanel panboton = new JPanel();
 		panboton.setOpaque(false);
-		panboton.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
+		panboton.setLayout(new FlowLayout());
 		panboton.add(btnEnivar);
 		panboton.add(btnMensaje);
 		
