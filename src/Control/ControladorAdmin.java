@@ -393,6 +393,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			a.getCentro().setVisible(true);
 
 		}  else if(cmd.equals(BACK)){
+			c4 = new Conexion();
 			if(!eliminados.isEmpty()) {
 				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? Serán permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
 				if(resp==JOptionPane.NO_OPTION) {
@@ -406,14 +407,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			querys.clear();
 			while(!eliminados.isEmpty()) {
 				if(eliminados.get(0).getRol().equals("medico")) {
-				c4.consulta("delete from Medico where dni="+eliminados.get(0).getDni());
+				c4.consulta("delete from Medico where DNI_medico like"+eliminados.get(0).getDni());
 					
 				} else if(eliminados.get(0).getRol().equals("tecnico")){
-				c4.consulta("delete from tecnico where dni="+eliminados.get(0).getDni());
+				c4.consulta("delete from tecnico where DNI_tecnico like"+eliminados.get(0).getDni());
 				} else {
-				c4.consulta("delete from administrador where dni="+eliminados.get(0).getDni());
+				c4.consulta("delete from administrador where DNI_admin like"+eliminados.get(0).getDni());
 				}
-			c4.consulta("delete from Usuario where dni="+eliminados.get(0).getDni());
+			c4.consulta("delete from Usuario where Usuario like"+eliminados.get(0).getUser());
 				usuario.remove(eliminados.get(0));
 				eliminados.remove(0);
 			}
