@@ -29,7 +29,6 @@ import View.VentanaTecnico;
  */
 public class ControladorPanel implements ActionListener, MouseListener {
 
-	private String query;
 	private VentanaTecnico vt;
 	private PacienteTecnico p;
 	private Usuario us;
@@ -67,37 +66,9 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param arg0 ActionEvent 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		if(elimi.contains(us)) {
-			if(us.getRol().equals("medico")) {
-				boolean encontrado=false;
-				int i=0;
-				while(encontrado==false && i<c.getQuerys().size()){
-					String[] aux=c.getQuerys().get(i).split(" ");
-					if(us.getDni()==Integer.parseInt(aux[aux.length-2])){
-						c.getQuerys().remove(i);
-						encontrado=true;
-					}
-				}
-			}
-			elimi.remove(us);
-			c.actPanel(fl.getText());
-		} else {
-			int resp = JOptionPane.showConfirmDialog(c.getA(), "Seguro que desea eliminar al usuario propietario del DNI: "+us.getDni(), "Eliminacion de Usuario",JOptionPane.YES_NO_OPTION);
-			if(resp==JOptionPane.YES_OPTION) {
-				if(us.getRol().equals("medico")) {
-				//	query = va.seleccionMedico(elimi,us);
-				}
-				System.out.println(us.getRol());
-				if(query!=null && us.getRol().equals("medico")){
-					elimi.add(us);
-					String[] datos = query.split(" ");
-					c.getQuerys().add("UPDATE medicopaciente SET medicopaciente.dniMedico = " + datos[0] + " WHERE medicopaciente.dniMedico = " + us.getDni() + " ;");
-				} else if(us.getRol().equals("tecnico") || us.getRol().equals("admin")) {
-					elimi.add(us);
-				}
-				c.actPanel(fl.getText());
-			} 
-		}
+		c.getUsuario().remove(us);
+		c.actPanel(fl.getText());
+		
 	}
 	
 	/**

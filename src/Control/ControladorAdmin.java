@@ -57,7 +57,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
-	private Conexion c;
+	private Conexion c = new Conexion();
 	private Conexion c1;
 	private Conexion c2;
 	private Conexion c3;
@@ -354,48 +354,16 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ce4003b4206d70077b5d1779ac026fca7d852d93
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
-<<<<<<< HEAD
-				c.addTecnico_Medico(query);
-=======
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÃ±a_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
-=======
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
->>>>>>> parent of 083b9b6... cambios gordos ventanaadmin pcpal
-				c.consulta(query);
->>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
-				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
-				c.addTecnico_Medico(query);
-=======
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
-=======
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
-				c.consulta(query);
-				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
->>>>>>> parent of 1b8eca0... .
-				c.consulta(query);
-				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
-				c.consulta(query);
->>>>>>> parent of 1b8eca0... .
-=======
 				c.consulta(query);
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
 				c.consulta(query);
->>>>>>> parent of f199206... COnsultas
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				c.closeConnection();
-				
-				
-				
+					
 			}
 			} else {
 				JOptionPane.showMessageDialog(aux1, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -418,12 +386,11 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 			}
 			
-			a.getCentro().add(a.paneldeusuarios(this,medi,tec,eliminados),BorderLayout.CENTER);
+			a.getCentro().add(a.paneldeusuarios(this,medi,tec),BorderLayout.CENTER);
 			
 			a.getCentro().setVisible(true);
 
 		}  else if(cmd.equals(BACK)){
-			c4 = new Conexion();
 			if(!eliminados.isEmpty()) {
 				int resp = JOptionPane.showConfirmDialog(a, "Seguro que desea mantener los cambios? SerÃ¡n permanentes", "Guardar cambios",JOptionPane.YES_NO_OPTION);
 				if(resp==JOptionPane.NO_OPTION) {
@@ -437,14 +404,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			querys.clear();
 			while(!eliminados.isEmpty()) {
 				if(eliminados.get(0).getRol().equals("medico")) {
-				c4.consulta("delete from Medico where DNI_medico like"+eliminados.get(0).getDni());
+				c4.consulta("delete from Medico where dni="+eliminados.get(0).getDni());
 					
 				} else if(eliminados.get(0).getRol().equals("tecnico")){
-				c4.consulta("delete from tecnico where DNI_tecnico like"+eliminados.get(0).getDni());
+				c4.consulta("delete from tecnico where dni="+eliminados.get(0).getDni());
 				} else {
-				c4.consulta("delete from administrador where DNI_admin like"+eliminados.get(0).getDni());
+				c4.consulta("delete from administrador where dni="+eliminados.get(0).getDni());
 				}
-			c4.consulta("delete from Usuario where Usuario like"+eliminados.get(0).getUser());
+			c4.consulta("delete from Usuario where dni="+eliminados.get(0).getDni());
 				usuario.remove(eliminados.get(0));
 				eliminados.remove(0);
 			}
@@ -638,7 +605,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 		}
 		
-		a.actPanel(medi, tec,eliminados,this);
+		a.actPanel(medi, tec,this);
 		this.a.getTabbedPane().setSelectedIndex(index);
 
 		a.getTabbedPane().setVisible(true);
@@ -652,19 +619,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	public Vector<Usuario> obtenermedicos(){
 		System.out.println("obtenermedicos()");
 		Vector<Usuario> us = new Vector<>();
-<<<<<<< HEAD
-<<<<<<< HEAD
-		c2.addTecnico_Medico("SELECT * FROM Medico");
-=======
-		c2.consulta("SELECT * FROM Tecnico");
->>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
-=======
 		c2.consulta("SELECT * FROM Medico");
-<<<<<<< HEAD
->>>>>>> parent of 083b9b6... cambios gordos ventanaadmin pcpal
-=======
->>>>>>> parent of f199206... COnsultas
->>>>>>> ce4003b4206d70077b5d1779ac026fca7d852d93
 		int i=0;
 		try {
 			while(c2.rs.next()) {
@@ -703,21 +658,4 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		c3.closeConnection();
 		return us;
 	}
-
-	public Vector<String> getQuerys() {
-		return querys;
-	}
-
-	public void setQuerys(Vector<String> querys) {
-		this.querys = querys;
-	}
-
-	public VentanaAdminPrincipal getA() {
-		return a;
-	}
-
-	public void setA(VentanaAdminPrincipal a) {
-		this.a = a;
-	}
-	
 }

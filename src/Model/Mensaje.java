@@ -3,21 +3,21 @@ package Model;
 public class Mensaje {
 		
 		private int id;
-		private int dniPaciente;
-		private int fecha;
+		private String dniPaciente;
+		private String fecha;
 		private String data;
 		private String asunto;
 		private String username_med;
 		private String username_tec;
 
 		
-		public Mensaje(int id,String username_med,String username_tec, int dniPaciente, String data,int fecha,String asunto) {
+		public Mensaje(int id,String username_med,String username_tec, String dni, String data,String fecha,String asunto) {
 			super();
 			this.id=id;
 			this.username_med = username_med;
 			this.username_tec = username_tec;
-			this.dniPaciente = dniPaciente;
-			this.fecha=fecha;
+			this.dniPaciente = dni;
+			this.fecha= fecha;
 			this.data = data;
 			this.asunto=asunto;
 		}
@@ -38,16 +38,16 @@ public class Mensaje {
 			this.username_tec = username_tec;
 		}
 
-		public int getDniPaciente() {
+		public String getDniPaciente() {
 			return dniPaciente;
 		}
-		public void setDniPaciente(int dniPaciente) {
+		public void setDniPaciente(String dniPaciente) {
 			this.dniPaciente = dniPaciente;
 		}
-		public int getFecha() {
+		public String getFecha() {
 			return fecha;
 		}
-		public void setFecha(int fecha) {
+		public void setFecha(String fecha) {
 			this.fecha = fecha;
 		}
 		public String getData() {
