@@ -23,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 import Control.ControladorAdmin;
 import Control.ControladorPanel;
+import Model.PacienteTecnico;
 import Model.Usuario;
 /**
  * Elemento grafico que incorpora todas las funciones/opciones que puede realizar un Administrador
@@ -227,7 +228,7 @@ public class VentanaAdminPrincipal extends JFrame{
 	 * @param tec estructura de datos que almacena todos los usuarios de tipo tecnico para mostrar en su apartado
 	 * @return el panel en el cual se encuentran todos los usuarios para su pronta asignacion
 	 */
-	public JPanel paneldeusuarios(ControladorAdmin control,Vector<Usuario>medi,Vector<Usuario>tec,Vector<Usuario>eliminados){
+	public JPanel paneldeusuarios(ControladorAdmin control,Vector<Usuario>medi,Vector<Usuario>tec){
 		JPanel p=new JPanel();
 		p.setOpaque(false);
 		JPanel p2=new JPanel();
@@ -262,7 +263,7 @@ public class VentanaAdminPrincipal extends JFrame{
 		BoxLayout box=new BoxLayout(rey4,BoxLayout.Y_AXIS);
 		rey4.setLayout(box);
 		
-		actPanel(medi,tec,eliminados,control);
+		actPanel(medi,tec,control);
 		
 		
 		
@@ -317,7 +318,7 @@ public class VentanaAdminPrincipal extends JFrame{
 	 * @param tec estructura de datos que almacena todos los usuarios de tipo tecnico para mostrar en su apartado
 	 * @param cont Controlador para la busqueda por JTextField y botones especificos
 	 */
-	public void actPanel(Vector<Usuario>medi,Vector<Usuario>tec,Vector<Usuario> elimi,ControladorAdmin cont){
+	public void actPanel(Vector<Usuario>medi,Vector<Usuario>tec,ControladorAdmin cont){
 		rey4.removeAll();
 		
 		rey5.removeAll();
@@ -336,24 +337,13 @@ public class VentanaAdminPrincipal extends JFrame{
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
 				if(i<medi.size()){
-					PanelPaciente pan = new PanelPaciente(medi.get(i),new ControladorPanel(medi.get(i),cont,buscador,elimi,this));
-					if(elimi.contains(medi.get(i))) {
-						pan.setBackground(new Color(255, 77, 77));
-						pan.setBorder(new LineBorder(new Color(255, 77, 77).darker(), 2));
-					} else {
-						pan.setBackground(new Color(0,153,153));
-						pan.setBorder(new LineBorder(new Color(0,204,204), 2));
-					}
+					PanelPaciente pan = new PanelPaciente(medi.get(i),new ControladorPanel(medi.get(i),cont,buscador));
+					pan.setBackground(new Color(0,153,153));
+					pan.setBorder(new LineBorder(new Color(0,204,204), 2));
 					pane.add(pan);	
 				} else {
-					JPanel pan = new JPanel();
+					PanelPaciente pan = new PanelPaciente(new PacienteTecnico("","",""," "),"");
 					pan.setOpaque(false);
-					pan.setLayout(new BorderLayout());
-					JButton but=new JButton();
-					but.setContentAreaFilled(false);
-					but.setBorderPainted(false);
-					but.setOpaque(false);
-					pan.add(but,BorderLayout.CENTER);
 					pane.add(pan);
 				}
 				i++;
@@ -367,19 +357,13 @@ public class VentanaAdminPrincipal extends JFrame{
 		}
 		
 		if(colum<10){
-		for(int i= colum;i<15;i++){
+		for(int i= colum;i<10;i++){
 			JPanel pane=new JPanel();
 			pane.setOpaque(false);
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
-				JPanel pan = new JPanel();
+				PanelPaciente pan = new PanelPaciente(new PacienteTecnico("","",""," "),"");
 				pan.setOpaque(false);
-				pan.setLayout(new BorderLayout());
-				JButton but=new JButton();
-				but.setContentAreaFilled(false);
-				but.setBorderPainted(false);
-				but.setOpaque(false);
-				pan.add(but,BorderLayout.CENTER);
 				pane.add(pan);	
 			}
 			rey4.add(pane);
@@ -394,24 +378,13 @@ public class VentanaAdminPrincipal extends JFrame{
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
 				if(i<tec.size()){
-					PanelPaciente pan = new PanelPaciente(tec.get(i),new ControladorPanel(tec.get(i),cont,buscador,elimi,this));
-					if(elimi.contains(tec.get(i))) {
-						pan.setBackground(new Color(255, 77, 77));
-						pan.setBorder(new LineBorder(new Color(255, 77, 77).darker(), 2));
-					} else {
-						pan.setBackground(new Color(0,153,153));
-						pan.setBorder(new LineBorder(new Color(0,204,204), 2));
-					}
+					PanelPaciente pan = new PanelPaciente(tec.get(i),new ControladorPanel(tec.get(i),cont,buscador));
+					pan.setBackground(new Color(0,153,153));
+					pan.setBorder(new LineBorder(new Color(0,204,204), 2));
 					pane.add(pan);	
 				} else {
-					JPanel pan = new JPanel();
+					PanelPaciente pan = new PanelPaciente(new PacienteTecnico("","",""," "),"");
 					pan.setOpaque(false);
-					pan.setLayout(new BorderLayout());
-					JButton but=new JButton();
-					but.setContentAreaFilled(false);
-					but.setBorderPainted(false);
-					but.setOpaque(false);
-					pan.add(but,BorderLayout.CENTER);
 					pane.add(pan);
 				}
 				i++;
@@ -425,19 +398,13 @@ public class VentanaAdminPrincipal extends JFrame{
 		}
 		
 		if(columtec<10){
-		for(int i= columtec;i<15;i++){
+		for(int i= columtec;i<10;i++){
 			JPanel pane=new JPanel();
 			pane.setOpaque(false);
 			pane.setLayout(new GridLayout(1,4,5,0));
 			for(int j=0;j<4;j++){
-				JPanel pan = new JPanel();
+				PanelPaciente pan = new PanelPaciente(new PacienteTecnico("","",""," "),"");
 				pan.setOpaque(false);
-				pan.setLayout(new BorderLayout());
-				JButton but=new JButton();
-				but.setContentAreaFilled(false);
-				but.setBorderPainted(false);
-				but.setOpaque(false);
-				pan.add(but,BorderLayout.CENTER);
 				pane.add(pan);	
 			}
 			rey5.add(pane);

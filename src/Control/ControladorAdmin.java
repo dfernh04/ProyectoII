@@ -355,10 +355,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 				c.addTecnico_Medico(query);
 =======
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÃ±a_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
+=======
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
+>>>>>>> parent of 083b9b6... cambios gordos ventanaadmin pcpal
 				c.consulta(query);
 >>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
@@ -627,10 +631,14 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		System.out.println("obtenermedicos()");
 		Vector<Usuario> us = new Vector<>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		c2.addTecnico_Medico("SELECT * FROM Medico");
 =======
 		c2.consulta("SELECT * FROM Tecnico");
 >>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
+=======
+		c2.consulta("SELECT * FROM Medico");
+>>>>>>> parent of 083b9b6... cambios gordos ventanaadmin pcpal
 		int i=0;
 		try {
 			while(c2.rs.next()) {

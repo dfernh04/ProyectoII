@@ -4,14 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import Model.PacienteTecnico;
 import Model.Usuario;
-import View.VentanaAdminPrincipal;
 import View.VentanaTecnico;
 
 /**
@@ -37,8 +35,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	private Usuario us;
 	private ControladorAdmin c;
 	private JTextField fl;
-	private VentanaAdminPrincipal va;
-	private Vector<Usuario> elimi;
+	
 	/**
 	 * Constructor de la clase ControladorPanel
 	 * @param vt VentanaTecnico 
@@ -63,14 +60,6 @@ public class ControladorPanel implements ActionListener, MouseListener {
 		
 	}
 	
-	public ControladorPanel(Usuario vt,ControladorAdmin c,JTextField f,Vector<Usuario> elimi,VentanaAdminPrincipal va){
-		this.us = vt;
-		this.c=c;
-		fl=f;
-		this.elimi=elimi;
-		this.va=va;
-	}
-
 	/**
 	 * Metodo actionPerformed propio de un ActionListener que elimina
 	 * el usuario y coge el texto que hay en el JTextField
