@@ -229,7 +229,6 @@ public class VentanaMensaje extends JFrame{
 			
 			texto=new JTextArea();
 			texto.setEditable(false);
-			texto.setLineWrap(true);
 			
 			JPanel tex = new JPanel();
 			JButton invis = new JButton("ey que te pasa");
@@ -316,7 +315,6 @@ public class VentanaMensaje extends JFrame{
 			aux.setLayout(new FlowLayout());
 			texto=new JTextArea();
 			texto.setEditable(true);
-			texto.setLineWrap(true);
 			
 			
 			emisor.add(aux);
