@@ -279,7 +279,7 @@ public class VentanaMensaje extends JFrame{
 		}
 		public void actInfo(Mensaje men) {
 			asunto.setText(men.getAsunto());
-			emisor.setText(men.getUsername_med()+" "+men.getUsername_tec()+" ");
+			emisor.setText(men.getUsername_med()+" ");
 			texto.setText(men.getData());
 			fecha.setText("    "+String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");
 			

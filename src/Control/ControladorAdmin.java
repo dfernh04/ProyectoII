@@ -354,7 +354,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÃ±a_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 				c.consulta(query);
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
 				c.consulta(query);
