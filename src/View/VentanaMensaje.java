@@ -358,7 +358,6 @@ public class VentanaMensaje extends JFrame{
                       boolean isSelected, boolean cellHasFocus) {
                  Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                  if (value instanceof Mensaje) {
-                	 setBackground(Color.LIGHT_GRAY);
                       if (isSelected) {
                            setBackground(getBackground().darker());
                       }
