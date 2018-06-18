@@ -43,8 +43,11 @@ public class ControladorFicha implements ActionListener {
 	static public String ENVIAR="ENVIAR";
 	static public String PREVI="PREVI";
 	static public String ATRAS="ATRAS";
+	static public String MENSAJE="MENSAJE";
 	private DetallePaciente d;
 	private VentanaTecnico vt;
+	private ControladorMensaje control;
+	private VentanaMensaje vmen;
 	private String arch="";
 	private ECG ecg;
 	
@@ -135,6 +138,10 @@ public class ControladorFicha implements ActionListener {
 				vt.getFicha().getObser().setText("");;
 				ecg=null;
 			}
+		}
+		else if(cmd.equals(ControladorFicha.MENSAJE)){
+			vmen = new VentanaMensaje(control);
+			vmen.VentanaMensajeTodos(d.getP(), control, vt.getAu());
 		}
 	}
 }

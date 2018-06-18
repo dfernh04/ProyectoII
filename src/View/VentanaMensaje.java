@@ -80,7 +80,7 @@ public class VentanaMensaje extends JFrame{
 		
 		nuevo=new JButton("Mensaje nuevo");
 		nuevo.addActionListener(control);
-		nuevo.setActionCommand(ControladorMensaje.MENSAJE);
+		nuevo.setActionCommand(ControladorMensaje.MENSAJENUEVO);
 		
 		orden=new JButton("Ordenar por fecha");
 		orden.setActionCommand(ControladorMensaje.ORDENAR);
@@ -130,7 +130,7 @@ public class VentanaMensaje extends JFrame{
 		
 		nuevo=new JButton("New Message");
 		nuevo.addActionListener(cp);
-		nuevo.setActionCommand(ControladorMensaje.MENSAJE);
+		nuevo.setActionCommand(ControladorMensaje.MENSAJENUEVO);
 		
 		orden=new JButton("Mas recientes");
 		orden.setActionCommand(ControladorMensaje.ORDENAR);
