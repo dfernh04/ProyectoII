@@ -39,24 +39,6 @@ public class Conexion {
 		}
 		
 	}
-	public void addTecnico_Medico(String query) {
-		// TODO Auto-generated method stub
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			c = DriverManager.getConnection(bd,user,pw);
-			//c.setAutoCommit(false);
-			
-			stmt = c.createStatement();
-			stmt.executeQuery(query);
-			stmt.close();
-			
-			//TREATMENT
-				
-		}catch(Exception e) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-		}
-		
-	}
 	/**
 	 * Metodo que nos permite obtener un objeto del tipo medico con su nombre de usuario
 	 * n de colegiado y dni, a traves de una consulta sql.
