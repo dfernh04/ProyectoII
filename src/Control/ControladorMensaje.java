@@ -80,10 +80,12 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			}
 			c1= new Conexion();
 			if(us.getRol().equalsIgnoreCase("tecnico")) {
+				System.out.println("El tecnico ha intentado enviar un mensaje");
 			c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_tecnico) values('"+ven.getTexto().getText()+"',"
 					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+","+us.getUser()+"');");
 			}
 			else if(us.getRol().equalsIgnoreCase("medico")) {
+				System.out.println("El medico ha intentado enviar un mensaje");
 				c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico) values('"+ven.getTexto().getText()+"',"
 						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+","+us.getUser()+"');");
 				}
@@ -99,7 +101,6 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 		
 			Mensaje[] mens=new Mensaje[0];
 			mens=((Vector<Mensaje>) p.getMensajes()).toArray(mens).clone();
-			//Utilidades.mergesort(mens,0,mens.length-1,c);
 			Vector<Mensaje> recibidos=new Vector<Mensaje>();
 			Vector<Mensaje> enviados=new Vector<Mensaje>();
 			for(int i=mens.length-1;i>=0;i--) {

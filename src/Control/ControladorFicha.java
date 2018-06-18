@@ -144,6 +144,7 @@ public class ControladorFicha implements ActionListener {
 			vmen = new VentanaMensaje(control);
 			vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
 			vmen.setVisible(true);
+			vmen.setAlwaysOnTop(true);
 		}
 	}
 }
