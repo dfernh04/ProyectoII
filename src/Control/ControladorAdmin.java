@@ -354,8 +354,13 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
+<<<<<<< HEAD
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 				c.addTecnico_Medico(query);
+=======
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, ContraseÃ±a_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
+				c.consulta(query);
+>>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
 				c.addTecnico_Medico(query);
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
@@ -386,7 +391,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 			}
 			
-			a.getCentro().add(a.paneldeusuarios(this,medi,tec),BorderLayout.CENTER);
+			a.getCentro().add(a.paneldeusuarios(this,medi,tec,eliminados),BorderLayout.CENTER);
 			
 			a.getCentro().setVisible(true);
 
@@ -607,7 +612,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 		}
 		
-		a.actPanel(medi, tec,this);
+		a.actPanel(medi, tec,eliminados,this);
 		this.a.getTabbedPane().setSelectedIndex(index);
 
 		a.getTabbedPane().setVisible(true);
@@ -621,7 +626,11 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	public Vector<Usuario> obtenermedicos(){
 		System.out.println("obtenermedicos()");
 		Vector<Usuario> us = new Vector<>();
+<<<<<<< HEAD
 		c2.addTecnico_Medico("SELECT * FROM Medico");
+=======
+		c2.consulta("SELECT * FROM Tecnico");
+>>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
 		int i=0;
 		try {
 			while(c2.rs.next()) {
@@ -660,4 +669,21 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		c3.closeConnection();
 		return us;
 	}
+
+	public Vector<String> getQuerys() {
+		return querys;
+	}
+
+	public void setQuerys(Vector<String> querys) {
+		this.querys = querys;
+	}
+
+	public VentanaAdminPrincipal getA() {
+		return a;
+	}
+
+	public void setA(VentanaAdminPrincipal a) {
+		this.a = a;
+	}
+	
 }
