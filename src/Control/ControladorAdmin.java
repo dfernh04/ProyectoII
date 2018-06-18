@@ -356,6 +356,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 <<<<<<< HEAD
 				c.addTecnico_Medico(query);
@@ -367,6 +368,11 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				c.addTecnico_Medico(query);
 =======
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+=======
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+				c.consulta(query);
+				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
+>>>>>>> parent of 1b8eca0... .
 				c.consulta(query);
 				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
 				c.consulta(query);
