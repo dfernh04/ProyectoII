@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -66,6 +67,7 @@ public class VentanaMensaje extends JFrame{
 		
 		fondo =new JPanel();
 		fondo.setLayout(new BorderLayout(3,1));
+		fondo.setBackground(Color.GRAY);
 		
 		//Panel sobre el que incluiremos los botones
 		JPanel aux=new JPanel();
@@ -161,7 +163,9 @@ public class VentanaMensaje extends JFrame{
 		public void VentanaMensajeTodos(Paciente p,ControladorMensaje control,Usuario us){
 			lec = new Lectura();
 			p.setMensajes(lec.consultarMensajes(p));
-			
+			for(int i=0;i<p.getMensajes().size();i++) {
+				System.out.println("Mensaje recibido: "+i);
+			}
 			
 			atras.setEnabled(false);
 			orden.setEnabled(true);
@@ -306,7 +310,7 @@ public class VentanaMensaje extends JFrame{
 			this.emisor.setEditable(true);
 			JButton enviar=new JButton("SEND");
 			enviar.addActionListener(control);
-			enviar.setActionCommand(ControladorMensaje.SENDMENS);
+			enviar.setActionCommand(ControladorMensaje.ENVIAR);
 			datos.add(enviar,BorderLayout.EAST);
 			JPanel aux=new JPanel();
 			aux.setLayout(new FlowLayout());
