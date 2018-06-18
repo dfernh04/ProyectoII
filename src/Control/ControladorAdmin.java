@@ -259,10 +259,10 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					for(int j=0;j<aux1.getContrasena2().getPassword().length;j++) {
 						con2=con2+aux1.getContrasena2().getPassword()[j];
 					}
-					String query = "INSERT INTO Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contrasena_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ( "+aux1.getNombre().getText()+", "+aux1.getApellido1().getText()+", "+st+", "+aux1.getDni().getText()+", "+aux1.getContrasena1().toString()+", "+null+", "+aux1.getTelefono().getText()+(", ")+null+(")");
-					c.consulta(query);
-					query = "Insert into Usuario (Usuario, Role, Password) values ("+st+","+"medico ,"+aux1.getContrasena1()+(")");
-					c.consulta(query);
+					String query = "INSERT INTO Medico (Nombre_medico, Apellidos_medico, Username_medico, DNI_medico, Contrasena_medico, Email_medico, Numero_afiliacion_medico, Hospital_medico) values ( '"+aux1.getNombre().getText()+"', '"+aux1.getApellido1().getText()+"', '"+st+"', '"+aux1.getDni().getText()+"', '"+aux1.getContrasena1().getPassword().toString()+"', '"+null+"', "+aux1.getTelefono().getText()+(", ")+null+(")");
+					c.addTecnico_Medico(query);
+					query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'medico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
+					c.addTecnico_Medico(query);
 					//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 					usuario.add(new Usuario(st,"tecnico",con1));
 					JOptionPane.showMessageDialog(aux1, "Medico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
@@ -355,9 +355,9 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 				
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
-				c.consulta(query);
+				c.addTecnico_Medico(query);
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
-				c.consulta(query);
+				c.addTecnico_Medico(query);
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
@@ -399,20 +399,21 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 			}
 			for(int i = 0; i <  querys.size();i++){
-				c4.consulta(querys.get(i));
+				c4.addTecnico_Medico(querys.get(i));
 				System.out.println(querys.get(i));
 			}
 			querys.clear();
 			while(!eliminados.isEmpty()) {
+				System.out.println("Los eliminados nno estan vacios");
 				if(eliminados.get(0).getRol().equals("medico")) {
-				c4.consulta("delete from Medico where DNI_medico like"+eliminados.get(0).getDni());
+				c4.addTecnico_Medico("delete from Medico where DNI_medico like'"+eliminados.get(0).getDni()+"';");
 					
 				} else if(eliminados.get(0).getRol().equals("tecnico")){
-				c4.consulta("delete from tecnico where DNI_tecnico like"+eliminados.get(0).getDni());
+				c4.addTecnico_Medico("delete from tecnico where DNI_tecnico like'"+eliminados.get(0).getDni()+"';");
 				} else {
-				c4.consulta("delete from administrador where DNI_admin like"+eliminados.get(0).getDni());
+				c4.addTecnico_Medico("delete from administrador where DNI_admin like'"+eliminados.get(0).getDni()+"';");
 				}
-			c4.consulta("delete from Usuario where Usuario like"+eliminados.get(0).getUser());
+			c4.addTecnico_Medico("delete from Usuario where Usuario like'"+eliminados.get(0).getUser()+"';");
 				usuario.remove(eliminados.get(0));
 				eliminados.remove(0);
 			}
@@ -554,7 +555,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					+cole.toString()+","
 					+lugar.toString()+")";
 			JOptionPane.showMessageDialog(null, "Medico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
-			c.consulta(query);
+			c.addTecnico_Medico(query);
 			c.closeConnection();
 	}
 	/**
@@ -577,7 +578,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				+password.toString()+","
 				+lugar.toString()+")";
 		JOptionPane.showMessageDialog(null, "Tecnico dado de alta con exito: "+stm, "Creado", JOptionPane.INFORMATION_MESSAGE);
-		c1.consulta(query);
+		c1.addTecnico_Medico(query);
 		c1.closeConnection();
 	}
 	/**
@@ -620,7 +621,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	public Vector<Usuario> obtenermedicos(){
 		System.out.println("obtenermedicos()");
 		Vector<Usuario> us = new Vector<>();
-		c2.consulta("SELECT * FROM Medico");
+		c2.addTecnico_Medico("SELECT * FROM Medico");
 		int i=0;
 		try {
 			while(c2.rs.next()) {
@@ -644,7 +645,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	public Vector<Usuario> obtenertecnicos(){
 		System.out.println("obtenertecnicos()");
 		Vector<Usuario> us = new Vector<>();
-		c3.consulta("SELECT * FROM Medico");
+		c3.addTecnico_Medico("SELECT * FROM Medico");
 		int i=0;
 		try {
 			while(c3.rs.next()) {
