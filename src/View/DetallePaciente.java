@@ -188,7 +188,7 @@ public class DetallePaciente extends JPanel {
 		 //BOTON PARA ENTRAR EN MENSAJE
 	    btnMensaje = new JButton("Revisar Mensajes");
 	    btnMensaje.setOpaque(false);
-	    btnMensaje.setActionCommand(ControladorMensaje.MENSAJE);
+	    btnMensaje.setActionCommand(ControladorFicha.MENSAJE);
 	    btnMensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
 		btnMensaje.setContentAreaFilled(false);
 		btnMensaje.setBorderPainted(false);
@@ -318,6 +318,7 @@ public class DetallePaciente extends JPanel {
 		button.addActionListener(cf);
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
+		btnMensaje.addActionListener(cf);
 	}
 	
 	/**

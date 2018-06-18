@@ -288,4 +288,19 @@ public class Lectura{
 		 c5.closeConnection();
 		 return usu;
 	 }
+	 public Paciente pactecapac(PacienteTecnico p) {
+		 Paciente pac= null;
+		 Conexion c6 = new Conexion();
+		 try {
+			 c6.consulta("Select Nombre_paciente, Apellidos_paciente, DNI_paciente, Direccion_paciente, N_seguridad_social_paciente FROM paciente where DNI_paciente like "+p.getDni());
+			while(c6.rs.next()) {
+			 pac = new Paciente(c6.rs.getString("Nombre_paciente"), c6.rs.getString("Apellidos_paciente"), c6.rs.getString("DNI_paciente"), c6.rs.getString("Direccion_paciente"), c6.rs.getString("N_seguirad_social_paciente"));
+			}	
+		 }
+		 catch (Exception e) {
+			 System.err.println(e.getClass().getName()+": "+e.getMessage());
+		}
+		 c6.closeConnection();
+		 return pac;
+	 }
 }
