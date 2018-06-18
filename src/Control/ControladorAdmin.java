@@ -57,7 +57,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
-	private Conexion c;
+	private Conexion c = new Conexion();
 	private Conexion c1;
 	private Conexion c2;
 	private Conexion c3;
@@ -354,18 +354,16 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 					con2=con2+aux1.getContrasena2().getPassword()[j];
 				}
 				
-				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 				c.consulta(query);
-				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
+				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
 				c.consulta(query);
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				c.closeConnection();
-				
-				
-				
+					
 			}
 			} else {
 				JOptionPane.showMessageDialog(aux1, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
