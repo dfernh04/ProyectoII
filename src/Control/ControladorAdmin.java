@@ -386,7 +386,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 			}
 			
-			a.getCentro().add(a.paneldeusuarios(this,medi,tec),BorderLayout.CENTER);
+			a.getCentro().add(a.paneldeusuarios(this,medi,tec,eliminados),BorderLayout.CENTER);
 			
 			a.getCentro().setVisible(true);
 
@@ -606,7 +606,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			}
 		}
 		
-		a.actPanel(medi, tec,this);
+		a.actPanel(medi, tec,eliminados,this);
 		this.a.getTabbedPane().setSelectedIndex(index);
 
 		a.getTabbedPane().setVisible(true);
@@ -659,4 +659,21 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 		c3.closeConnection();
 		return us;
 	}
+
+	public Vector<String> getQuerys() {
+		return querys;
+	}
+
+	public void setQuerys(Vector<String> querys) {
+		this.querys = querys;
+	}
+
+	public VentanaAdminPrincipal getA() {
+		return a;
+	}
+
+	public void setA(VentanaAdminPrincipal a) {
+		this.a = a;
+	}
+	
 }
