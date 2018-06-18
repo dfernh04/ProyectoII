@@ -242,9 +242,9 @@ public class Lectura{
 		Conexion c6 = new Conexion();
 		int i=0;
 		try {
-			c6.consulta("SELECT * FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
+			c6.consulta("SELECT * FROM Mensaje where DNI_paciente='"+pac.getDni().substring(0, pac.getDni().length()-1)+"' order by fecha desc;");
 			while (c6.rs.next()) {
-				men.add(new Mensaje(c6.rs.getInt("ID_Mensaje"),c6.rs.getString("Username_medico"),c6.rs.getString("Username_tecnico"),c6.rs.getString("DNI_Paciente"),c6.rs.getString("MensajeT"),c6.rs.getString("Fecha"),null));
+				men.add(new Mensaje(c6.rs.getInt("ID_Mensaje"),c6.rs.getString("Username_medico"),c6.rs.getString("Username_tecnico"),c6.rs.getInt("DNI_Paciente"),c6.rs.getString("MensajeT"),c6.rs.getInt("Fecha"),null));
 				i++;
 			}
 			System.out.println("se han leido "+i+" mensajes");
@@ -259,9 +259,9 @@ public class Lectura{
 			Conexion c4 = new Conexion();
 			int i =0;
 			try {
-				c4.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
+				c4.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje join Paciente on DNI_paciente = DNI_Paciente where DNI_paciente='"+pac.getDni().substring(0, pac.getDni().length()-1)+"' order by fecha desc;");
 				while (c4.rs.next()) {
-					men.add(new Mensaje(c4.rs.getInt("ID_Mensaje"),c4.rs.getString("Username_medico"),c4.rs.getString("Username_tecnico"),c4.rs.getString("DNI_Paciente"),c4.rs.getString("MensajeT"),c4.rs.getString("Fecha"),null));
+					men.add(new Mensaje(c4.rs.getInt("ID_Mensaje"),c4.rs.getString("Username_medico"),c4.rs.getString("Username_tecnico"),c4.rs.getInt("DNI_Paciente"),c4.rs.getString("MensajeT"),c4.rs.getInt("Fecha"),null));
 					i++;
 				}
 				System.out.println("se han leido "+i+" mensajes");
@@ -292,9 +292,9 @@ public class Lectura{
 		 Paciente pac= null;
 		 Conexion c6 = new Conexion();
 		 try {
-			 c6.consulta("Select Nombre_paciente, Apellidos_paciente, DNI_paciente, Direccion_paciente, N_seguridad_social_paciente FROM paciente where DNI_paciente like '"+p.getDni()+"';");
+			 c6.consulta("Select Nombre_paciente, Apellidos_paciente, DNI_paciente, Direccion_paciente, N_seguridad_social_paciente FROM paciente where DNI_paciente like "+p.getDni());
 			while(c6.rs.next()) {
-			 pac = new Paciente(c6.rs.getString("Nombre_paciente"), c6.rs.getString("Apellidos_paciente"), c6.rs.getString("DNI_paciente"), c6.rs.getString("Direccion_paciente"), c6.rs.getString("N_seguridad_social_paciente"));
+			 pac = new Paciente(c6.rs.getString("Nombre_paciente"), c6.rs.getString("Apellidos_paciente"), c6.rs.getString("DNI_paciente"), c6.rs.getString("Direccion_paciente"), c6.rs.getString("N_seguirad_social_paciente"));
 			}	
 		 }
 		 catch (Exception e) {

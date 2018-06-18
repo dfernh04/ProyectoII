@@ -190,7 +190,7 @@ public class Conexion {
 			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario where Usuario			 ='"+nom+"';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario where Usuario like '"+nom+"';");
 			if (rs.next()) {
 				String nombre = rs.getString("Usuario");
 				String con = rs.getString("Password");
@@ -209,6 +209,7 @@ public class Conexion {
 	public void closeConnection() {
 
 		try {
+			rs.close();
 			stmt.close();
 			c.close();
 		} catch (SQLException e) {

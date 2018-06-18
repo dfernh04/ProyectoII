@@ -46,7 +46,7 @@ public class ControladorFicha implements ActionListener {
 	static public String MENSAJE="MENSAJE";
 	private DetallePaciente d;
 	private VentanaTecnico vt;
-	private Lectura l = new Lectura();
+	private Lectura l;
 	private ControladorMensaje control;
 	private VentanaMensaje vmen;
 	private String arch="";
@@ -92,9 +92,6 @@ public class ControladorFicha implements ActionListener {
 
 			ecg=null;
 			d.getEcg().cleanGraph();
-			
-			JavaRXTX aru = new JavaRXTX();
-			/*
 			JFileChooser file=new JFileChooser();
 			file.showOpenDialog(vt);
 			file.setVisible(true);
@@ -112,8 +109,7 @@ public class ControladorFicha implements ActionListener {
 				}
 				d.getEcg().addGraphic(ecg);
 				((GraphController) d.getEcg().getSl().getChangeListeners()[d.getEcg().getSl().getChangeListeners().length-1]).stateChanged(new ChangeEvent(d.getEcg().getSl()));
-			
-			}*/
+			}
 		} else if(cmd.equals(ControladorFicha.ENVIAR)){
 			int resp = JOptionPane.showConfirmDialog(vt, "¿Esta seguro?", "Enviar Reporte", JOptionPane.YES_NO_OPTION);
 

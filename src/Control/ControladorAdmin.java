@@ -57,7 +57,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 	private Formulario aux1=null;
 	private Vector<Usuario> usuario;
 	private VentanaHelp help;
-	private Conexion c = new Conexion();
+	private Conexion c;
 	private Conexion c1;
 	private Conexion c2;
 	private Conexion c3;
@@ -355,6 +355,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				}
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
 				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contraseña_tecnico, Email_tecnico) values ('"+st+"', '"+aux1.getNombre().getText()+"','"+aux1.getApellido1().getText()+"','"+aux1.getDni().getText()+"','"+aux1.getContrasena1().getPassword().toString()+"','"+null+("')");
 				c.addTecnico_Medico(query);
 =======
@@ -363,12 +364,20 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 >>>>>>> 1634b52ed65800144ad91f82b2d79d1c61fbe5b3
 				query = "Insert into Usuario (Usuario, Role, Password) values ('"+st+"' , 'tecnico' , '"+aux1.getContrasena1().getPassword().toString()+("')");
 				c.addTecnico_Medico(query);
+=======
+				String query = "Insert into Tecnico (Username_tecnico, Nombre_tecnico, Apellidos_tecnico, DNI_tecnico, Contrasena_tecnico, Email_tecnico) values ("+st+", "+aux1.getNombre().getText()+","+aux1.getApellido1().getText()+","+st+","+aux1.getDni().getText()+","+aux1.getContrasena1().toString()+","+null+(")");
+				c.consulta(query);
+				query = "Insert into Usuario (Usuario, Role, Password) values ("+st+" , "+"tecnico , "+aux1.getContrasena1()+(")");
+				c.consulta(query);
+>>>>>>> parent of 1b8eca0... .
 				//escribirTecnico(st,con1, aux1.getNombre().getText(), aux1.getApellido1().getText(), aux1.getDni().getText(), aux1.getLugar().getText());
 				usuario.add(new Usuario(st,"tecnico",con1));
 				JOptionPane.showMessageDialog(aux1, "Tecnico creado con usuario: "+st, "Creado", JOptionPane.INFORMATION_MESSAGE);
 				aux1.dispose();
 				c.closeConnection();
-					
+				
+				
+				
 			}
 			} else {
 				JOptionPane.showMessageDialog(aux1, "Por favor, rellene todos los campos", "Error", JOptionPane.ERROR_MESSAGE);

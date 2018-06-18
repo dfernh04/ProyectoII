@@ -56,7 +56,7 @@ public class JavaRXTX extends javax.swing.JFrame {
 		public JavaRXTX() {
 			initComponents();
 			try {
-				ino.arduinoRXTX("COM3", 9600, listener);
+				ino.arduinoRXTX("COM4", 9600, listener);
 			} catch (ArduinoException ex) {
 				Logger.getLogger(JavaRXTX.class.getName()).log(Level.SEVERE, null, ex);
 			}
@@ -135,6 +135,7 @@ public class JavaRXTX extends javax.swing.JFrame {
 					.addComponent(textfieldtiempo)
 
 					);
+
 			pack();
 		}// </editor-fold>//GEN-END:initComponents
 
