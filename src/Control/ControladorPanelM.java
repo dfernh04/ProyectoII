@@ -15,9 +15,9 @@ import Model.Paciente;
 import Model.Usuario;
 import View.CompararECG;
 import View.FichaPaciente;
+import View.VentanaECG;
 import View.VentanaHelp;
 import View.VentanaMedico;
-import View.VentanaMensaje;
 
 /**
  * Controlador que permite mostrar la lista de pacientes en la VentanaMedico.
@@ -49,6 +49,9 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 	public static String COMPARAR ="COMPARAR";
 	public static String ATRAS ="ATRAS";
 	public static String GUARDAR ="GUARDAR";
+	public static String ECG ="ECG";
+	private VentanaECG ven;
+	private ControladorVECG con;
 	private CompararECG ce;
 	private int aux=-1;
 
@@ -182,6 +185,12 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 				ecg.setDiagnostico(fi.getText());
 			else
 				ecg.setDiagnostico("");
+		}
+		else if(cmd.equals(ECG)) {
+			ven = new VentanaECG();
+			con = new ControladorVECG(p, us, ven);
+			ven.addController(con);
+			
 		}
 	}
 

@@ -82,13 +82,21 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			c1= new Conexion();
 			if(us.getRol().equalsIgnoreCase("tecnico")) {
 				System.out.println("El tecnico ha intentado enviar un mensaje");
+				/*
+				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
+				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
+				 */
 			c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_tecnico) values('"+ven.getTexto().getText()+"',"
 					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+","+us.getUser()+"');");
 			}
 			else if(us.getRol().equalsIgnoreCase("medico")) {
 				System.out.println("El medico ha intentado enviar un mensaje");
+				/*
+				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
+				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
+				 */
 				c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico) values('"+ven.getTexto().getText()+"',"
-						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+","+us.getUser()+"');");
+						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+"','"+us.getUser()+"');");
 				}
 			c1.closeConnection();
 			ven.VentanaMensajeTodos(p, this,us);

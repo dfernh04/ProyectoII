@@ -23,7 +23,6 @@ import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
 import Control.ControladorMensaje;
-import Control.ControladorVECG;
 import Control.GraphController;
 
 
@@ -188,7 +187,7 @@ public class DetallePaciente extends JPanel {
 		datos.add(lblDni);
 		
 		 //BOTON PARA ENTRAR EN MENSAJE
-	    btnMensaje = new JButton("Revisar Mensajes");
+	    btnMensaje = new JButton("");
 	    btnMensaje.setOpaque(false);
 	    btnMensaje.setActionCommand(ControladorFicha.MENSAJE);
 	    btnMensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));

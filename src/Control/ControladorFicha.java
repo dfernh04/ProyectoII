@@ -2,19 +2,11 @@ package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeEvent;
-
 import Model.ECG;
 import Model.Lectura;
-import Model.Mensaje;
-import Model.Usuario;
 import View.DetallePaciente;
 import View.VentanaECG;
 import View.VentanaMensaje;
@@ -97,6 +89,7 @@ public class ControladorFicha implements ActionListener {
 			ecg=null;
 			d.getEcg().cleanGraph();
 			
+			@SuppressWarnings("unused")
 			JavaRXTX aru = new JavaRXTX();
 			/*
 			JFileChooser file=new JFileChooser();
@@ -156,6 +149,7 @@ public class ControladorFicha implements ActionListener {
 		}
 		else if(cmd.equals(ControladorFicha.ECG)) {
 			ven = new VentanaECG();
+			c = new ControladorVECG(d.getP(), vt.getAu(),ven);
 			ven.addController(c);
 		}
 	}
