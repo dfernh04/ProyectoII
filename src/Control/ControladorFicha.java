@@ -16,6 +16,7 @@ import Model.Lectura;
 import Model.Mensaje;
 import Model.Usuario;
 import View.DetallePaciente;
+import View.VentanaECG;
 import View.VentanaMensaje;
 import View.VentanaTecnico;
 
@@ -44,13 +45,16 @@ public class ControladorFicha implements ActionListener {
 	static public String PREVI="PREVI";
 	static public String ATRAS="ATRAS";
 	static public String MENSAJE="MENSAJE";
+	static public String ECG="ECG";
 	private DetallePaciente d;
 	private VentanaTecnico vt;
+	private VentanaECG ven;
 	private Lectura l = new Lectura();
 	private ControladorMensaje control;
 	private VentanaMensaje vmen;
 	private String arch="";
 	private ECG ecg;
+	private ControladorVECG c;
 	
 	/**
 	 * Getter del archivo que se obtiene al tomar datos
@@ -149,6 +153,10 @@ public class ControladorFicha implements ActionListener {
 			vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
 			vmen.setVisible(true);
 			vmen.setAlwaysOnTop(true);
+		}
+		else if(cmd.equals(ControladorFicha.ECG)) {
+			ven = new VentanaECG();
+			ven.addController(c);
 		}
 	}
 }
