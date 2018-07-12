@@ -74,7 +74,6 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			if(mon.length()<2) {
 				mon="0"+mon;
 			}
-			System.out.println("entro en enviar");
 			String day=Calendar.getInstance().get(Calendar.DATE)+"";
 			if(day.length()<2) {
 				day="0"+day;

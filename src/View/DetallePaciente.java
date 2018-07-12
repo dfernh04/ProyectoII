@@ -23,7 +23,6 @@ import javax.swing.border.LineBorder;
 
 import Control.ControladorFicha;
 import Control.ControladorMensaje;
-import Control.ControladorVECG;
 import Control.GraphController;
 
 
@@ -59,7 +58,6 @@ public class DetallePaciente extends JPanel {
 	private JTextField frecuencia;
 	private JTextField tiempo;
 	private JButton btnMensaje;
-	private JButton btnecg;
 	
 	
 	
@@ -195,12 +193,6 @@ public class DetallePaciente extends JPanel {
 		btnMensaje.setContentAreaFilled(false);
 		btnMensaje.setBorderPainted(false);
 		
-		//BOTON QUE NOS LLEV A AL CREADOR DE ECG ALEATORIOS
-		btnecg = new JButton("Generar ECG aleatorio");
-		btnecg.setOpaque(false);
-		btnecg.setActionCommand(ControladorFicha.ECG);
-
-		
 		fo.add(lblNewLabel_1);
 		iz.add(fo);
 		iz.add(datos);
@@ -210,7 +202,6 @@ public class DetallePaciente extends JPanel {
 		panboton.setLayout(new FlowLayout());
 		panboton.add(btnEnivar);
 		panboton.add(btnMensaje);
-		panboton.add(btnecg);
 		
 		up.add(iz,BorderLayout.WEST);
 		up.add(panboton,BorderLayout.EAST);
@@ -328,8 +319,8 @@ public class DetallePaciente extends JPanel {
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
 		btnMensaje.addActionListener(cf);
-		btnecg.addActionListener(cf);
 	}
+	
 	/**
 	 * Getter del textArea
 	 * @return textArea JTextPane
