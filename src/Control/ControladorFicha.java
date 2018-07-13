@@ -129,7 +129,7 @@ public class ControladorFicha implements ActionListener {
 							str=str.replaceAll("\n", ";");
 							wr2.write("\r\n"+str+"\r\n");
 						}catch(Exception e){
-
+							
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -149,7 +149,7 @@ public class ControladorFicha implements ActionListener {
 		}
 		else if(cmd.equals(ControladorFicha.ECG)) {
 			ven = new VentanaECG();
-			c = new ControladorVECG(d.getP(), vt.getAu(),ven);
+			c = new ControladorVECG(d.getP(), vt.getAu(),ven,d);
 			ven.addController(c);
 		}
 	}
