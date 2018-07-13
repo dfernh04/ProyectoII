@@ -58,6 +58,7 @@ public class DetallePaciente extends JPanel {
 	private JTextField frecuencia;
 	private JTextField tiempo;
 	private JButton btnMensaje;
+	private JButton btnecg;
 	
 	
 	
@@ -186,12 +187,18 @@ public class DetallePaciente extends JPanel {
 		datos.add(lblDni);
 		
 		 //BOTON PARA ENTRAR EN MENSAJE
-	    btnMensaje = new JButton("Revisar Mensajes");
+	    btnMensaje = new JButton("");
 	    btnMensaje.setOpaque(false);
 	    btnMensaje.setActionCommand(ControladorFicha.MENSAJE);
 	    btnMensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
 		btnMensaje.setContentAreaFilled(false);
 		btnMensaje.setBorderPainted(false);
+		
+		//BOTON QUE NOS LLEV A AL CREADOR DE ECG ALEATORIOS
+		btnecg = new JButton("Generar ECG aleatorio");
+		btnecg.setOpaque(false);
+		btnecg.setActionCommand(ControladorFicha.ECG);
+
 		
 		fo.add(lblNewLabel_1);
 		iz.add(fo);
@@ -202,6 +209,7 @@ public class DetallePaciente extends JPanel {
 		panboton.setLayout(new FlowLayout());
 		panboton.add(btnEnivar);
 		panboton.add(btnMensaje);
+		panboton.add(btnecg);
 		
 		up.add(iz,BorderLayout.WEST);
 		up.add(panboton,BorderLayout.EAST);
@@ -319,8 +327,8 @@ public class DetallePaciente extends JPanel {
 		btnTomarDatos.addActionListener(cf);
 		btnEnivar.addActionListener(cf);
 		btnMensaje.addActionListener(cf);
+		btnecg.addActionListener(cf);
 	}
-	
 	/**
 	 * Getter del textArea
 	 * @return textArea JTextPane

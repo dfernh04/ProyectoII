@@ -9,7 +9,6 @@ import java.awt.Font;
 
 import javax.swing.*;
 
-import Control.ControladorMedico;
 import Control.ControladorMensaje;
 import Control.ControladorPanelM;
 import Control.GraphController;
@@ -45,8 +44,9 @@ public class FichaPaciente extends JPanel {
 	private JButton invi4;
 	private JButton comparar;
 	private JButton atras;
+	private JButton btnecg;
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor de la clase FichaPaciente en el cual se crea la vista
 	 * anadiendo una serie de paneles y componentes al panel principal que posee 
@@ -56,88 +56,88 @@ public class FichaPaciente extends JPanel {
 	 * @param p Paciente 
 	 */
 	public FichaPaciente(Paciente p){
-		
+
 		this.setLayout(new BorderLayout());
-		
+
 		//AQUI CREO PANELES Y LES DOY CARACTERISTICAS
 		tab = new JTabbedPane();
-		
+
 		JPanel pan1 = new JPanel();
 		pan1.setLayout(new BorderLayout());
 		pan1.setOpaque(false);
-		
+
 		JPanel pan2 = new JPanel();
 		pan2.setLayout(new BoxLayout(pan2,BoxLayout.Y_AXIS));
-		
+
 		FlowLayout fl = new FlowLayout();
 		fl.setAlignment(FlowLayout.CENTER);
-		
+
 		JPanel pan3 = new JPanel();
 		pan3.setLayout(new BoxLayout(pan3,BoxLayout.PAGE_AXIS));
-		
+
 		JPanel pan5 = new JPanel();
 		pan5.setLayout(fl);
-		
+
 		JPanel pan6 = new JPanel();
 		pan6.setLayout(fl);
-		
+
 		JPanel pan7 = new JPanel();
 		pan7.setLayout(fl);
-		
+
 		JPanel pan8 = new JPanel();
 		pan8.setLayout(fl);
-		
+
 		JPanel pan9 = new JPanel();
 		pan9.setLayout(new BorderLayout());
-		
+
 		JPanel pan10 = new JPanel();
 		pan10.setLayout(new FlowLayout());
-		
+
 		JPanel pan11 = new JPanel();
 		pan11.setLayout(new BorderLayout());
-		
+
 		JPanel pan12 = new JPanel();
 		pan12.setLayout(new FlowLayout());
-		
+
 		JPanel pan4 = new JPanel();
 		pan4.setLayout(new BorderLayout());
-		
-		
-		
+
+
+
 		//AQUI CREO OBJETOS
-		
+
 		imagen = new Logo(pan3,"Resource/Imagenes/hombre.png");
 		imagen.centrado(true);
-		
+
 		//mensaje = new Logo(pan3,"Resource/Imagenes/mensaje.png");
 		//mensaje.centrado(true);
-		
+
 		nombre = new JLabel(p.getNombre());
 		nombre.setFont(new Font("",Font.BOLD,15));
-		
+
 		ape=new JLabel(p.getApellido());
 		ape.setFont(new Font("",Font.BOLD,15));
-		
-		
+
+
 		ss = new JLabel("S.S.:     " + p.getSs());
 		ss.setFont(new Font("",Font.BOLD,15));
-		
+
 		msg = new JLabel("Mensajes:     ");
 		msg.setFont(new Font("",Font.BOLD,15));
-		
-		
+
+
 		dni = new JLabel("DNI:     " + p.getDni());
 		dni.setFont(new Font("",Font.BOLD,15));
-		
+
 		poblacion = new JLabel("Poblacion:   "+p.getPoblacion());
 		poblacion.setFont(new Font("",Font.BOLD,15));
-		
-		
+
+
 		invi= new JButton();
 		invi.setOpaque(false);
 		invi.setContentAreaFilled(false);
 		invi.setBorderPainted(false);
-		
+
 		invi2= new JButton();
 		invi2.setOpaque(false);
 		invi2.setContentAreaFilled(false);
@@ -147,28 +147,28 @@ public class FichaPaciente extends JPanel {
 		invi3.setOpaque(false);
 		invi3.setContentAreaFilled(false);
 		invi3.setBorderPainted(false);
-		
+
 		invi4= new JButton();
 		invi4.setOpaque(false);
 		invi4.setContentAreaFilled(false);
 		invi4.setBorderPainted(false);
-		
+
 		for(ECG e : p.getEcgs()){
 			JPanel north=new JPanel();
 			north.setOpaque(false);
 			north.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			JButton guardar=new JButton("Guardar Diagnostico");
 			guardar.setActionCommand(ControladorPanelM.GUARDAR);
-			
+
 			JTextArea obser=new JTextArea();
 			obser.setText(e.getDiagnostico());
-			
+
 			obser.setLineWrap(true);
 			obser.setWrapStyleWord(true);
-			
+
 			guardar.addActionListener(new ControladorPanelM(e,obser));
 			north.add(guardar);
-			
+
 			JPanel prueba = new JPanel(new BorderLayout(7,0));
 			prueba.setOpaque(false);
 			GraficaECG ecg = new GraficaECG();
@@ -183,7 +183,7 @@ public class FichaPaciente extends JPanel {
 			pan14.setOpaque(false);
 			pan14.setLayout(new BorderLayout());
 			pan13.add(new JLabel("Diagnostico",JLabel.CENTER),BorderLayout.NORTH);
-			
+
 			JButton invi5= new JButton();
 			invi5.setOpaque(false);
 			invi5.setContentAreaFilled(false);
@@ -193,7 +193,7 @@ public class FichaPaciente extends JPanel {
 			invi6.setContentAreaFilled(false);
 			invi6.setBorderPainted(false);
 
-			
+
 			JPanel a=new JPanel();
 			JPanel b=new JPanel();
 			a.setOpaque(false);
@@ -206,38 +206,41 @@ public class FichaPaciente extends JPanel {
 			info.add(new JLabel("Tecnico Responsable: "+e.getNombreTec()));
 			info.add(new JLabel("Comentario del Tecnico: "+e.getComentarios()));
 			info.add(new JLabel("Fecha de Realizacion:"+String.valueOf(e.getFecha()).substring(6, 8)+"-"+String.valueOf(e.getFecha()).substring(4, 6)+"-"+String.valueOf(e.getFecha()).substring(0, 4)));
-			
+
 			prueba.add(north,BorderLayout.NORTH);
 			prueba.add(pan14,BorderLayout.EAST);
 			prueba.add(ecg,BorderLayout.CENTER);
 			prueba.add(info,BorderLayout.SOUTH);
-			
+
 			prueba.addMouseMotionListener(new ControladorPanelM(e,obser));
 			tab.add(e.getNombre(), prueba);
-			
+
 		}
-		
-		
-		
+
+
+
 		comparar = new JButton("Comparar ECGS");
 		comparar.setActionCommand(ControladorPanelM.COMPARAR);
-		
+
 		mensaje=new JButton();
 		mensaje.setActionCommand(ControladorMensaje.MENSAJE);
 		mensaje.setIcon(new ImageIcon("Resource/Imagenes/mensaje.png"));
 		mensaje.setContentAreaFilled(false);
 		mensaje.setBorderPainted(false);
 		mensaje.setOpaque(false);
-		
+
 		atras = new JButton("Atras");
 		atras.setActionCommand(ControladorPanelM.ATRAS);
-		
+
 		//AQUI A�ADO ELEMENTOS EN CADA PANEL O PANELES A MAS PANELEs
-		
+
 		pan3.add(imagen);
-		
-		
-		
+
+		//BOTON QUE NOS LLEV A AL CREADOR DE ECG ALEATORIOS
+		btnecg = new JButton("Generar ECG aleatorio");
+		btnecg.setOpaque(false);
+		btnecg.setActionCommand(ControladorPanelM.ECG);
+
 		pan2.add(new JLabel("        "));
 		pan2.add(new JLabel("        "));
 		pan2.add(pan3);
@@ -254,26 +257,27 @@ public class FichaPaciente extends JPanel {
 		pan2.add(new JLabel("        "));
 		pan2.add(msg);
 		pan2.add(mensaje);
+		pan2.add(btnecg);
 		pan2.add(pan5);
 		pan2.add(pan6);
 		pan2.add(pan7);
-		
-		
-		
-										
-		
+
+
+
+
+
 		tab.setVisible(true);
-		
+
 		pan10.add(comparar);
-		
+
 		pan12.add(atras);
-		
+
 		pan11.add(pan10,BorderLayout.EAST);
 		pan11.add(pan12,BorderLayout.WEST);
-		
+
 		pan9.add(tab, BorderLayout.CENTER);
 		pan9.add(pan11,BorderLayout.NORTH);
-		
+
 		this.add(invi2, BorderLayout.NORTH);
 		this.add(pan9,BorderLayout.CENTER);
 		this.add(invi,BorderLayout.WEST);
@@ -298,7 +302,7 @@ public class FichaPaciente extends JPanel {
 	public JLabel getNombre() {
 		return nombre;
 	}
-	
+
 	/**
 	 * Getter de la etiqueta del DNI del paciente
 	 * @return JLabel dni
@@ -306,7 +310,7 @@ public class FichaPaciente extends JPanel {
 	public JLabel getDni() {
 		return dni;
 	}
-	
+
 	/**
 	 * Metodo que nos permite agregar el controlador de la clase 
 	 * FichaPaciente 
@@ -315,9 +319,10 @@ public class FichaPaciente extends JPanel {
 	public void addController(ControladorPanelM cpm){
 		comparar.addActionListener(cpm);
 		atras.addActionListener(cpm);
+		btnecg.addActionListener(cpm);
 	}
 	public void addControlMensa(ControladorMensaje con) {
 		mensaje.addActionListener(con);
 	}
-	
+
 }

@@ -2,20 +2,13 @@ package Control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Vector;
-
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeEvent;
-
 import Model.ECG;
 import Model.Lectura;
-import Model.Mensaje;
-import Model.Usuario;
 import View.DetallePaciente;
+import View.VentanaECG;
 import View.VentanaMensaje;
 import View.VentanaTecnico;
 
@@ -44,13 +37,16 @@ public class ControladorFicha implements ActionListener {
 	static public String PREVI="PREVI";
 	static public String ATRAS="ATRAS";
 	static public String MENSAJE="MENSAJE";
+	static public String ECG="ECG";
 	private DetallePaciente d;
 	private VentanaTecnico vt;
+	private VentanaECG ven;
 	private Lectura l = new Lectura();
 	private ControladorMensaje control;
 	private VentanaMensaje vmen;
 	private String arch="";
 	private ECG ecg;
+	private ControladorVECG c;
 	
 	/**
 	 * Getter del archivo que se obtiene al tomar datos
@@ -93,6 +89,7 @@ public class ControladorFicha implements ActionListener {
 			ecg=null;
 			d.getEcg().cleanGraph();
 			
+			@SuppressWarnings("unused")
 			JavaRXTX aru = new JavaRXTX();
 			/*
 			JFileChooser file=new JFileChooser();
@@ -132,7 +129,7 @@ public class ControladorFicha implements ActionListener {
 							str=str.replaceAll("\n", ";");
 							wr2.write("\r\n"+str+"\r\n");
 						}catch(Exception e){
-
+							
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -149,6 +146,11 @@ public class ControladorFicha implements ActionListener {
 			vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
 			vmen.setVisible(true);
 			vmen.setAlwaysOnTop(true);
+		}
+		else if(cmd.equals(ControladorFicha.ECG)) {
+			ven = new VentanaECG();
+			c = new ControladorVECG(d.getP(), vt.getAu(),ven,d);
+			ven.addController(c);
 		}
 	}
 }

@@ -189,7 +189,7 @@ public class GraficaECG extends JPanel {
 		if (mili > mayor) {
 			mayor = mili;
 		}
-
+		dataset.removeAllSeries();
 		dataset.addSeries(series);
 	}
 /**

@@ -91,28 +91,27 @@ public class Lectura{
 		int pun=-1;
 		String[] puntos=new String[0];
 		File archivo = f;
-		try(BufferedReader br = new BufferedReader(new FileReader (archivo))) {
-			
-					pun=Integer.parseInt(br.readLine());
-				
-					puntos=br.readLine().split(";");
-					
-					Vector<Double> a=new Vector<Double>();
-					for(int i=0;i<puntos.length;i++){
-						System.out.println(puntos[i]);
-						a.add(Double.parseDouble(puntos[i]));
-					}
-					aux[1]=new ECG(pun,no,a);
-					aux[0]=no;
-					return aux;
-		}
-			catch(Exception e){
-				JOptionPane.showMessageDialog(null, "El archivo no tiene el formato correcto");
+		try {
+			BufferedReader br = new BufferedReader(new FileReader (archivo));
+			pun=Integer.parseInt(br.readLine());
+			puntos=br.readLine().split(";");
+
+			Vector<Double> a=new Vector<Double>();
+			for(int i=0;i<puntos.length;i++){
+				System.out.println(puntos[i]);
+				a.add(Double.parseDouble(puntos[i]));
 			}
+			aux[1]=new ECG(pun,no,a);
+			aux[0]=no;
+			return aux;
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "El archivo no tiene el formato correcto");
+		}
 		aux[1]=new ECG(0,"",new Vector<Double>());
 		aux[0]="";
 		return aux;
-		}
+	}
 	
 	/**
 	 * Metodo que nos permite leer de un archivo plano el contenido de un medico, 
