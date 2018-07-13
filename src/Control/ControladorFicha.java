@@ -116,7 +116,7 @@ public class ControladorFicha implements ActionListener {
 
 			if(resp==0){
 				d.getBtnEnivar().setEnabled(false);
-
+				//AQUI SE DEBERIA REALIZAR EL INSERT EN LA BBDD
 				if(!arch.equals("")){
 					try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
 						wr.write(arch+"\r\n");

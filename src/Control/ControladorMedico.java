@@ -116,9 +116,9 @@ public class ControladorMedico implements ActionListener,MouseListener,KeyListen
 			vm.getBtnRevisarEcg().setBackground(new Color(51,153,255).darker());
 			vm.getCentro().setVisible(false);
 			vm.getCentro().removeAll();
-			for(int i=0;i<med.getPacientes().size();i++) {
+			/*for(int i=0;i<med.getPacientes().size();i++) {
 				med.getPacientes().get(i).setEcgs(l.getECGS((med.getPacientes().get(i))));
-			}
+			}*/
 			VentanaMedicoECG ecg = new VentanaMedicoECG(vm,med);
 			ecg.ver();
 			vm.getCentro().add(ecg);

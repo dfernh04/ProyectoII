@@ -48,10 +48,8 @@ public class ControladorVECG implements ActionListener{
 		if(cmd.equals(ControladorVECG.ENVIAR)) {
 			Lectura l = new Lectura();
 			File f = new File("Resource/ECG/ECG2.txt");
-			Object[] aux=Lectura.lecturaEcg(f,pa,us.getUser());
-			
-			arch=(String) aux[0];
-			ecg=(ECG) aux[1];
+			ECG aux = Lectura.lecturaEcg(f,pa,us.getUser());
+			ecg = aux;
 			if(!ecg.getPuntos().isEmpty()) {
 				d.getBtnEnivar().setEnabled(true);
 			}

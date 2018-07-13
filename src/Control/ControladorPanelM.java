@@ -187,9 +187,9 @@ public class ControladorPanelM implements MouseListener,ActionListener,MouseMoti
 				ecg.setDiagnostico("");
 		}
 		else if(cmd.equals(ECG)) {
-			ven = new VentanaECG();
-			con = new ControladorVECG(p, us, ven);
-			ven.addController(con);
+			/*ven = new VentanaECG();
+			con = new ControladorVECG(p, us, ven,d);
+			ven.addController(con);*/
 			
 		}
 	}
