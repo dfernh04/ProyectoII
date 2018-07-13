@@ -179,7 +179,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
-			if(aux1.getDni().getText().isEmpty()){
+			if(aux1.getDni().getText().length() != 9 | 
+					!Character.isLetter(aux1.getDni().getText().toCharArray()[aux1.getDni().getText().toCharArray().length -1])){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
@@ -191,7 +192,7 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 			} else {
 				aux1.getLugar().setBackground(Color.WHITE);
 			}
-			if(aux1.getTelefono().getText().isEmpty()){
+			if(aux1.getTelefono().getText().length() != 9){
 				aux1.getTelefono().setBackground(Color.RED);
 				bien=false;
 			} else {
@@ -287,7 +288,8 @@ public class ControladorAdmin  implements ActionListener,KeyListener,MouseListen
 				aux1.getApellido1().setBackground(Color.WHITE);
 			}
 
-			if(aux1.getDni().getText().isEmpty()){
+			if(aux1.getDni().getText().length() != 9 | 
+					!Character.isLetter(aux1.getDni().getText().toCharArray()[aux1.getDni().getText().toCharArray().length -1])){
 				aux1.getDni().setBackground(Color.RED);
 				bien=false;
 			} else {
