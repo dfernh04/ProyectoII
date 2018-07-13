@@ -116,6 +116,7 @@ public class Lectura{
 			//System.out.println(puntos[i]);
 			a.add(Double.parseDouble(puntos[i]));
 		}
+		
 
 		return new ECG(fecha,tec,comen,diag,pun,f.getName().replaceAll(".txt", ""),a,lei);
 

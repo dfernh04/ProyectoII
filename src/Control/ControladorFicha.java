@@ -45,7 +45,7 @@ public class ControladorFicha implements ActionListener {
 	private ControladorMensaje control;
 	private VentanaMensaje vmen;
 	private String arch="";
-	private ECG ecg;
+	private ECG ecg = null;
 	private ControladorVECG c;
 	
 	/**
@@ -114,10 +114,24 @@ public class ControladorFicha implements ActionListener {
 		} else if(cmd.equals(ControladorFicha.ENVIAR)){
 			int resp = JOptionPane.showConfirmDialog(vt, "¿Esta seguro?", "Enviar Reporte", JOptionPane.YES_NO_OPTION);
 
-			if(resp==0){
+			if(resp==0 && ecg != null){
 				d.getBtnEnivar().setEnabled(false);
 				//AQUI SE DEBERIA REALIZAR EL INSERT EN LA BBDD
-				if(!arch.equals("")){
+				Conexion conn = new Conexion();
+				//String stm = v+" "+formulario.getApellido1().getText();
+				String query = "insert into ecg(Fecha,Duracion, Diagnostico,Frecuencia, DNI_paciente,Username_tecnico,Dato,Pulsaciones) values ('"
+						+ ecg.getFecha()+"',"
+						+ 90 + ",'"
+						+ ecg.getDiagnostico()+"','"
+						+ ecg.getPuntosporsec()+"','"
+						+ "DNI PACIENTE AQUI" + "','"
+						+ ecg.getNombreTec() + "','"
+						+ ecg.getPuntos().toString() + ','
+						+ 200 + "');";
+						
+				JOptionPane.showMessageDialog(vt, "Paciente dado de alta con exito: ", "Creado", JOptionPane.INFORMATION_MESSAGE);
+				conn.addPaciente(query);
+				/*if(!arch.equals("")){
 					try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
 						wr.write(arch+"\r\n");
 						try(FileWriter wr2=new FileWriter("Resource/ECG/"+arch+".txt",true)){
@@ -134,7 +148,7 @@ public class ControladorFicha implements ActionListener {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}
+				}*/
 				JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 				vt.getFicha().getEcg().cleanGraph();
 				vt.getFicha().getObser().setText("");;
@@ -151,6 +165,7 @@ public class ControladorFicha implements ActionListener {
 			ven = new VentanaECG();
 			c = new ControladorVECG(d.getP(), vt.getAu(),ven,d);
 			ven.addController(c);
+			ecg = c.getEcg();
 		}
 	}
 }

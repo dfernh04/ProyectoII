@@ -26,6 +26,7 @@ public class ControladorVECG implements ActionListener{
 	static public String ENVIAR = "ENVIAR";
 	static public String ATRAS = "ATRAS";
 	private ECG ecg;
+
 	private String arch="";
 	DetallePaciente d;
 	
@@ -47,7 +48,8 @@ public class ControladorVECG implements ActionListener{
 		String cmd = e.getActionCommand().toString(); 
 		if(cmd.equals(ControladorVECG.ENVIAR)) {
 			Lectura l = new Lectura();
-			File f = new File("Resource/ECG/ECG2.txt");
+			int file = (int) Math.floor(Math.random()*2+1);
+			File f = new File("Resource/ECG/ECG"+file +".txt");
 			ECG aux = Lectura.lecturaEcg(f,pa,us.getUser());
 			ecg = aux;
 			if(!ecg.getPuntos().isEmpty()) {
@@ -66,6 +68,9 @@ public class ControladorVECG implements ActionListener{
 		ven = new VentanaECG();
 		ven.addController(this);
 		}
+	}
+	public ECG getEcg() {
+		return ecg;
 	}
 
 }
