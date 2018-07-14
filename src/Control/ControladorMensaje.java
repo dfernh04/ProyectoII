@@ -86,8 +86,8 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				 */
-			c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_tecnico) values('"+ven.getTexto().getText()+"',"
-					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+","+us.getUser()+"');");
+			c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);");
 			}
 			else if(us.getRol().equalsIgnoreCase("medico")) {
 				System.out.println("El medico ha intentado enviar un mensaje");
@@ -95,8 +95,8 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				 */
-				c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico) values('"+ven.getTexto().getText()+"',"
-						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day)+",'"+p.getDni()+"','"+us.getUser()+"');");
+				c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);");
 				}
 			c1.closeConnection();
 			ven.VentanaMensajeTodos(p, this,us);
