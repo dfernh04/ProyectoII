@@ -35,7 +35,7 @@ public class Conexion {
 			//TREATMENT
 				
 		}catch(Exception e) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() +"Error en la sentencia");
 		}
 		
 	}
@@ -149,7 +149,7 @@ public class Conexion {
 			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario;");
+			ResultSet rs = stmt.executeQuery("SELECT Usuario,Password,Role FROM Usuario;");
 			while (rs.next()) {
 				String nick = rs.getString("Usuario");
 				String con=rs.getString("Password");
@@ -172,7 +172,7 @@ public class Conexion {
 			c = DriverManager.getConnection(bd,user,pw);
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Usuario where Usuario			 ='"+nom+"';");
+			ResultSet rs = stmt.executeQuery("SELECT Usuario,Password,Role FROM Usuario where Usuario			 ='"+nom+"';");
 			if (rs.next()) {
 				String nombre = rs.getString("Usuario");
 				String con = rs.getString("Password");
