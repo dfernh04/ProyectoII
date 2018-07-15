@@ -113,42 +113,22 @@ public class ControladorFicha implements ActionListener {
 			}*/
 		} else if(cmd.equals(ControladorFicha.ENVIAR)){
 			int resp = JOptionPane.showConfirmDialog(vt, "¿Esta seguro?", "Enviar Reporte", JOptionPane.YES_NO_OPTION);
-
-			if(resp==0 && ecg != null){
+			ecg = c.getEcg();
+			if(resp == JOptionPane.YES_OPTION && ecg != null){
 				d.getBtnEnivar().setEnabled(false);
 				//AQUI SE DEBERIA REALIZAR EL INSERT EN LA BBDD
 				Conexion conn = new Conexion();
-				//String stm = v+" "+formulario.getApellido1().getText();
-				String query = "insert into ecg(Fecha,Duracion, Diagnostico,Frecuencia, DNI_paciente,Username_tecnico,Dato,Pulsaciones) values ('"
+				String query = "insert into pi2_bd_cardioparty.ecg(Fecha,Duracion, Diagnostico,Frecuencia,DNI_paciente,Username_tecnico,Dato,Pulsaciones) values ('"
 						+ ecg.getFecha()+"',"
 						+ 90 + ",'"
 						+ ecg.getDiagnostico()+"','"
 						+ ecg.getPuntosporsec()+"','"
-						+ "DNI PACIENTE AQUI" + "','"
+						+ "1234578J" + "','"
 						+ ecg.getNombreTec() + "','"
-						+ ecg.getPuntos().toString() + ','
+						+ ecg.getPuntos().toString() + "','"
 						+ 200 + "');";
-						
-				JOptionPane.showMessageDialog(vt, "Paciente dado de alta con exito: ", "Creado", JOptionPane.INFORMATION_MESSAGE);
-				conn.addPaciente(query);
-				/*if(!arch.equals("")){
-					try(FileWriter wr=new FileWriter("Resource/Pacientes/"+d.getP().getId()+".txt",true)){
-						wr.write(arch+"\r\n");
-						try(FileWriter wr2=new FileWriter("Resource/ECG/"+arch+".txt",true)){
-							wr2.write(ecg.getPuntosporsec()+"\r\n");
-							for(int i=0;i<ecg.getPuntos().size();i++){
-								wr2.write(ecg.getPuntos().get(i)+";");
-							}
-							String str=d.getObser().getText().replaceAll("\r", ";");
-							str=str.replaceAll("\n", ";");
-							wr2.write("\r\n"+str+"\r\n");
-						}catch(Exception e){
-							
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}*/
+				conn.consulta(query);
+				conn.closeConnection();
 				JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 				vt.getFicha().getEcg().cleanGraph();
 				vt.getFicha().getObser().setText("");;
@@ -166,6 +146,7 @@ public class ControladorFicha implements ActionListener {
 			c = new ControladorVECG(d.getP(), vt.getAu(),ven,d);
 			ven.addController(c);
 			ecg = c.getEcg();
+			System.out.println("ecg obtension de ecg");
 		}
 	}
 }
