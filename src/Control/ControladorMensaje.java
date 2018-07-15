@@ -35,7 +35,7 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 	//public static String ENVIADOS = "ENVIADOS";
 	//public static String RECIBIDOS = "RECIBIDOS";
 	private boolean newtoold=true;
-	private Conexion c1;
+	//private Conexion c1;
 	
 	public void valueChanged(ListSelectionEvent e) {
 		@SuppressWarnings("unchecked")
@@ -79,27 +79,37 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			if(day.length()<2) {
 				day="0"+day;
 			}
-			c1= new Conexion();
+			Conexion c1= new Conexion();
 			if(us.getRol().equalsIgnoreCase("tecnico")) {
 				System.out.println("El tecnico ha intentado enviar un mensaje");
 				/*
 				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				 */
-			c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
-					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);");
+			
+			String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
+			c1.addMensaje(query);
 			}
+			
 			else if(us.getRol().equalsIgnoreCase("medico")) {
 				System.out.println("El medico ha intentado enviar un mensaje");
 				/*
 				 * EL FALLO ESTA EN LA QUERY QUE SE ENVIA
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
-				 */
-				c1.consulta("Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
-						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);");
+				*/
+				 
+				String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
+						
+				//String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('Prueba','22/06/2015','12345678f','BorjaMonsalve','NULL');";
+				c1.addMensaje(query);
+				
 				}
+			
 			c1.closeConnection();
 			ven.VentanaMensajeTodos(p, this,us);
+			
 		} else if(cmd.equals(ORDENAR)) {
 			if(newtoold) {
 				ven.getOrden().setText("Fecha descendente");
