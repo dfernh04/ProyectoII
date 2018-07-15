@@ -118,8 +118,7 @@ public class ControladorLogin implements ActionListener, KeyListener{
 			  File fileH = new File("Resource/Usuarios/1.txt");
 			  help=new VentanaHelp(3);
 			  help.setAlwaysOnTop(true);
-		        try( BufferedReader read = new BufferedReader(new FileReader(fileH))) {
-		           
+		        try( BufferedReader read = new BufferedReader(new FileReader(fileH))) {     
 		            String line = read.readLine();
 		            
 		            while(line !=null){

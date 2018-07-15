@@ -66,6 +66,7 @@ public class ControladorPanel implements ActionListener, MouseListener {
 	 * @param arg0 ActionEvent 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		c.eliminados.add(us);
 		c.getUsuario().remove(us);
 		c.actPanel(fl.getText());
 		
