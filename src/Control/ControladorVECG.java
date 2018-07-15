@@ -57,7 +57,10 @@ public class ControladorVECG implements ActionListener{
 			}
 			d.getEcg().addGraphic(ecg);
 			((GraphController) d.getEcg().getSl().getChangeListeners()[d.getEcg().getSl().getChangeListeners().length-1]).stateChanged(new ChangeEvent(d.getEcg().getSl()));
-			ven.dispose();		}
+			ven.dispose();
+			ecg.setDiagnostico(ven.diagnostico.getText());
+			
+		}
 		else if(cmd.equals(ControladorVECG.ATRAS)){
 		ven.dispose();
 		}

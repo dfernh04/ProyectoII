@@ -149,6 +149,9 @@ public class ECG {
 	}
 
 	
+	public void setPuntos(Vector<Double> puntos) {
+		this.puntos = puntos;
+	}
 	/**
 	 * Setter de leido
 	 * @param leido establecer si el ECG fue leido o no

@@ -238,5 +238,24 @@ public class Conexion {
 		}
 		
 	}
+	
+	public void addECG(String query) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			c = DriverManager.getConnection(bd,user,pw);
+			//c.setAutoCommit(false);
+			
+			stmt = c.createStatement();
+			stmt.executeQuery(query);
+			stmt.close();
+			
+			//TREATMENT
+				
+		}catch(Exception e) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		
+	}
 
 }

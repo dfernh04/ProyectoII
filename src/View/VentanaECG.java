@@ -27,7 +27,7 @@ public class VentanaECG extends JFrame{
 	private JPanel datos;
 	private JButton atras;
 	private JButton enviar;
-	private JTextField diagnostico;
+	public JTextField diagnostico;
 	private JTextField id;
 	private JLabel lbldiagnostico;
 	private JLabel lblid;

@@ -202,6 +202,7 @@ public class Lectura{
 					String datos = c3.rs.getString("Dato");
 					//Creamos los puntos en forma de Vector de Double
 					puntos = datos.split(";");
+					System.out.println(puntos);
 					Vector<Double> a=new Vector<Double>();
 					for(int i=0;i<puntos.length;i++) {
 						a.add(Double.parseDouble(puntos[i]));

@@ -123,11 +123,11 @@ public class ControladorFicha implements ActionListener {
 						+ 90 + ",'"
 						+ ecg.getDiagnostico()+"','"
 						+ ecg.getPuntosporsec()+"','"
-						+ "1234578J" + "','"
+						+ d.getLblDni().getText() + "','"
 						+ ecg.getNombreTec() + "','"
-						+ ecg.getPuntos().toString() + "','"
+						+ ecg.getPuntos().toString().replace(",", ";").replace("[", "").replace("]", "")+ "','"
 						+ 200 + "');";
-				conn.consulta(query);
+				conn.addECG(query);
 				conn.closeConnection();
 				JOptionPane.showMessageDialog(vt, "Envio de datos exitoso", "Exito", JOptionPane.DEFAULT_OPTION);
 				vt.getFicha().getEcg().cleanGraph();
@@ -146,7 +146,6 @@ public class ControladorFicha implements ActionListener {
 			c = new ControladorVECG(d.getP(), vt.getAu(),ven,d);
 			ven.addController(c);
 			ecg = c.getEcg();
-			System.out.println("ecg obtension de ecg");
 		}
 	}
 }
