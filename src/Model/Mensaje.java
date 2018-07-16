@@ -58,7 +58,6 @@ public class Mensaje {
 		}
 		public String toString() {
 			return asunto +" "+ String.valueOf(fecha).substring(6, 8)+"-"+String.valueOf(fecha).substring(4, 6)+"-"+String.valueOf(fecha).substring(0, 4);
-			
 		}
 
 		public int getId() {
@@ -66,7 +65,7 @@ public class Mensaje {
 		}
 
 		public String getAsunto() {
-			return asunto;
+			return asunto+"";
 		}
 
 }

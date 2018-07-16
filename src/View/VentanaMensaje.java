@@ -170,22 +170,24 @@ public class VentanaMensaje extends JFrame{
 			atras.setEnabled(false);
 			orden.setEnabled(true);
 			
-			Vector<Mensaje> recibidos=(Vector<Mensaje>) p.getMensajes().clone();
-			Vector<Mensaje> enviados=new Vector<Mensaje>();
+			Vector<Mensaje> recibidos=(Vector<Mensaje>) p.getMensajes();
+			Vector<Mensaje> enviados = new Vector<Mensaje>();
 			
 			for(int i=recibidos.size()-1;i>=0;i--) {
 				if(us.getRol().equalsIgnoreCase("medico")) {
-				if(recibidos.get(i).getUsername_med()==us.getUser()) {
-					enviados.add(recibidos.get(i));
-					recibidos.remove(i);
-				}
-				}
-				else if(us.getRol().equalsIgnoreCase("tecnico")) {
-					if(recibidos.get(i).getUsername_tec()==us.getUser()) {
+					if(recibidos.get(i).getUsername_med()==us.getUser()) {
+						System.out.println("ESTOY AQUI Medico");
 						enviados.add(recibidos.get(i));
 						recibidos.remove(i);
 					}
+				}
+				else if(us.getRol().equalsIgnoreCase("tecnico")) {
+					if(recibidos.get(i).getUsername_tec() == us.getUser()) {
+						System.out.println("ESTOY AQUI");
+						enviados.add(recibidos.get(i));
+						recibidos.remove(i);
 					}
+				}
 			}
 			
 			 list=new JList<Mensaje>(recibidos);
@@ -199,7 +201,7 @@ public class VentanaMensaje extends JFrame{
 			scr.setViewportView(list);
 			//scr2.setViewportView(envlist);
 			
-			 list.setCellRenderer(render);
+			list.setCellRenderer(render);
 			envlist.setCellRenderer(render);
 			list.addListSelectionListener(control);
 			envlist.addListSelectionListener(control);
@@ -281,8 +283,7 @@ public class VentanaMensaje extends JFrame{
 			asunto.setText(men.getAsunto());
 			emisor.setText(men.getUsername_med()+" ");
 			texto.setText(men.getData());
-			fecha.setText("    "+String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");
-			
+			fecha.setText("    "+String.valueOf(men.getFecha()).substring(6, 8)+"-"+String.valueOf(men.getFecha()).substring(4, 6)+"-"+String.valueOf(men.getFecha()).substring(0, 4)+"     ");	
 		}
 
 		public JPanel getCentral() {
@@ -315,7 +316,6 @@ public class VentanaMensaje extends JFrame{
 			aux.setLayout(new FlowLayout());
 			texto=new JTextArea();
 			texto.setEditable(true);
-			
 			
 			emisor.add(aux);
 			emisor.add(asunt);

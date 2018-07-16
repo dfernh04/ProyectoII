@@ -42,7 +42,6 @@ public class ControladorFicha implements ActionListener {
 	private VentanaTecnico vt;
 	private VentanaECG ven;
 	private Lectura l = new Lectura();
-	private ControladorMensaje control;
 	private VentanaMensaje vmen;
 	private String arch="";
 	private ECG ecg = null;
@@ -136,7 +135,8 @@ public class ControladorFicha implements ActionListener {
 			}
 		}
 		else if(cmd.equals(ControladorFicha.MENSAJE)){
-			vmen = new VentanaMensaje(control);
+			ControladorMensaje control = new ControladorMensaje(l.pactecapac(d.getP()),vt.getAu());
+			VentanaMensaje vmen = new VentanaMensaje(control);
 			vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
 			vmen.setVisible(true);
 			vmen.setAlwaysOnTop(true);

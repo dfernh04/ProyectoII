@@ -26,7 +26,6 @@ public class ControladorVECG implements ActionListener{
 	static public String ENVIAR = "ENVIAR";
 	static public String ATRAS = "ATRAS";
 	private ECG ecg;
-
 	private String arch="";
 	DetallePaciente d;
 	
@@ -44,6 +43,7 @@ public class ControladorVECG implements ActionListener{
 		this.ven = ven;
 		this.d = d;
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand().toString(); 
 		if(cmd.equals(ControladorVECG.ENVIAR)) {

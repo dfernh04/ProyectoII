@@ -252,9 +252,9 @@ public class Lectura{
 		Conexion c6 = new Conexion();
 		int i=0;
 		try {
-			c6.consulta("SELECT * FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
+			c6.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico,Asunto FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
 			while (c6.rs.next()) {
-				men.add(new Mensaje(c6.rs.getInt("ID_Mensaje"),c6.rs.getString("Username_medico"),c6.rs.getString("Username_tecnico"),c6.rs.getString("DNI_Paciente"),c6.rs.getString("MensajeT"),c6.rs.getString("Fecha"),null));
+				men.add(new Mensaje(c6.rs.getInt("ID_Mensaje"),c6.rs.getString("Username_medico"),c6.rs.getString("Username_tecnico"),c6.rs.getString("DNI_Paciente"),c6.rs.getString("MensajeT"),c6.rs.getString("Fecha"),c6.rs.getString("Asunto")));
 				i++;
 			}
 			System.out.println("se han leido "+i+" mensajes");
@@ -269,15 +269,15 @@ public class Lectura{
 			Conexion c4 = new Conexion();
 			int i =0;
 			try {
-				c4.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
+				c4.consulta("SELECT ID_Mensaje,MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico,Asunto FROM Mensaje where DNI_paciente='"+pac.getDni()+"' order by fecha desc;");
 				while (c4.rs.next()) {
-					men.add(new Mensaje(c4.rs.getInt("ID_Mensaje"),c4.rs.getString("Username_medico"),c4.rs.getString("Username_tecnico"),c4.rs.getString("DNI_Paciente"),c4.rs.getString("MensajeT"),c4.rs.getString("Fecha"),null));
+					men.add(new Mensaje(c4.rs.getInt("ID_Mensaje"),c4.rs.getString("Username_medico"),c4.rs.getString("Username_tecnico"),c4.rs.getString("DNI_Paciente"),c4.rs.getString("MensajeT"),c4.rs.getString("Fecha"),c4.rs.getString("Asunto")));
 					i++;
 				}
 				System.out.println("se han leido "+i+" mensajes");
 				c4.closeConnection();
 			} catch ( Exception e ) {
-				System.err.println( e.getClass().getName() + ":1 " + e.getMessage() );
+				System.err.println( e.getClass().getName() + ":1 " + e.getMessage());
 			}
 			return men;
 		}

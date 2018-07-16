@@ -18,13 +18,8 @@ import View.VentanaMensaje;
 
 public class ControladorMensaje implements ActionListener,ListSelectionListener{
 
-	public ControladorMensaje(Paciente p,Usuario us) {
-		super();
-		this.p = p;
-		this.us=us;
-	}
 
-	private VentanaMensaje ven;
+	public VentanaMensaje ven;
 	private Paciente p;
 	private Usuario us;
 	public static String ATRAS="ATRAS";
@@ -37,15 +32,22 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 	private boolean newtoold=true;
 	//private Conexion c1;
 	
+	public ControladorMensaje(Paciente p,Usuario us) {
+		super();
+		this.p = p;
+		this.us=us;
+		this.ven = new VentanaMensaje(this);
+	
+	}
 	public void valueChanged(ListSelectionEvent e) {
 		@SuppressWarnings("unchecked")
-		Mensaje men=((JList<Mensaje>) e.getSource()).getSelectedValue();
+		Mensaje men = ((JList<Mensaje>) e.getSource()).getSelectedValue();
 		if(e.getSource().equals(ven.getEnvlist())) {
 			if(!ven.getList().isSelectionEmpty())
 				ven.getList().clearSelection();;
 		} else {
-			if(!ven.getEnvlist().isSelectionEmpty())
-				ven.getEnvlist().clearSelection();
+			/*if(!ven.getEnvlist().isSelectionEmpty())
+				ven.getEnvlist().clearSelection();*/
 		}
 		if(men!=null) {
 			ven.actInfo(men);
@@ -59,8 +61,6 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 			if(ven!=null) {
 				ven.dispose();
 			}
-			
-			ven=new VentanaMensaje(this);
 			ven.VentanaMensajeTodos(p, this,us);
 			ven.setVisible(true);
 		} else if(cmd.equals(MENSAJENUEVO)) {
@@ -87,7 +87,7 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				 */
 			
-			String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+			String query = "Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
 					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
 			c1.addMensaje(query);
 			}
@@ -99,7 +99,7 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				*/
 				 
-				String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
+				String query = "Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
 						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
 						
 				//String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('Prueba','22/06/2015','12345678f','BorjaMonsalve','NULL');";
