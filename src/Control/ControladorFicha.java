@@ -135,11 +135,11 @@ public class ControladorFicha implements ActionListener {
 			}
 		}
 		else if(cmd.equals(ControladorFicha.MENSAJE)){
-			ControladorMensaje control = new ControladorMensaje(l.pactecapac(d.getP()),vt.getAu());
-			VentanaMensaje vmen = new VentanaMensaje(control);
-			vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
+			//ControladorMensaje control = new ControladorMensaje(l.pactecapac(d.getP()),vt.getAu());
+			vt.addControladorMensa(new ControladorMensaje(l.pactecapac(d.getP()),vt.getAu()));
+			/*vmen.VentanaMensajeTodos(l.pactecapac(d.getP()), control, vt.getAu());
 			vmen.setVisible(true);
-			vmen.setAlwaysOnTop(true);
+			vmen.setAlwaysOnTop(true);*/
 		}
 		else if(cmd.equals(ControladorFicha.ECG)) {
 			ven = new VentanaECG();

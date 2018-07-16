@@ -87,8 +87,8 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				 * COMPROBAR QUE LOS TIPOS DE DATOS DEL PROGRAMA JAVA Y LA BBDD COINCIDAN
 				 */
 			
-			String query = "Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
-					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
+			String query = "Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico,Asunto) values('"+ven.getTexto().getText()+"','"
+					+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"','PedroLara','"+ven.asunto.getText()+"');";
 			c1.addMensaje(query);
 			}
 			
@@ -100,7 +100,7 @@ public class ControladorMensaje implements ActionListener,ListSelectionListener{
 				*/
 				 
 				String query = "Insert into mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('"+ven.getTexto().getText()+"','"
-						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"',NULL);";
+						+Integer.parseInt(Calendar.getInstance().get(Calendar.YEAR)+""+mon+""+day+"")+"','"+p.getDni()+"','"+us.getUser()+"','PedroLara','"+ven.asunto.getText()+"';)";
 						
 				//String query = "Insert into pi2_bd_cardioparty.mensaje(MensajeT,Fecha,DNI_Paciente,Username_medico,Username_tecnico) values('Prueba','22/06/2015','12345678f','BorjaMonsalve','NULL');";
 				c1.addMensaje(query);

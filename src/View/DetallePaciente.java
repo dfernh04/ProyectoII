@@ -57,7 +57,7 @@ public class DetallePaciente extends JPanel {
 	private JTextArea obser;
 	private JTextField frecuencia;
 	private JTextField tiempo;
-	private JButton btnMensaje;
+	public JButton btnMensaje;
 	private JButton btnecg;
 	
 	

@@ -356,5 +356,10 @@ public class VentanaTecnico extends JFrame {
 			
 	}
 
+	public void addControladorMensa(ControladorMensaje controladorMensaje) {
+		// TODO Auto-generated method stub
+		ficha.btnMensaje.addActionListener(controladorMensaje);
+	}
+
 	
 }

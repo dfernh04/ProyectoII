@@ -44,7 +44,7 @@ public class VentanaMensaje extends JFrame{
 	//private JButton benviados;
 	//private JButton brecibidos;
 	private JPanel info;
-	private JTextField asunto;
+	public JTextField asunto;
 	private JLabel fecha;
 	private JList<Mensaje> list;
 	private JList<Mensaje> envlist;
